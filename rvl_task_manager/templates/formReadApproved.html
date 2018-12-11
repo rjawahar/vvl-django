@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+
+
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script><!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+
+<!-- Data -->
+<script type="text/javascript" src="/static/form/data.js"></script> 
+<!-- master Data -->
+<script type="text/javascript" src="/static/form/master.js"></script> 
+
+
+
+<script type="text/javascript">  
+
+var screenHeight = $(window).height();
+var memberdetails= '{{memberDetails|safe}}';
+var processid 	= '{{processId|safe}}';
+var process 	= '{{process|safe}}';
+var taskid 	= '{{taskId|safe}}';
+var userid 	= '{{userId|safe}}';
+var taskName 	= '{{taskName|safe}}';
+var remarks 	= '{{Application_Remarks|safe}}';
+var processObj 	= JSON.parse(process);
+
+$(document).ready(function() {
+
+
+    $('.comment-toggle').on('click', function () {
+	$('#right-pane-task-detail').toggleClass('detail-max detail-min');
+	$('#right-pane-task-comment-list').toggleClass('comment-min comment-max');
+    });
+    
+    $(".tabs-menu a").click(function(event) {
+        event.preventDefault();
+        $(this).parent().addClass("current");
+        $(this).parent().siblings().removeClass("current");
+        var tab = $(this).attr("href");
+        $(".tab-content").not(tab).css("display", "none");
+        $(tab).fadeIn();
+    });
+});
+
+$(function() {
+	$("#tabs").tabs();
+});
+
+</script>
+<style>
+	textarea:focus, input disabled:focus{
+	    outline: none;
+	}
+	input disabled {
+		border: none;
+		background: transparent;
+	}
+	.file_img {
+		float: inherit;
+		display: inline-block;
+		max-width: 25px;
+		max-height: 25px;
+		cursor: pointer;
+		border: 1px solid #aaaaaa;
+	}
+	#form label {
+	    font-size: 12px;
+	    color: #AB5E5E;/*#828181;*/
+	    width:45%;	
+	}
+</style>
+</head>
+
+<body>
+	<!-- Top Bar -->
+
+	<div class="navbar navbar-fixed-top">
+		{% include "header.html" %} 
+	</div>
+	
+	<!-- Main Content -->
+    	<div class="main">	
+	    <div class="task-div">	
+		<div class="main-task">
+		    <div  class="right-pane-task" id="right-pane-task" >	
+			<div id="tabs">
+			    <ul id="form-tab">
+				<li><a href="#pane1">Basic Details</a>
+				</li>
+				<li><a href="#pane2">Business Details</a>
+				</li>
+				<li><a href="#pane3">Research Details</a>
+				</li>
+				<li><a href="#pane4">Loan Details</a>
+				</li>formReadApproved
+				<li style="float:right;">
+					<span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;"><i class="entypo-chat"></i> Comments</span>
+				</li>
+			    </ul>
+			<form name="memberInformation" id="form" action="." ><!-- Forms -->
+			{% csrf_token %}
+			<!--div class="right-pane-task-detail" id="right-pane-task-detail"-->
+			<div class="right-pane-task-detail detail-max" id="right-pane-task-detail" style="border-bottom: 1px solid #aaaaaa;">
+			    <div class="loan-application-basic-details" >
+				<div class="tab-content span5"><!-- for tab -->
+				    <div id="pane1" class="tab-pane active" ><!-- for tab -->
+					<h4>Basic Details</h4>
+
+					<table width="100%">
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#basic_information" class="accordion-toggle">
+						    <div colspan="4" > BASIC INFORMATION </div>
+						</div>
+					    </thead>
+					    <tbody id="basic_information">
+						<div  class="row-div">
+						    <div class="colomn-div"><label>First Name 	</label><font>:  </font><font id="firstname"     name="firstname"	placeholder="FIRST NAME"  /><</font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Middle Name	</label><font>:  </font><font id="middlename"    name="middlename"   	placeholder="MIDDLE NAME" /></font> </div>
+						    <div class="colomn-div"><label>Last Name	</label><font>:  </font><font id="lastname"   	  name="lastname"	placeholder="LAST NAME"	  /></font> </div>
+						    <div class="colomn-div"><label>Mobile Number</label><font>:  </font><font id="mobile_number" name="mobile_number"  placeholder="MOBILE"	  /></font><font class="mandatory">*</font></div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div" >
+							<label>Gender</label><font>:  </font><font id="gender"></font></div>
+						    <div class="colomn-div">
+							<label>Relation</label><font>:  </font><font id="relation"></font>
+						    </div>
+						    <div class="colomn-div"><label>Father Name</label><font>:  </font><font id="father_name" name="father_name"  placeholder="FATHER NAME" /></font><font class="mandatory">*</font>
+						    </div>
+						    <div class="colomn-div"><label>Spouse Name</label><font>:  </font><font type="text" id="spouse_name" name="spouse_name" placeholder="SPOUSE NAME"  /></font>
+						    </div>
+						</div>
+						<div class="row-div">
+
+						    <div class="colomn-div"><label>Date Of Birth </br>( YYYY-MM-DD )</label><font>:  </font><font id="dob" name="dob"   placeholder="DDMMYYYY"			/></font><font class="mandatory">*</font> </div>
+						    <div class="colomn-div"><label>Age</label><font>:  </font><font id="age" name="age"   placeholder="AGE(AUTO POPULATE)"	/></font><font class="mandatory">*</font> </div>
+						    <div class="colomn-div"></div>
+						    <div class="colomn-div"></div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><label>Door No</label><font>:  </font><font id="current_door_no"  	   name="current_door_no"		placeholder="HOUSE NO"	/></font><font class="mandatory">*</font> </div>
+						    <div class="colomn-div"><label>Street No</label><font>:  </font><font id="current_street_name"  	   name="current_street_name" 		placeholder="STREET NO"	/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Location</label><font>:  </font><font id="current_location_name"  	   name="current_location_name"		placeholder="AREA"	/></font><font class="mandatory">*</font> </div>
+						    <div class="colomn-div"><label>City / Village</label><font>:  </font><font id="fk_curr_village_or_town_id" name="fk_curr_village_or_town_id"	placeholder="CITY"	/></font><font class="mandatory">*</font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><label>State</label><font>:  </font><font id="current_state" 	name="current_state"  	placeholder="STATE"	value="TN"/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Pincode</label><font>:  </font><font id="current_pincode" name="current_pincode"  placeholder="PINCODE"	value="600041"/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div">&nbsp;</div>
+						    <div class="colomn-div">&nbsp;</div>
+						</div>
+					    </tbody>
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#proof_information" class="accordion-toggle">
+						    <div colspan="4"> PROOF INFORMATION</div>
+						</div>
+					    </thead>
+					    <tbody id="proof_information">
+						<div class="row-div">
+						    <div  class="colomn-div"><label>ID Proof Type</label><font>:  </font>
+							<font id="fk_id_proof_type_id" 	name="accountType"  	placeholder="ID PROOF TYPE"	></font> 
+							<font class="mandatory">*</font>
+						    </div>
+						    <div  class="colomn-div"><label>ID Proof No</label><font>:  </font>
+							<font id="id_proof_type"    name="id_proof_type"  placeholder="ID PROOF NO"	></font>
+							<font class="mandatory">*</font>
+						   </div>
+						    <div  class="colomn-div">
+							<label>ID Proof 1</label><font>:  </font>
+							<img    id="alf_node_ref_img_pop" class="file_img" src="" />	
+						    </div>
+						    <div  class="colomn-div">
+							<label>ID Proof 2</label><font>:  </font>
+							<img    id="alf_node_ref1_img_pop" class="file_img" src="" />		
+						    </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><label>Address Proof Type</label><font>:  </font>
+							<font id="fk_current_address_proof_type_id"  	name="accountType"  	placeholder="ID PROOF TYPE"	></font> 
+							<font class="mandatory">*</font>
+						    </div>
+
+						    <div class="colomn-div"><label>Address Proof No</label><font>:  </font><font id="current_document_value"    		name="current_document_value"    placeholder="ADDRESS PROOF NO"	/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div">
+							<label>Address Proof 1</label><font>:  </font>
+							<img  id="current_document_url_img_pop" class="file_img" src="" />	 
+						    </div>
+						    <div class="colomn-div">
+							<label>Address Proof 2</label><font>:  </font>
+							<img  id="current_address_fk_alf_node_ref_img_pop" class="file_img" src="" />	 
+						    </div>
+						</div>
+					    </tbody>
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#bank_information" class="accordion-toggle">
+						    <div colspan="4">BANK INFORMATION</div>
+						</div>
+					    </thead>
+					    <tbody id="bank_information">
+						<div class="row-div">
+						    <div class="colomn-div"><label>Name as per Bank Record</label><font>:  </font><font id="id1_name_as_per_bank_records"  name="id1_name_as_per_bank_records"  placeholder="NAME AS IN PASSBOOK" /></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Account Type</label><font>:  </font><font id="id1_bank_name"      name="id1_bank_name"      placeholder="BANK NAME"	     /></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Account Number</label><font>:  </font><font id="id1_bank_account_number"       name="id1_bank_account_number"       placeholder="BANK ACCOUNT NO"     /></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Bank IFSC code</label><font>:  </font><font id="id1_bank_ifsc_code"  	  name="id1_bank_ifsc_code"            placeholder="IFSC CODE"	     /></font><font class="mandatory">*</font></div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div">
+							<label>Bank Pass Book Image 1</label><font>:  </font>
+							<img   id="member_bank_fk_alf_node_ref_img_pop" class="file_img" src="" />
+						    </div>
+						    <div class="colomn-div">
+							<label>Bank Pass Book Image 2</label><font>:  </font>
+							<img   id="member_bank_fk_alf_node_ref1_img_pop" class="file_img" src="" />
+						    </div>
+						    <div class="colomn-div"></div>
+						    <div class="colomn-div"></div>
+						</div>
+					    </tbody>
+					</table>
+					<div class="form-group text-center">
+					    <div class="form-button">
+						<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 1)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+						   <i class="icon-entypo-forward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+						    Next
+						</a>
+					    </div>
+					</div>
+
+				    </div><!-- for tab -->
+				    <div id="pane2" class="tab-pane"><!-- Tab Business rigth pane-->
+					<h4>Business Details</h4>
+					<table width="100%">
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header" data-toggle="collapse" data-target="#BUSINESS_information" class="accordion-toggle">
+						    <div colspan="4" > BUSINESS INFORMATION </div>
+						</div>
+					    </thead>
+					    <tbody id="BUSINESS_information">
+						<div class="row-div">
+						    <div class="colomn-div"><label>Nature Of Business</label><font>:  </font>	<font id="biz_nature"  	name="biz_nature"  	placeholder="NATURE OF BUSINESS"	value=""/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>No of Years in Business</label><font>:  </font><font id="biz_no_of_yrs"  	name="biz_no_of_yrs"  	placeholder="NO OF YEAR IN BUSINESS"	value=""/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Location of Business</label><font>:  </font>	<font id="biz_location"  	name="biz_location"  	placeholder="LOCATION OF BUSINESS"	value=""/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Rent Paid Per Month</label><font>:  </font>	<font id="rent_pay_month"  	name="rent_pay_month"  	placeholder="RENT PAID PER MONTH"	value=""/></font><font class="mandatory">*</font></div>
+						</div>
+						<div class="row-div" >
+						    <div class="colomn-div"><label>Door No </label><font>:  </font>		<font id="biz_door_no"             name="biz_door_no"  	   placeholder="NO"		/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Street Name</label><font>:  </font>		<font id="biz_street_name"  	    name="biz_street_name"  	   placeholder="STREET/COLONY"	/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Location Name</label><font>:  </font>		<font id="biz_location_name"  	    name="biz_location_name"  	   placeholder="AREA"		/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>City / Town</label><font>:  </font></br>	<font id="fk_biz_village_or_town"  name="fk_biz_village_or_town"  placeholder="CITY"		/></font><font class="mandatory">*</font></div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><label>State</label><font>:  </font>			<font id="biz_state"    			name="biz_state"      		 	   placeholder="STATE"		value=""/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Pincode</label><font>:  </font>		<font id="biz_pincode"  			name="biz_pincode"    			   placeholder="PINCODE"	value=""/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Landline No</label><font>:  </font>		<font id="biz_office_address_landline_number" 	name="biz_office_address_landline_number"  placeholder="PHONE NO"	value=""/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Office No</label><font>:  </font>		<font id="biz_office_address_mobile_number"   	name="biz_office_address_mobile_number"    placeholder="MOBILE NO"	value=""/></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div" style="padding-bottom: 10px;">
+							<label>Shop Image 1</label><font>:  </font>
+							<img   id="biz_address_fk_alf_node_ref_img_pop" class="file_img" src="" /> 
+						    </div>
+						    <div class="colomn-div"style="padding-bottom: 10px;">
+							<label>Shop Image 2</label><font>:  </font>
+							<img   id="biz_address_fk_alf_node_ref1_img_pop" class="file_img" src="" /> 
+						    </div>
+						</div>
+					    </tbody>
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#REGULATORY_information" class="accordion-toggle">
+						    <div colspan="4" > REGULATORY INFORMATION </div>
+						</div>
+					    </thead>
+					    <tbody id="REGULATORY_information">
+						<div class="row-div">
+						    <div class="colomn-div" >
+							<label> License / Local Body Approval </label><font>:  </font>
+							<font style="width:10%;" id="biz_localbody_app"  name="biz_localbody_app" value="1"   checked>		</font>
+						    </div>	
+						    <div class="colomn-div"><label>Issued By</label><font>:  </font><font id="biz_issued_by"  	name="biz_issued_by"  	placeholder="ISSUED BY"		value=""/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Document No</label><font>:  </font><font id="biz_no"  		name="biz_no"  		placeholder="DOCUMENT NO"	value=""/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Validity Date</label><font>:  </font><font id="biz_valid_upto"  	name="biz_valid_upto"  	placeholder=" DDMMYYY"		value=""/></font><font class="mandatory">*</font></div>
+
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div" style="padding-bottom: 10px;">
+							<label> Business Document 1 </label><font>:  </font>
+							<img id="biz_id_alf_node_ref_img_pop" class="file_img" src="" /> 
+						   </div>
+						    <div class="colomn-div" style="padding-bottom: 10px;">
+							<label> Business Document 2 </label><font>:  </font>
+								<img  id="biz_id_alf_node_ref1_img_pop" class="file_img" src="" /> 
+						   </div>
+						</div>
+					    </tbody>
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#SALES_information" class="accordion-toggle">
+						    <div colspan="4" > SALES & EXPENSE INFORMATION </div>
+						</div>
+					    </thead>
+					    <tbody id="SALES_information">
+						<div class="row-div">
+						    <div class="colomn-div"><label>Brand Sales</label><font>:  </font><font id="brand_sale"  	name="brand_sale"  	placeholder="BRANDED SALES"		value=""/></font> </div>
+						    <div class="colomn-div"><label>Non Brand Sales</label><font>:  </font><font id="nonbrand_sale"  	name="nonbrand_sale"  	placeholder="NON BRANDED SALES"		value=""/></font> </div>
+						    <div class="colomn-div"><label>Total Sales</label><font>:  </font><font id="total_sale"  	name="total_sale"  	placeholder="TOTAL SALES"		value=""/></font> </div>
+						    <div class="colomn-div"><label>Minimum Sales</label><font>:  </font><font id="min_sale_day"  	name="min_sale_day"  	placeholder="MINIMUM SALES PER DAY"	value=""/></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><label>Annual House Hold Income</label><font>:  </font><font id="annual_household_income"  	name="annual_household_income"  placeholder="ANNUAL HOUSEHOLD INCOME"	/></font> </div>
+						    <div class="colomn-div"><label>Annual Expenses</label><font>:  </font><font id="annual_expenses"  		name="annual_expenses"  	placeholder="ANNUAL EXPENSES"		/></font> </div>
+						    <div class="colomn-div"><label>Surplus Available</label><font>:  </font><font id="surplus_available"  		name="surplus_available"  	placeholder="SURPLUS AVAILABLE"		/></font> </div>
+						</div>
+					    </tbody>
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#STAFF_information" class="accordion-toggle">
+						    <div colspan="4" > STAFF INFORMATION </div>
+						</div>
+					    </thead>
+					    <tbody id="STAFF_information">
+						<div class="row-div">
+						    <div class="colomn-div"> <label> STAFF SELECTION     </label><font>:  </font></div>
+						    <div class="colomn-div"> <label> FULLTIME / PARTTIME </label><font>:  </font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"> <font  id="fk_biz_staff_rel_type_id_1" name="fk_biz_staff_rel_type_id_1"  	placeholder="SELF"	></font> </div>
+						    <div class="colomn-div"> <font  id="biz_staff_work_hour_1"      name="biz_staff_work_hour_1"  		placeholder="SELF"	></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"> <font  id="fk_biz_staff_rel_type_id_2" name="fk_biz_staff_rel_type_id_2"  	placeholder="SPOUSE"	></font> </div>
+						    <div class="colomn-div"> <font  id="biz_staff_work_hour_2"      name="biz_staff_work_hour_2"  		placeholder="(DROPDOWN)"></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"> <font  id="fk_biz_staff_rel_type_id_3" name="fk_biz_staff_rel_type_id_3"  	placeholder="FATHER"	></font> </div>
+						    <div class="colomn-div"> <font  id="biz_staff_work_hour_3"      name="biz_staff_work_hour_3"  		placeholder="(DROPDOWN)"></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"> <font id="fk_biz_staff_rel_type_id_4"  name="fk_biz_staff_rel_type_id_4"  	placeholder="MOTHER"	></font> </div>
+						    <div class="colomn-div"> <font  id="biz_staff_work_hour_4"      name="biz_staff_work_hour_4"  		placeholder="(DROPDOWN)"></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"> <font  id="fk_biz_staff_rel_type_id_5" name="fk_biz_staff_rel_type_id_5"  	placeholder="SONS"	></font> </div>
+						    <div class="colomn-div"> <font  id="biz_staff_work_hour_5"      name="biz_staff_work_hour_5"  		placeholder="(DROPDOWN)"></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"> <font  id="fk_biz_staff_rel_type_id_6" name="fk_biz_staff_rel_type_id_6" 	placeholder="DAUGHTER"	></font> </div>
+						    <div class="colomn-div"> <font  id="biz_staff_work_hour_6"      name="biz_staff_work_hour_6"  		placeholder="(DROPDOWN)"></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"> <font  id="fk_biz_staff_rel_type_id_7" name="fk_biz_staff_rel_type_id_7"  	placeholder="OTHER RELATIVES"	></font> </div>
+						    <div class="colomn-div"> <font  id="biz_staff_work_hour_7"     	name="biz_staff_work_hour_7"  		placeholder="(DROPDOWN)"	></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"> <font  id="fk_biz_staff_rel_type_id_8" name="fk_biz_staff_rel_type_id_8"  	placeholder="NON RELATIVES"	></font> </div>
+						    <div class="colomn-div"> <font  id="biz_staff_work_hour_8"      name="biz_staff_work_hour_8"  		placeholder="(DROPDOWN)"	></font> </div>
+						</div>
+					    </tbody>
+					</table>
+					<div class="form-group text-center">
+					    <div class="form-button">
+						<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 0)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+						   <i class="icon-entypo-backward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+						    Previous
+						</a>
+						<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 2)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+						   <i class="icon-entypo-forward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+						    Next
+						</a>
+					    </div>
+					</div>
+				    </div><!-- for tab -->
+				    <div id="pane3" class="tab-pane"><!-- Tab Research rigth pane-->
+					<h4>Research Details</h4>
+					<table width="100%">
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#FAMILY_information" class="accordion-toggle">
+						    <div colspan="4" > FAMILY DETAILS </div>
+						</div>
+					    </thead>
+					    <tbody id="FAMILY_information">
+						<div class="row-div">
+						    <div class="colomn-div">
+							<label>Marital Status</label><font>:  </font>
+							<font id="marital_status"  name=""  placeholder="MARITAL STATUS (DROPDOWN)">
+							</font><font class="mandatory">*</font>
+						    </div>
+						    <div class="colomn-div"> <label>No of Child Below 17</label><font>:  </font><font id="no_of_child_below17"  name="no_of_child_below17"  placeholder="NO OF CHILDREN BELOW 17 YEARS"	/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"> <label>No of Child Above 17</label><font>:  </font><font id="no_of_child_above17"  name="no_of_child_above17"  placeholder="NO OF CHILDREN ABOVE 17 YEARS"	/></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"> <label>Live With		</label><font>:  </font><font id="live_with"  	      name="live_with"  	  placeholder="LIVING WITH"			/></font><font class="mandatory">*</font></div>
+						</div>
+					    </tbody>
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#EDUCATION_information" class="accordion-toggle">
+						    <div colspan="4" > EDUCATION & OCCUPATION </div>
+						</div>
+					    </thead>
+					    <tbody id="EDUCATION_information">
+						<div class="row-div">
+						    <div class="colomn-div"><label>SELF</label></div>
+						    <div class="colomn-div"><label>FATHER</label></div>
+						    <div class="colomn-div"><label>MOTHER</label></div>
+						    <div class="colomn-div"><label>FOR CHILD > 17 YEARS  </label></div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"> 
+							<label>Education</label><font>:  </font><font  id="fk_family_member_education_type_id_1" name=""  placeholder="MARITAL STATUS (DROPDOWN)">
+							</font><font class="mandatory">*</font>
+						    </div>
+						    <div class="colomn-div"> 
+							<label>Education</label><font>:  </font><font id="fk_family_member_education_type_id_2" name=""  placeholder="MARITAL STATUS (DROPDOWN)">
+							</font>
+						    </div>
+						    <div class="colomn-div"> 
+							<label>Education</label><font>:  </font><font id="fk_family_member_education_type_id_3" name=""  placeholder="MARITAL STATUS (DROPDOWN)">
+							</font>
+						    </div>
+						    <div class="colomn-div"> 
+							<label>Education</label><font>:  </font><font  id="fk_family_member_education_type_id_4" name=""  placeholder="MARITAL STATUS (DROPDOWN)">
+							</font>
+						    </div>						    
+
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"> 
+							<label>Employment</label><font>:  </font><font id="family_member_employment_type_1" name=""  placeholder="SELF (DROPDOWN)">
+							</font><font class="mandatory">*</font>
+						    </div>
+						    <div class="colomn-div"> 
+							<label>Employment</label><font>:  </font><font id="family_member_employment_type_2" name=""  placeholder="Father (DROPDOWN)">
+							</font>
+						    </div>
+						    <div class="colomn-div"> 
+							<label>Employment</label><font>:  </font><font id="family_member_employment_type_3" name=""  placeholder="mother(DROPDOWN)">
+							</font>
+						    </div>
+						    <div class="colomn-div"> 
+							<label>Employment</label><font>:  </font><font id="family_member_employment_type_4" name=""  placeholder="Child STATUS (DROPDOWN)">
+							</font>
+						    </div>
+						</div>
+					    </tbody>
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#TRANSPORTATION_information" class="accordion-toggle">
+						    <div colspan="4" > TRANSPORTATION , COMMUNICATION & OTHER ASSETS </div>
+						</div>
+					    </thead>
+					    <tbody id="TRANSPORTATION_information">
+						<div class="row-div">
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_1"  name="fk_member_asset_type_id_1"  placeholder="CYCLE (DROPDOWN)"></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_2"  name="fk_member_asset_type_id_2"  placeholder="MOPED/MOTORIZED CYCLE (DROPDOWN)"	></font></div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_3"  name="fk_member_asset_type_id_3"  placeholder="BIKE/SCOOTER (DROPDOWN)"		></font></div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_4"  name="fk_member_asset_type_id_4"  placeholder="AUTO/SHARE AUTO (DROPDOWN)"		></font></div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_5"  name="fk_member_asset_type_id_5"  placeholder="TEMPO (DROPDOWN)"			></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_6"  name="fk_member_asset_type_id_6"  placeholder="CAR (DROPDOWN)"			></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_7"  name="fk_member_asset_type_id_7"  placeholder="VAN (DROPDOWN)"			></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_8"  name="fk_member_asset_type_id_8"  placeholder="OTHER TRANSPORT VEHICLE (DROPDOWN)"	></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_9"  name="fk_member_asset_type_id_9"  placeholder="BASIC MOBILE PHONE (DROPDOWN)"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_10"  name="fk_member_asset_type_id_10"  placeholder="SMART PHONE (DROPDOWN)"		></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_11"  name="fk_member_asset_type_id_11"  placeholder="LAPTOP/COMPUTER (DROPDOWN)"		></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_12"  name="fk_member_asset_type_id_12"  placeholder="NETCONNECTION (DROPDOWN)"		></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_13"  name="fk_member_asset_type_id_13"  placeholder="EMAIL ID (DROPDOWN)"		></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_14"  name="fk_member_asset_type_id_14"  placeholder="FACEBOOK ACCOUNT (DROPDOWN)"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_15"  name="fk_member_asset_type_id_15"  placeholder="DRVING LICENSE (DROPDOWN)"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_16"  name="fk_member_asset_type_id_16"  placeholder=""				></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_17"  name="fk_member_asset_type_id_17"  placeholder="LAND"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_18"  name="fk_member_asset_type_id_18"  placeholder="PAKKA HOUSE"></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_19"  name="fk_member_asset_type_id_19"  placeholder="WATER PUMP"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_20"  name="fk_member_asset_type_id_20"  placeholder="TV"		></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_21"  name="fk_member_asset_type_id_21"  placeholder="DVD PLAYER"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_22"  name="fk_member_asset_type_id_22"  placeholder="FRIDGE"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_23"  name="fk_member_asset_type_id_23"  placeholder="GAS STOVE"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_24"  name="fk_member_asset_type_id_24"  placeholder="MIXIE"	></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_25"  name="fk_member_asset_type_id_25"  placeholder="ELECTRIC GRINDER"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_26"  name="fk_member_asset_type_id_26"  placeholder="MICROWAVE OVEN"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_27"  name="fk_member_asset_type_id_27"  placeholder="FAN"		></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_28"  name="fk_member_asset_type_id_28"  placeholder="AIRCONDITIONER"	></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_29"  name="fk_member_asset_type_id_29"  placeholder="WATER HEATER"	></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_30"  name="fk_member_asset_type_id_30"  placeholder="ANIMALS COW/GOAT ETC"></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_31"  name="fk_member_asset_type_id_31"  placeholder=""			></font> </div>
+						    <div class="colomn-div"><font  id="fk_member_asset_type_id_32"  name="fk_member_asset_type_id_32"  placeholder=""			></font> </div>
+						</div>
+					    </tbody>
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#NETWORK_information" class="accordion-toggle">
+						    <div colspan="4" > NETWORK DETAILS </div>
+						</div>
+					    </thead>
+					    <tbody id="NETWORK_information">
+						<div class="row-div">
+						    <div class="colomn-div"><label  type="text" id=""  name=""  value=""	/> Questions </div>
+						    <div class="colomn-div"><label  type="text" id=""  name=""  value=""	/> Answers </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font id="network_details_question_1" 	name="network_details_question_1"></font> </div>
+						    <div class="colomn-div"><font id="network_details_answer_1" 	name="network_details_answer_1"  ></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font id="network_details_question_2" 	name="network_details_question_2"></font> </div>
+						    <div class="colomn-div"><font id="network_details_answer_2"  	name="network_details_answer_2"  ></font> </div>
+						</div>
+							<div class="row-div">
+						    <div class="colomn-div"><font id="network_details_question_3" 	name="network_details_question_3"></font> </div>
+						    <div class="colomn-div"><font id="network_details_answer_3"  	name="network_details_answer_3"  ></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font id="network_details_question_4" 	name="network_details_question_4"></font> </div>
+						    <div class="colomn-div"><font id="network_details_answer_4"  	name="network_details_answer_4"  ></font> </div>
+						</div>
+						<div class="row-div">
+						    <div class="colomn-div"><font id="network_details_question_5" 	name="network_details_question_5"></font> </div>
+						    <div class="colomn-div"><font id="network_details_answer_5"  	name="network_details_answer_5"  ></font> </div>
+						</div>
+					    </tbody>
+					</table>
+
+					<div class="form-group text-center">
+					    <div class="form-button">
+						<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 1)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+						   <i class="icon-entypo-backward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+						    Previous
+						</a>
+						<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 3)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+						   <i class="icon-entypo-forward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+						    Next
+						</a>
+					    </div>
+					</div>
+				    </div><!-- for tab -->
+				    <div id="pane4" class="tab-pane" ><!-- for tab -->
+					<h4>Loan Details</h4>
+
+					<table width="100%">
+					    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+						<div class="sub-header"  data-toggle="collapse" data-target="#loan_information" class="accordion-toggle">
+						    <div colspan="4">LOAN DETAILS</div>
+						</div>
+					    </thead>
+					    <tbody id="loan_information">
+						<div class="accordion"   class="row-div">
+						    <div class="colomn-div"><label>Purpose of Loan</label><font>:  </font><font type="text" id="fk_purpose_id"  	    	   name="fk_purpose_id"  	      placeholder="PURPOSE OF LOAN (DROPDOWN)"   ></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Product</label><font>:  </font><font type="text" id="fk_product_id_loan"  	   name="fk_product_id_loan"  	      placeholder="PRODUCT ( VVL1, VVL2 ETC)"	 ></font><font class="mandatory">*</font></div>
+						    <div class="colomn-div"><label>Amount</label><font>:  </font><font type="text" id="application_loan_amount"    name="application_loan_amount"     placeholder="AMOUNT"			 ></font><font class="mandatory">*</font></div>
+						    <div  class="colomn-div">
+								<label>Loan Proof Image </label><font>:  </font>
+									<img    id="ml_fk_alf_node_ref_img_pop" class="file_img" src="" />	
+						    </div>	
+						</div>
+					    </tbody>
+					</table>
+					<div class="form-group text-center">
+					    <div class="form-button">
+						<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 2)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+						   <i class="icon-entypo-backward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+						    Previous
+						</a>
+					    </div>
+					</div>
+				    </div><!-- for tab -->
+				</div><!-- for tab -->
+			    </div>
+			</div>	
+			<div class="right-pane-task-comment-list comment-min" id="right-pane-task-comment-list">	
+			    <h3>Comments</h3>
+				<div class="comment-list-pane" id="comment-list-pane"> 
+					<div id="comment-pane" class="comment-pane">
+					    <div class="comments-list-pane">
+						<label class="comment-user" ><i class="entypo-user"></i> arunachala </label><font class="comment-date"> Feb 1 2016 </font>
+						<div class="comment-comment">Rework to be Done </div>
+					
+					    </div>
+					</div>	
+
+					<div id="comment-pane" class="comment-pane">
+					    <div class="comments-list-pane">
+						<label class="comment-user" ><i class="entypo-user"></i>Verify Person 1</label> <font class="comment-date"> Feb 2 2016 </font>
+						<div class="comment-comment">Rework . The images are not clear that are uploaded . Please upload a good and clear image.</div>
+					
+					    </div>
+					</div>
+					
+					<div id="comment-pane" class="comment-pane">
+					    <div class="comments-list-pane">
+						<label class="comment-user" ><i class="entypo-user"></i>Verify Person 1</label> <font class="comment-date"> Feb 2 2016 </font>
+						<div class="comment-comment">Rework . The images are not clear that are uploaded . Please upload a good and clear image.</div>
+					
+					    </div>
+					</div>
+				</div>
+			</div><!-- comment-list-pane ends here -->	
+			</div>	
+			<div class="form-group text-center">
+			    <div class="">
+				<div class="colomn-div-footer" >
+					<textarea style="width:90%;height:20%;" id="comments"    placeholder="Comments"></textarea>
+					<a href="javascript:void(0)" onclick='window.location="/tasks/"' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+					   <i class="icon-entypo-cancel" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+					    Cancel
+					</a>
+					<a href="javascript:void(0)" onclick='submitProcessFormApproval("Rejected","4");' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+					   <i class="icon-entypo-cancel" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+					    Reject
+					</a>
+					<a href="javascript:void(0)" onclick='submitProcessFormApproval("Rework","2");' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+					   <i class="icon-entypo-backward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+					    Rework
+					</a>
+					<a href="javascript:void(0)" onclick='submitProcessFormApproval("Approved","1");' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+					   <i class="icon-entypo-forward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+					    Approve
+					</a>
+				</div>
+			    </div>
+			</div>	
+		    </div>	
+		</form>
+		</div>
+		<div class="popup"></div>
+
+		<div>
+
+	    </div>
+  	</div>
+	{% include "footer.html" %} 
+</body>
+<script type="text/javascript" src="/static/form/readForm.js"></script> 
+
+</html>

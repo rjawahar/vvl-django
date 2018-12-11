@@ -1,0 +1,21 @@
+{
+ "type": "record",
+ "name": "DisburseAndPreEmiCheque",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+     {"name": "disburse_id", "type": ["long","null"]},
+     {"name": "disburse_member_id", "type": "long"},
+     {"name": "disburse_loan_id", "type": "long"},
+     {"name": "loan_account_number", "type": "string"},
+     {"name": "disburse_cheque_number", "type": "string"},
+	 {"name": "pre_emi_cheque_number", "type": "string"},
+     {"name": "pre_emi_bank_name", "type": "string"},
+     {"name": "pre_emi_bank_branch", "type": "string"},
+	 {"name": "pre_emi_payee_name", "type": "string"},
+	 {"name": "pre_emi_amount", "type": "double"},
+	 {"name": "pre_emi_chq_issued_on_date", "type": "string"},
+     {"name": "last_modified_date", "type": ["string", "null"]},
+     {"name": "last_modified_by", "type": "string"},
+     {"name": "member_disburse_preemi_cheque_json", "type": [{"type": "map", "values": "string"},"null"]}
+           ]
+}

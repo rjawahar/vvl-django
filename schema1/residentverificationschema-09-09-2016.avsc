@@ -1,0 +1,85 @@
+{
+	"type": "record",
+	"name": "ResidentVerifications",
+	"namespace": "com.mf.loan.process.model",
+	"fields":[
+		{
+		"name": "residentVerificationArray",
+		"type": {
+			"type": "array",
+				"items": {
+					"name": "ResidentVerification",
+					"type": "record",
+					"namespace": "com.mf.loan.process.model",
+					"fields": [
+						{"name": "resi_verification_id", "type": ["long", "null"]},
+						{"name": "member_id", "type": "long"},
+						{"name": "loan_id", "type": "long"},
+						{"name": "date", "type": "string"},
+						{"name": "branch_name", "type": ["string", "null"]},
+						{"name": "user_id", "type": "string"},
+						
+						{"name": "time_in", "type": "string"},
+						{"name": "time_out", "type": "string"},
+						{"name": "name_of_the_person_spoken_to", "type": "string"},
+						{"name": "relationship_to_the_owner", "type": "string"},
+						
+						{"name": "addres_conformation", "type": "string"},
+						{"name": "addres_proof_shown", "type": "string"},
+						
+						{"name": "address", "type": "string"},
+						
+						{"name": "residence_ownership", "type": "string"},
+						{"name": "years_in_the_address", "type": "long"},
+						{"name": "living_with_family", "type": "string"},
+						{"name": "number_of_people_living", "type": "long"},
+						{"name": "approachability", "type": "string"},
+						{"name": "type_of_house", "type": "string"},
+						{"name": "locality", "type": "string"},
+						{"name": "landmark", "type": "string"},
+						{"name": "roofing", "type": "string"},
+						{"name": "area", "type": "string"},
+						{"name": "number_of_rooms", "type": "long"},
+						{"name": "interior_wall", "type": "string"},
+						{"name": "furnishing", "type": "string"},
+						{"name": "type_of_flooring", "type": "string"},
+						{"name": "vehicles_owned", "type": "string"},
+						{"name": "household_items_visible", "type": "string"},
+						{"name": "residence_in_negative_area", "type": "string"},
+						
+						{
+							"name": "neighborVerificationArray",
+							"type": {
+								"type": "array",
+								"items": {
+									"name": "NeighborVerification",
+									"type": "record",
+									"namespace": "com.mf.loan.process.model",
+									"fields": [
+										{"name": "name", "type": "string"},
+										{"name": "address", "type": "string"},
+										{"name": "phone_number", "type": "long"},
+										{"name": "known_each_other", "type": "string"},
+										{"name": "behaviour_of_the_customer", "type": "string"},
+										{"name": "financial_status_of_the_customer", "type": "string"},
+										{"name": "any_other_information", "type": "string"}
+									]
+								}
+							}
+						},
+						
+						{"name": "status_of_residence_check", "type": "string"},
+						{"name": "status_of_neighbor_check", "type": "string"},
+						{"name": "remarks_if_any", "type": "string"},
+						{"name": "overall_status", "type": "string"},
+						{"name": "fi_executive_details", "type": "string"},
+						{"name": "name", "type": "string"},
+						{"name": "time_of_visit", "type": "string"},
+						{"name": "residence_photo_with_atleast_one_family_member", "type": "string"},
+						{"name": "residence_verification_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+					]
+				}
+			}
+		}
+	]
+}

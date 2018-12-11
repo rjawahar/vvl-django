@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+<link rel="stylesheet" href="/static/css/custom2.css"><!-- custom css for loan officer process -->
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script><!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+
+
+
+<script type="text/javascript">  
+	
+var taskData = {};
+var memberdetails = '{{memberDetails|safe}}';
+var processid 	= '{{processId|safe}}';
+var process 	= '{{process|safe}}';
+var taskid 	= '{{taskId|safe}}';
+var User 	= '{{user|safe}}';
+var userid	= '{{userId|safe}}';
+var memberId 	= '{{memberId|safe}}';
+var loanId 	= '{{loanId|safe}}';
+var remarks 	= '{{Application_Remarks|safe}}';
+var processObj 	= JSON.parse(process);
+var chq_id 	= '';
+var account_number = ''
+
+
+jQuery(document).ready(function($) {
+
+    /*Date Picker */	
+    $("#beat_start_date").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,//this option for allowing user to select month
+     		 changeYear: true });	
+
+    /*Drop Down Menu in USER top menu*/ 	
+    $('.dropDownHook span').on('click', function() {
+        $(this).parents('.dropDownHook').children('.dropDownContent').stop(true, true).slideToggle('medium', function() {
+            if ($('.dropDownContent').is(':visible')) {
+            }
+            else {
+            }
+        });
+    });
+    $('html').on('click', function() {
+        $('.dropDownContent:visible').slideToggle('fast');
+    });
+    $('.dropDownHook > *').on('click', function(event) {
+        event.stopPropagation();
+    });
+   
+    /*Change Top Header of Cheque ID*/	 	
+    if(processObj['ChequeId']){	
+	if(processObj['ChequeId']['value']){
+	    chq_id = processObj['ChequeId']['value'];
+	     if(loanId){
+		  document.getElementById("cheque_id").innerHTML = "Cheque No :  " +chq_id+ "    &   Member Id : "+memberId+"  &  Loan Id  : "+loanId;
+	     }
+        }
+   }
+
+   /*Beat Member ID*/ 	
+   if(memberId){
+	document.getElementById('beat_member_id').innerHTML = memberId;
+   }
+   /*Beat Loan ID*/ 	   
+   if(loanId){
+	document.getElementById('beat_loan_id').innerHTML = loanId;
+   }
+   /*Data*/ 	   
+   if(memberdetails){
+	memberdetails =  JSON.parse(memberdetails);
+	if(memberdetails['mlcompositeArray']){
+	    if(memberdetails['mlcompositeArray'][0]){
+		if(memberdetails['mlcompositeArray'][0]['account_number']){
+		    document.getElementById('fk_loan_account_number').innerHTML = memberdetails['mlcompositeArray'][0]['account_number'];
+		    account_number = memberdetails['mlcompositeArray'][0]['account_number'];
+		}
+	    }
+	}
+    }
+});
+
+
+function onSubmit(){
+
+	/*Current Date*/
+	var currentDateValue  = (new Date());
+	currentDateValue = JSON.stringify(currentDateValue);
+	currentDateValue = currentDateValue.replace(/"/g,'');
+	
+	/*Input Data*/
+       	var beat_member_id=memberId;
+       	var beat_loan_id= loanId;
+       	var fk_loan_account_number = account_number;
+       	var beat_start_date= document.getElementById('beat_start_date').value;
+       	var beat_start_day_in_week= document.getElementById('beat_start_day_in_week').value;
+       	var beat_last_modified_date= currentDateValue;
+       	
+	/*Data format to send Avro*/
+	var beatData = {
+		"beat_member_id"	:parseInt(beat_member_id),
+		"beat_loan_id"		:parseInt(beat_loan_id),
+		"fk_loan_account_number": fk_loan_account_number,
+		"beat_start_date"	: beat_start_date,
+		"beat_start_day_in_week": parseInt(beat_start_day_in_week),
+		"beat_last_modified_date": beat_last_modified_date,
+		"beat_fk_last_modified_by": parseInt(1),
+		"beat_fk_sci_client_id"	: parseInt(1)
+	};
+	
+	/*Process Update json to be Send in body to update Process*/
+	var processCompleteTask = {
+				"variables": {
+				    "LoanCheque_Aknow_Status" : {
+					"value" : "Received", 
+					"type"	: "String"
+				    }
+				}
+			};
+			
+	/*JSON data to send Through Body*/		
+	var dataObj = {
+		"processDetails" : processCompleteTask,
+		"beatData"	 : beatData,
+		"taskid"	 : taskid
+		};
+
+	/*Ajax Call : Capture beat def in views.py*/
+	var url = "/captureBeat/";
+	$.ajax({
+	    url: url,
+	    type: 'post',
+	    dataType: 'json',
+	    success: function (data) {
+		window.location='/tasks/';	
+	    },
+	    data: JSON.stringify(dataObj)
+	});
+}
+</script>
+
+<!--<style>
+	.label-text:hover{
+		color:#981b1b;
+	}
+	.navbar{
+		color:#981b1b;
+	}	
+	.member_class{
+		height:10%;
+		width:100%;
+		background-color:rgba(253, 193, 90, 0.5);/*#ffa812;*/
+	}
+	.entypo-user:before {
+		content: '\e80a';
+	}
+	.entypo-email:before {
+		content: '\e805';
+	}
+	[class^="entypo-"]:before, [class*=" entypo-"]:before {
+		font-family: "entypo";
+		font-style: normal;
+		font-weight: normal;
+		speak: none;
+		display: inline-block;
+		text-decoration: inherit;
+		width: 1em;
+		margin-right: .2em;
+		text-align: center;
+		/* opacity: .8; */
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1em;
+		margin-left: .2em;
+		/* font-size: 120%; */
+	
+	}
+
+	.colomn-div label{
+		display	: inline-block;
+		width	: 30%;
+		padding-left: 4%;
+		text-align: left;
+	}
+	.colomn-div input{
+		display: inline-block;
+		width	: 50%;
+	}
+	.colomn-div{
+		/*display: block;*/
+		width: 100%;
+		height: 40px;
+	}
+	
+	h3{
+		text-align:center;
+	}
+	.h3-heading{
+		width:100%;
+		height:70px;
+		background-color:rgba(152, 27, 27, 0.9);/*#981b1b;*/
+	}
+	.h3-heading h3{
+		padding-top:20px;
+		color:white;
+		font-weight:bolder;
+	}
+
+	.h3-heading font{
+		padding:auto;	
+		padding-top:10px;
+		color:white;
+		text-align:center;
+		width:100%;
+	}
+	.h3-heading h4{
+		padding:auto;	
+		color:white;
+		text-align:center;
+		font:10px;
+	}
+	.form-control {
+	    width: 50%;
+	    display: inline-block;
+	}
+
+
+	/***/
+	.row div {
+	    /*height: 200px;*/
+	    -webkit-transition: width 0.3s ease, margin 0.3s ease;
+	    -moz-transition: width 0.3s ease, margin 0.3s ease;
+	    -o-transition: width 0.3s ease, margin 0.3s ease;
+	    transition: width 0.3s ease, margin 0.3s ease;
+	}
+
+	/*right PAne*/
+	.span0 {
+	    width: 0;
+	    display:block;		
+	    margin-right: 0;
+	    overflow: hidden;
+	}
+	.span3 {
+	    height: 350px;
+	    display:block;
+	    width: 20%;
+	    margin-left: 2%;
+	    overflow: hidden;
+	}
+
+
+	#colPush {
+    background-color: #A6BFBA;
+}
+
+#colMain {
+    background-color: #DE4124;
+}
+
+#trig {
+    margin: 50px;
+}
+
+.row div + div {
+    margin-left: 0;
+    max-width:99%;	
+
+}
+
+.container {
+     margin-right: 1%; 
+     margin-left: 1%; 
+     width:98%	
+}
+
+.span9 {
+
+   /* width: 76.7%;*/
+}
+.span12 {
+    width: 96%;
+}
+</style-->
+</head>
+<body>
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+	{% include "header_common.html" %} 
+	</div>
+	
+	{% csrf_token %}
+	<!-- Main Content -->
+    	<div class="main">	
+	    <div class="task-div">	
+		 <div class="main-task">
+		      <div  class="right-pane-task" id="right-pane-task" style="width:100%;margin: 10 auto;">
+			   <div class="center-pane" style="width:50%;margin: 3% auto; display:block;"> 
+				<div class="h3-heading">
+					<h3 >Capture Beat</h3>
+					<h4 id="cheque_id"></h4>
+				</div>
+				<div class="member_class" >
+				    <div class="colomn-div"><label>Member Id </label><font> : </font><label id="beat_member_id"	name=""     placeholder="COURIER NUMBER"  style="text-align: left;padding-left:5px;" disabled	></label><font class="mandatory">*</font></div>
+				</div>
+				<div class="member_class" >
+				    <div class="colomn-div"><label>Loan Id</label><font> : </font>
+				    <label id="beat_loan_id"  name=""  placeholder="RECEIPT NUMBER"	style="text-align: left;padding-left:5px;width: 50%;" disabled></label><font class="mandatory">*</font></div>
+				</div>
+				<div class="member_class">
+				    <div class="colomn-div"><label>Loan A/c Number</label><font> : </font>
+				    <label id="fk_loan_account_number"     name=""  placeholder="TRACKING ID"	style="text-align: left;padding-left:5px;width: 50%;" disabled></label><font class="mandatory">*</font></div>
+				</div>
+				<div class="member_class">
+				    <div  class="colomn-div"><label>Start Date</label><font> : </font><input type="text" id="beat_start_date"   name=""  placeholder="DATE"	style="text-align: left;" /><font class="mandatory">*</font></div>
+				</div>
+				<div class="member_class">
+				    <div  class="colomn-div"><label>Start Day</label><font> : </font>
+					<select id="beat_start_day_in_week" class="extra select form-control occupation"  	name=""  placeholder="beat_start_day_in_week">
+						<option value="1">Monday 	</option>
+						<option value="2">Tuesday	</option>
+						<option value="3">Wednesday	</option>
+						<option value="4">Thursday	</option>
+						<option value="5">Friday	</option>
+						<option value="6">Saturday	</option>
+						<option value="7">Sunday	</option>
+					</select>
+					<font class="mandatory">*</font>
+				     </div>
+				</div>
+				<!-- Submit Button -->
+				<div class="form-group text-center">
+				    <div class="form-button">
+					<a href="javascript:void(0)" onclick='window.location="/tasks/"' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+					   <i class="icon-entypo-cancel" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+					    Cancel
+					</a>
+					<a href="javascript:void(0)" onclick="onSubmit();" class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+					    <i class="icon-entypo-check" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+					    Submit
+					</a>
+				    </div>
+			       </div>
+			</div> 
+		    </div>
+		</div>
+	    </div>
+  	</div>
+
+	{% include "footer.html" %} 
+</body>
+</html> 

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/component.css" />
+<script src="/static/js/modernizr.custom.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery-confirm.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/css/task.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/datepicker3.css" rel="stylesheet">
+
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/dashBoard.css">
+<link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/> 
+<!--link rel="stylesheet" type="text/css" href="/static/css/jquery.dataTables.min.css"/> 
+
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+<!--script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script-->
+<script type="text/javascript" src="/static/js/dataTables.fixedHeader.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.12/api/fnPagingInfo.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.js"></script>		<!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>	<!-- Bootstrap min js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+<script type="text/javascript" src="/static/js/lumino.glyphs.js"></script>
+<script type="text/javascript" src="/static/js/jquery-confirm.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
+<style>
+.calendarInput{
+	width:23%;
+}
+.loading label{
+	font-size:15px;
+}
+.filterInputCheckBox label {
+  display: block;
+  float: left;
+  padding-right: 10px;
+  white-space: nowrap;
+}
+.filterInputCheckBox input {
+  vertical-align: middle;
+}
+.filterInputCheckBox label span {
+  vertical-align: middle;
+}
+
+#loanFilterDropdown{
+    width:100%;
+    height:30px;
+}
+
+#locationFilterDropdown{
+    width:100%;
+    height:30px;
+
+}
+
+</style>
+<script type="text/javascript">
+var userDetails = "{{user_name}}"
+
+var regMgr = ''
+/*window.onload = function(){
+	region();
+}*/
+
+function region(){
+	$('#regionMgr').append($('<option>',
+		{
+			value: 0,
+			text : userDetails 
+		  }));
+    $('#regionMgr').prop('disabled', 'disabled');
+	$('#regionMgr').css('display', 'none');
+	loadState();			
+}
+
+function loadState(){
+	$('#State').html('');
+	$('#State').append($('<option>',
+			     {
+				value: "",
+				text : " Select State "
+			    }));
+	var State  = $("#regionMgr option:selected").text();
+	$.ajax({
+		url : '/loadStateMyDashboard/',
+		type: 'POST',
+		data: State,				
+		success: function (data) {
+			for (i = 0; i < data['state'].length; i++)
+			{ 
+			     $('#State').append($('<option>',
+				     {
+					value: data['state'][i]['id'] ,
+					text : data['state'][i]['name'] 
+				    }));	
+			}
+		},
+		error: function(error) {
+			console.log(error);
+		},					
+	});			
+}
+
+function loadregion(){
+	
+	$('#Region').html('');
+	$('#Region').append($('<option>',
+			     {
+				value: "",
+				text : " Select Region "
+			    }));
+	regMgr  = $("#State option:selected").val();
+	var id = regMgr;
+	
+	$.ajax({
+		url : '/loadRegion/',
+		type: 'POST',
+		data: id,				
+		success: function (data) {
+			//window.location='/tasks/';
+			for (i = 0; i < data['Region'].length; i++)
+			{ 
+			     $('#Region').append($('<option>',
+			     {
+				value: i+1,
+				text : data['Region'][i] 
+			    }));	
+			}
+		},
+		error: function(error) {
+			console.log(error);
+		},					
+	});				
+}
+
+function ClusOfficeLoad(){
+	$('#clusterOffice').html('');
+	$('#clusterOffice').append($('<option>',
+			     {
+				value: 0,
+				text : "Select Cluster Office "
+			    }));
+	regMgr  = $("#Region option:selected").text();
+	var id = regMgr;
+	
+	$.ajax({
+		url : '/clusterOffice_Load/',
+		type: 'POST',
+		data: id,				
+		success: function (data) {
+			for (i = 0; i < data['cluster'].length; i++)
+			{ 
+			     $('#clusterOffice').append($('<option>',
+			     {
+				value: data['cluster'][i]['clusterCode'],
+				text : data['cluster'][i] ['locationName']
+			    }));	
+			}
+		},
+		error: function(error) {
+			console.log(error);
+		},					
+	});				
+}
+function loadCluster(){
+	$('#cluster').html('');
+	$('#cluster').append($('<option>',
+			     {
+				value: 0,
+				text : " Select Cluster Center "
+			    }));
+	clusterTxt  = $("#clusterOffice option:selected").text();
+	clusterVal  = $("#clusterOffice option:selected").val();
+	cluster = {"clusterTxt":clusterTxt, "clusterVal":clusterVal}
+	$.ajax({
+		url : '/loadcluster/',
+		type: 'POST',		
+		datatType: 'json',			
+		success: function (data) {
+			data = data['cluster']
+			console.log("data",data);
+			for (i = 0; i < data.length; i++)
+			{ 
+			     $('#cluster').append($('<option>',
+			     {
+				value: data[i]["clusterCenterCode"],
+				text : data[i]["clusterCenterName"]
+			    }));	
+			}
+		},
+		error: function(error) {
+			console.log(error);
+		},
+		data: JSON.stringify(cluster),
+					
+	});
+
+}
+
+function userSelect(){
+
+		$('#userSelect').html('');
+		$('#userSelect').append($('<option>',
+			     {
+				value: "",
+				text : " Select User "
+			    }));
+		clusterTxt  = $("#cluster option:selected").text();
+		clusterVal = $("#cluster option:selected").val();
+		cluster = {"clusterTxt":clusterTxt, "clusterVal":clusterVal}
+	$.ajax({
+		url : '/loadUser/'+clusterVal,
+		type: 'POST',		
+		datatType: 'json',				
+		success: function (data) {
+			//window.location='/tasks/';
+			console.log(data);
+			for (i = 0; i < data['users'].length; i++)
+			{ 
+			     $('#userSelect').append($('<option>',
+			     {
+				value: data['users'][i],
+				text : data['users'][i] 
+			    }));	
+			}
+		},
+		error: function(error) {
+			console.log(error);
+		},
+		
+		data: JSON.stringify(cluster),
+	});		
+}
+
+</script>
+
+<body>
+	<!-- New Top Bar --->
+	<div class="page-container horizontal-menu sidebar-collapsed">
+	<header class="navbar navbar-fixed-top">
+		<!-- set fixed position by adding class "navbar-fixed-top" -->
+		<div class="navbar-inner">
+			<!-- logo -->
+			<div class="navbar-brand">
+				<a href="/"> <img src="/static/images/mbe_logo.png" alt="" style="width:88px;height:20px;"> </a>
+			</div>
+			<!-- main menu -->
+			<ul class="navbar-nav">
+				<li class="dashboard root-level active">
+					<a href="/tasks/"><img src="/static/images/Task-White.png" alt="" style="max-width:18px;max-height:18px;">&nbsp;<span>Tasks</span></a>
+				</li>
+				<li class="pg root-level ">
+					<a href="/vvlForms/"><i class="entypo-users"></i><span>VVL Form</span></a>
+				</li>
+				<!-- Search Bar -->
+			</ul>
+
+			<!-- notifications and other links -->
+			<ul class="nav navbar-right pull-right">
+				<!-- dropdowns -->
+				<li class="dropdown globe">
+					<a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> <i class="entypo-globe"></i>  </a>
+					<!-- dropdown menu (messages) -->
+					<ul class="dropdown-menu">
+						<li class="top">
+							<p class="small">
+								You have <strong>0</strong> new notifications.
+							</p>
+						</li>
+						<li>
+							<ul class="dropdown-menu-list scroller" tabindex="5003" style="overflow: hidden; outline: none;">
+							</ul>
+						</li>
+						<li class="external">
+							<a href="/notifications/">View all notifications</a>
+						</li>
+						<div id="ascrail2003" class="nicescroll-rails" style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;">
+							<div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+						</div>
+						<div id="ascrail2003-hr" class="nicescroll-rails" style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+							<div style="position: relative; top: 0px; height: 5px; width: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+						</div>
+						<div id="ascrail2000" class="nicescroll-rails" style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;"><div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; border: 1px solid rgb(204, 204, 204); border-radius: 1px; background-color: rgb(212, 212, 212); background-clip: padding-box;"></div></div><div id="ascrail2000-hr" class="nicescroll-rails" style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+							<div style="position: relative; top: 0px; height: 5px; width: 0px; border: 1px solid rgb(204, 204, 204); border-radius: 1px; background-color: rgb(212, 212, 212); background-clip: padding-box;"></div>
+						</div>
+					</ul>
+				</li>
+
+				<!-- raw links -->
+				<li class="dropdown">
+					<a href="#"> <i class="entypo-user"></i>  {{user}}  </a>
+				</li>
+				<li class="dropdown">
+					<!-- add class "pull-right" if you want to place this from right -->
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="entypo-cog"></i> </a>
+					<ul class="dropdown-menu">
+						<li>
+							<p>
+								<span class="line"> <strong> {{user}} </strong> </span><br>
+								<span class="line desc small"> None </span>
+							</p>
+						</li>
+						<li>
+							<a href="/settings/"> Settings </a>
+						</li>
+						<li>
+							<a href="/logout/"> Log Out </a>
+						</li>
+					</ul>
+				</li>
+
+				<!-- mobile only -->
+				<li class="visible-xs">
+
+					<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+					<div class="horizontal-mobile-menu visible-xs">
+						<a href="#" class="with-animation"><!-- add class "with-animation" to support animation --> <i class="entypo-menu"></i> </a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</header>
+	</div>	
+	<!-- Main Content -->
+    	<div class="main">	
+	    <div class="task-div" style="width:90%;">	
+		<div class="main-task">
+			<!-- Main Content -->
+		    <!--div  class="right-pane-task" id="right-pane-task" style="width:90%;">	<br-->
+		     
+		
+		<!--div class="row">
+			<a href="/FilterLoansByDate/"><div class="col-xs-12 col-md-6 col-lg-3" >
+				<div class="panel panel-orange panel-widget">
+					<div class="row no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"/></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right" style="background-color:#ffb53e;">
+							<div class="text-muted">New Loan</div>
+						</div>
+					</div>
+				</div>
+			</div></a>
+			<div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-teal panel-widget">
+					<div class="row no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked checkmark"><use xlink:href="#stroked-checkmark"/></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right" style="background-color:#1ebfae;">
+							<div class="text-muted">Approved</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-red panel-widget">
+					<div class="row no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"/></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right" style="background-color:#f9243f;">
+							<div class="text-muted">Rejected</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-blue panel-widget ">
+					<div class="row no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked hourglass" ><use xlink:href="#stroked-hourglass"/></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right" style="background-color:#30a5ff;">
+							<div class="text-muted">In Progress</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div><!--/.row-->
+		<div class="right-pane-task" id="right-pane-task" style="width:83.5%;height:90%;">
+		<div class="row">
+		<div class="mainDiv">
+			<div class="col-lg-12" style="width:10%;">
+				<h2  style="margin-left:8px;color:#981b1b;">All Loans</h2>
+			</div>
+			<div class="filterMainDiv" style="width: 89%; margin-left:10px;"><h4>Filter By</h4>		
+				<div class="filterInputMainDiv" style="width:8%;display:inline-block;">
+					<select class="extra select form-control loanFilterDropdown" id="loanFilterDropdown"></select>
+				</div>
+				<div class="filterInputCheckBox"  style="width:15%;display:inline-block;">
+					<select class="extra select form-control"  id="locationFilterDropdown">
+					<option value="" id="rdId-1/">Select Location Filter </option>
+					<option value="region" id="rdId-2/"> Filter by Region</option>
+					<option value="cluster office" id="rdId-3">Filter by Cluster Office</option>
+					<option value="cluster center" id="rdId-4">Filter by Cluster Center</option>
+					<option value="user" id="rdId-5"> Filter by User</option>
+					</select>
+				</div>
+				<div class="filterInputContentDiv" style="display:inline-block;">				
+					<div id="filterByDate" class="filterBy" style="width:40%;" ><label>Select Date : </label>&nbsp<input type="text" class="calendarInput calendar" id="filterByDateInput"></input>&nbsp&nbsp
+			
+				<!--button type="submit" onclick="submitFormData(1);" class="btn btn-default btn-md pull-right" style="width:20%;font-size:13px;font-weight:bold;">Submit</button-->
+				</div>
+				<div id="filterByMonth" class="filterBy" style="display:none;width:40%;">	
+					<label>Select Month From : </label>&nbsp&nbsp<input type="text" class="calendarInput calendar" id="filterByMonthFrom"></input>&nbsp&nbsp
+					<label>To : </label>&nbsp&nbsp<input type="text" class="calendarInput calendar" id="filterByMonthTo"></input>&nbsp&nbsp
+			
+					<!--button type="submit" onclick="submitFormData(3);" class="btn btn-default btn-md pull-right" style="width:20%;font-size:13px;font-weight:bold;">Submit</button-->
+				</div>
+				<div id="filterByWeek"  class="filterBy" style="display:none;width:40%;">	
+					<label>Select Week From : </label>&nbsp&nbsp<input type="text" class="calendarInput calendar" id="filterByWeekFrom"></input>&nbsp&nbsp
+					<label>To : </label>&nbsp&nbsp<input type="text" class="calendarInput calendar" id="filterByWeekTo"></input>&nbsp&nbsp
+			
+					<!--button type="submit" onclick="submitFormData(2);" class="btn btn-default btn-md pull-right" style="width:20%;font-size:13px;font-weight:bold;">Submit</button-->
+				</div>
+			</div>	<br><br>
+			 	<div id="selectLocationFields" >
+			 		<div class="col-lg-12" style="margin-bottom:10px;" >
+						<span  style="font-size:15px;">Location Filter Parameters</span>
+					</div>
+					<div class="username" id="user_date" style="display:inline;">
+					</div>
+					<div class="username" id="user_month" style="display:inline;"><!--label>User Name : </label>&nbsp<input type="text" class="textInput" id="filterByMonthInputUser"></input-->
+					</div>
+					<div class="username" id="user_week"style="display:inline;"><!--label>User Name : </label>&nbsp<input type="text" class="textInput" id="filterByWeekInputUser"></input-->
+					</div>
+				</div>	
+				</div>
+			<br><br>			
+		<div id="totalCountDiv" style="display:none;width:16%;font-size:15px;">
+				<h3 style="color:#981b1b;">Total Count : <span id="recordCount"></span> / <span id="totalCount"></span> </h3>
+			</div>
+		</div>
+		</div><!--/.row--><div id="popup1" style="display:none;"><img style="width:50%;margin:15% 0% 0% 20%;" align="middle" src="/static/images/images.jpg"></div>
+		<div id="tableContent"><table id="FilteredDataTable" class="cell-border"></table></div>
+		</div>	
+		<div id="Modal" class="modal">
+			<div class="modal-content">
+				<span class="close">x</span>
+				<p style="font-size:15px;">	<strong><i class="entypo-back-in-time">PROCESS HISTORY</i></strong></p>
+				<div class="modal-body" id="historyModal">
+				</div>
+			</div>
+		</div>		
+		<div class="popup"></div>		
+	</div>	
+</div></div>
+	{% include "footer.html" %} 
+</body>
+<script type="text/javascript" src="/static/task/task.js"></script> 
+<script type="text/javascript" src="/static/form/masterData.js"></script> 
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+<script type="text/javascript" src="/static/form/commonFunctions.js"></script> 
+<script>
+	var user 	= '{{ user 	| escapejs }}';
+	var userList 	= '{{ userList 	| escapejs }}';
+	var groups 	= '{{ groups 	| escapejs }}';
+	var masterData 	= '{{ masterData| escapejs }}';
+	var parsedUserList = [];
+	if (masterData) {
+		UserList = JSON.parse(masterData)
+		parsedUserList.push(UserList);
+	}
+	
+	setDataOnLoad();
+	
+	if(parsedUserList.length>0){
+		if(parsedUserList[0]["groups"] == "Sales"){
+			$('#locationFilterDropdown').remove();
+			setUser();	
+		}	
+		else if(parsedUserList[0]["groups"] == "CrOfficer"){
+			setUserUnderCrOfficer();		
+		}
+	}
+	
+</script>	
+</html>

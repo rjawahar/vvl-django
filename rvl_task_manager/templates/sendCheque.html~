@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+    <link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+    <!-- Madura css -->
+    <link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css" id="style-resource-2">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic" id="style-resource-3">
+    <link rel="stylesheet" href="/static/css/neon-core-min.css" id="style-resource-5">
+    <link rel="stylesheet" href="/static/css/neon-theme-min.css" id="style-resource-6">
+    <link rel="stylesheet" href="/static/css/neon-form-min.css" id="style-resource-7">
+    <link rel="stylesheet" href="/static/css/jalert.css">
+    <link rel="stylesheet" href="/static/css/form.css">
+    <link rel="stylesheet" href="/static/css/custom2.css">
+    <!-- custom css for loan officer process -->
+    <link type="text/css" href="/static/css/jquery-confirm.css" rel="stylesheet"  />
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>
+    <!-- Main Library js-->
+    <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+     <script type="text/javascript" src="/static/js/jquery-confirm.js"></script>
+    <!-- Main Library js-->
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+    <!-- Bootstrap js-->
+    <script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+    <script type="text/javascript" src="/static/js/crossfilter.js"></script>
+
+    <!--MASTER DATA -->
+
+    <style>
+        .colomn-div label {
+            font-size: 13px;
+            display: inline-block;
+            width: 39%;
+            text-align: left;
+            padding-left: 10%;
+        }
+        
+        div.member_class input {
+            display: inline-block;
+            width: 45%;
+            margin-left: 5%;
+        }
+        
+        .img-input input {
+            width: 43%;
+            margin-left: 43.5%;
+        }
+        
+        .center-pane {
+            width: 50%;
+            margin: 3% auto;
+            display: block;
+            border: 2px solid sienna;
+            border-radius: 10px;
+        }
+        
+        .h3-heading h3 {
+            padding-top: 20px;
+            color: white;
+            font-weight: bolder;
+            margin-top: initial;
+        }
+        
+        @media only screen and (min-width:0px) and (max-width:600px) {
+            .right-pane-task {
+                width: 95%;
+            }
+            #right-pane-task-detail {
+                border: 2px solid #981b1b;
+                padding: 2%;
+                background: rgba(218, 216, 216, 0.3);
+            }
+            .center-pane {
+                width: 90%;
+                margin: 3% auto;
+                display: block;
+                border: 2px solid sienna;
+                border-radius: 10px;
+            }
+            .colomn-div label {
+                font-size: 12px;
+                padding-left: 10%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="navbar navbar-fixed-top">
+        {% include "header_common.html" %}
+    </div>
+
+    {% csrf_token %}
+    <!-- Main Content -->
+    <div class="main">
+        <div class="task-div">
+            <div class="main-task">
+                <div class="right-pane-task" id="right-pane-task">
+                	<div id="tabs">
+	                    <ul id="form-tab">
+	                        <!--li style="float:right;list-style-type:none;">
+									<span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:10px;s"><i class="entypo-chat"></i> Comments</span>
+								</li-->
+	                        <li style="float:right;list-style-type:none;">
+	                            <span class="document-toggle" style="float:right;display:inline-block;padding-bottom:10px;cursor:pointer;"><i class="entypo-attach"></i>Documents</span>
+	                        </li>
+	                        <li style="float:right;">
+	                            <span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;cursor:pointer;"><i class="entypo-chat"></i> Comments</span>
+	                        </li>
+	                    </ul>
+	                </div>
+	                <div id="commentsModal" class="modal">
+	                    <div class="modal-content">
+	                        <span class="close">x</span>
+	                        <p> <strong><i class="entypo-chat">COMMENTS	</i></strong></p>
+	                        <div class="modal-body" id="commentsTab">
+	                        </div>
+	                    </div>
+	                </div>
+	                <div id="documentsModal" class="modal">
+	                    <div class="modal-content">
+	                        <span class="close">x</span>
+	                        <p> <strong><i class="entypo-attach">DOCUMENTS ATTACHED</i></strong></p>
+	                        <div class="modal-body" id="documentsTab">
+	                        </div>
+	                    </div>
+	                </div>
+                    <div class="right-pane-task-detail detail-max" id="right-pane-task-detail" style="background-color: rgba(218, 216, 216, 0.2);">
+                        <div class="center-pane">
+                            <!--Div HEader-->
+                            <div class="h3-heading">
+                                <h3>		Send Cheque	</h3>
+                                <h4 id="loan_id">		Loan ID : 	<span id="che_loan_id">		</span> &   	Member ID :	 <span id="che_member_id">	</span>  	</h4>
+                            </div>
+                            <!--INput Values-->
+                            <div class="member_class" style="padding-top:8px;">
+                                <div class="colomn-div">
+                                    <label> Loan Account Number </label> <font>  : </font>
+                                    <input type="text" readonly="true" id="loan_account_number" name="loan_account_number" placeholder="LOAN ACCOUNT NUMBER"/>
+                                </div>
+                            </div>
+                            <div class="member_class">
+                                <div class="colomn-div">
+                                    <label> Cheque Number </label> <font>  : </font>
+                                    <input type="text" readonly="true" id="cheque_number" name="cheque_number" placeholder="CHEQUE NUMBER"/>
+                                </div>
+                            </div>
+                            <div class="member_class">
+                                <div class="colomn-div">
+                                    <label> Courier Name </label> <font>  : </font>
+                                    <select id="che_courier_name" class="extra select form-control chq_courier_name che_courier_name" name="chq_courier_name" placeholder="chq_courier_name" style="width: 45%;margin-left: 5%;"></select>
+                                </div>
+                            </div>
+                            <div class="member_class">
+                                <div class="colomn-div">
+                                    <label> Courier Number / Tracking ID </label> <font>  : </font>
+                                    <input type="text" id="che_courier_tracking_id" name="che_courier_tracking_id" placeholder="COURIER NUMBER/TRACKING ID" />
+                                </div>
+                            </div>
+                            <div class="member_class">
+                                <div class="colomn-div">
+                                    <label> Receipt Number </label> <font>  : </font>
+                                    <input type="text" id="che_courier_receipt_number" name="che_courier_receipt_number" placeholder="RECEIPT NUMBER" />
+                                </div>
+                            </div>
+                            <div class="member_class">
+                                <div class="colomn-div">
+                                    <label> Cheque Handover Date </label> <font>  : </font>
+                                    <input type="date" id="che_courier_handover_date" name="che_courier_handover_date" placeholder="DATE"></input>
+                                </div>
+                            </div>
+                            <div class="member_class">
+                                <div class="colomn-div">
+                                    <label> Place </label> <font>  : </font>
+                                    <input type="text" id="place" name="place" placeholder="PLACE" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--Submit Button DIv-->
+                        <div class="form-group text-center">
+                            <div class="form-button">
+                                <a href="javascript:void(0)" onclick='' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+                                    <i class="icon-entypo-cancel" style="width:30px;height: 28px;color: white;padding:6px;">	</i> Cancel
+                                </a>
+                                <a href="javascript:void(0)" onclick="onSubmitFormSendCheque();" class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+                                    <i class="icon-entypo-check" style="width:30px;height: 28px;color: white;padding:6px;"></i> Submit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-pane-task-document-list comment-min" id="right-pane-task-document-list" style="width:initial;border: 1px solid #981b1b;overflow-Y:scroll;background-color: #f4f4f4;">
+				        <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;" data-toggle="collapse" data-target="#comment-list-pane">
+				            <div class="sub-header">
+				                <div colspan="4"><font style="font-size:15px;"> Documents Attached <i class="entypo-attach"></i></font></div>
+				            </div>
+				        </div>
+				        <div class="document-list-pane" id="document-list-pane" style="background-color:#f4f4f4;"></div>
+				    </div>
+				    <div class="right-pane-task-comment-list comment-min" id="right-pane-task-comment-list" style="width:initial;overflow-Y:scroll;">
+				        <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom:1px solid whitesmoke;" data-target="#comment-list-pane">
+				            <div class="sub-header">
+				                <div colspan="4"><font style="font-size:15px;"> Comments <i class="entypo-chat"></i></font></div>
+				            </div>
+				        </div>
+				        <div id="comment-list-pane" class="comment-list-pane"></div>
+				    </div>
+                </div>
+                <div class="popup"> </div>
+            </div>
+        </div>
+        
+    </div>
+    {% include "footer.html" %}
+	<script type="text/javascript" src="/static/form/masterData.js"></script> 
+	<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+	<script type="text/javascript" src="/static/form/commonFunctions.js"></script> 
+    <script type="text/javascript">
+        var taskData = {};
+        setScreenHeightWithComments();
+        var memberdetails = '{{ memberDetails	| safe}}';
+        var processid = '{{ processId	| safe}}';
+        var process = '{{ process		| safe}}';
+        var taskid = '{{ taskId		| safe}}';
+        var memberId = '{{ memberId		| safe}}';
+        var loanId = '{{ loanId		| safe}}';
+        var userid = '{{ userId		| safe}}';
+        var User = '{{ user		| safe}}';
+        var remarks = '{{ Application_Remarks | safe}}';
+        var processObj = JSON.parse(process);
+        var alf_token = "{{ alf_token	| escapejs }}";
+        var json_data = JSON.parse(memberdetails);
+		commentsPopUp(json_data);
+		documentsPopUp(json_data);
+		loadChequeDetails();
+
+   </script>
+</body>
+
+</html>

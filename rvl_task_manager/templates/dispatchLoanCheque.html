@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+
+
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script><!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+
+
+<style>
+	.label-text:hover{
+		color:#981b1b;
+	}
+	.navbar{
+		color:#981b1b;
+	}	
+	.member_class{
+		height:10%;
+		width:100%;
+		background-color:rgba(253, 193, 90, 0.5);/*#ffa812;*/
+	}
+	.entypo-user:before {
+		content: '\e80a';
+	}
+	.entypo-email:before {
+		content: '\e805';
+	}
+	[class^="entypo-"]:before, [class*=" entypo-"]:before {
+		font-family: "entypo";
+		font-style: normal;
+		font-weight: normal;
+		speak: none;
+		display: inline-block;
+		text-decoration: inherit;
+		width: 1em;
+		margin-right: .2em;
+		text-align: center;
+		/* opacity: .8; */
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1em;
+		margin-left: .2em;
+		/* font-size: 120%; */
+	
+	}
+
+	.colomn-div label{
+		display	: inline-block;
+		width	: 30%;
+		text-align:right;
+	}
+	.colomn-div input{
+		display: inline-block;
+		width	: 50%;
+	}
+	.colomn-div{
+		/*display: block;*/
+		width: 100%;
+		height: 40px;
+	}
+	
+	h3{
+		text-align:center;
+	}
+	.h3-heading{
+		width:100%;
+		height:70px;
+		background-color:rgba(152, 27, 27, 0.9);/*#981b1b;*/
+	}
+	.h3-heading h3{
+		padding-top:20px;
+		color:white;
+		font-weight:bolder;
+	}
+
+	.h3-heading font{
+		padding:auto;	
+		padding-top:10px;
+		color:white;
+		text-align:center;
+		width:100%;
+	}
+	.h3-heading h4{
+		padding:auto;	
+		color:white;
+		text-align:center;
+		font:10px;
+	}
+	
+</style>
+</head>
+
+<body>
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+	{% include "header_common.html" %} 
+	
+	</div>
+	
+	<!-- Main Content -->
+    	<div class="main">	
+	    <div class="task-div">	
+		<div class="main-task">
+		   <div  class="right-pane-task" id="right-pane-task" style="width:100%;margin: 10 auto;">
+			     <div class="center-pane" style="width:50%;margin: 3% auto; display:block;"> 
+					<div class="h3-heading" >
+						<h3 >Prepare Loan Cheque</h3>
+						<h4>Loan No : ( 514243656648453 )  &  Member Id : ( 551 )</h4>
+					</div>
+
+					<div class="member_class" >
+					    <div class="colomn-div"><label>Cheque Number</label><font>  : </font><input type="text" id=""             name=""     placeholder="COURIER NUMBER"	/><font class="mandatory">*</font></div>
+					</div>
+					<div class="member_class">
+					    <div  class="colomn-div"><label>Courier Name</label><font>  : </font><input type="text" id=""             name=""  	   placeholder="TRACKING ID"	/><font class="mandatory">*</font></div>
+					</div>
+					<div class="member_class">
+					    <div  class="colomn-div"><label>Receipt Number</label>	<font>  : </font><input type="text" id=""             name=""  	   placeholder="DATE"	/><font class="mandatory">*</font></div>
+					</div>
+					<div class="member_class">
+					    <div  class="colomn-div"><label>Date Of Handover</label>	<font>  : </font><input type="text" id=""             name=""  	   placeholder="DATE"	/><font class="mandatory">*</font></div>
+					</div>
+					<div class="member_class">
+					    <div  class="colomn-div"><label>Tracking Id</label>	<font>  : </font><input type="text" id=""             name=""  	   placeholder="DATE"	/><font class="mandatory">*</font></div>
+					</div>
+				  </div> 
+		    </div>
+		 	
+		</div>
+	    </div>
+  	</div>
+	{% include "footer.html" %} 
+</body>
+<script type="text/javascript">  
+	
+var taskData = {};
+var memberdetails= '{{memberDetails|safe}}';
+var processid 	= '{{processId|safe}}';
+var process 	= '{{process|safe}}';
+var taskid 	= '{{taskId|safe}}';
+var memberId 	= '{{memberId|safe}}';
+var loanId 	= '{{loanId|safe}}';
+var userid 	= '{{userId|safe}}';
+var User 	= '{{user|safe}}';
+
+if(memberdetails){
+	memberdetails =  JSON.parse(memberdetails);
+
+	if(memberdetails['dcphysicalArray']){
+	    if(memberdetails['dcphysicalArray'][0]){
+		var dispatchData = memberdetails['dcphysicalArray'][0];
+		var keys = Object.keys(dispatchData);
+		for(var i=0; i<keys.length; i++){
+		    if(document.getElementById(keys[i])){
+			document.getElementById(keys[i]).innerHTML = dispatchData[keys[i]];
+		    }
+		}
+	    }
+	}
+}
+
+if(loanId){
+	document.getElementById("loan_id").innerHTML = "Loan Id :  " +loanId+ "    &   Member Id : "+memberId+'';
+}
+
+var remarks = '{{Application_Remarks|safe}}';
+var processObj = JSON.parse(process);
+
+jQuery(document).ready(function($) {
+
+    $("#doc_courier_handover_date").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,//this option for allowing user to select month
+      changeYear: true });
+
+    $('.dropDownHook span').on('click', function() {
+        $(this).parents('.dropDownHook').children('.dropDownContent').stop(true, true).slideToggle('medium', function() {
+
+            if ($('.dropDownContent').is(':visible')) {
+                //  This alters the content of the "hook" when we open the drop down
+            }
+            else {
+                //  This alters the content of the "hook" when we close the dropdown
+            }
+        });
+    });
+    
+    $('html').on('click', function() {
+        $('.dropDownContent:visible').slideToggle('fast');
+    });
+
+    $('.dropDownHook > *').on('click', function(event) {
+        event.stopPropagation();
+    });
+
+
+});
+
+
+function onReadData(d, val){
+
+	var currentDateValue  = (new Date());
+	currentDateValue = JSON.stringify(currentDateValue);
+	currentDateValue = currentDateValue.replace(/"/g,'');
+	var remarks = document.getElementById('comments').value;
+
+	var dataArr = {"dcphysicalArray":[
+				{
+					"fk_member_id"			: parseInt(memberId),
+					"fk_loan_id"			: parseInt(loanId),
+					"doc_courier_tracking_id" 	: doc_courier_tracking_id,
+					"doc_courier_handover_date" 	: doc_courier_handover_date,
+					"doc_courier_name"	  	: doc_courier_name,
+					"doc_courier_receipt_number"	: doc_courier_receipt_number,	
+					"doc_courier_tracking_id "	: doc_courier_tracking_id ,
+					"last_modified_by"		: parseInt(1)
+				}
+			]
+		};
+
+	var processupdate = {
+				"variables": {
+					"LoanDoc_Physical_Status" : {
+						"value" : val, 
+						"type"	: "String"
+					},
+					"LoanDoc_Physical_Remarks" : {
+						"value" : remarks, 
+						"type"	: "String"
+					},
+					"Application_Remarks" : {
+						"value" : remarks, 
+						"type"	: "String"
+					}
+				}
+			};
+
+	var remarksData =    { 
+				"validation_member_id" 	: parseInt(memberId),
+				"validation_loan_id" 	: parseInt(loanId),
+				"validation_type" 	: parseInt(1),
+				"validation_level"	: parseInt(1),
+				"validation_status" 	: parseInt(val),
+				"remarks" 		: remarks, 
+				"process_id" 		: processid,
+				"task_id" 		: taskid,
+				"validation_fk_last_modified_by": parseInt(userid),
+				"validation_last_modified_date"	: currentDateValue,
+				"validation_fk_sci_client_id"	: parseInt(1)
+			     };
+
+	var dataObj = {};
+	dataObj['processDetails'] = processupdate;
+	dataObj['processid'] 	= processid;
+	dataObj['taskid'] 	= taskid;
+	dataObj['loanId'] 	= loanId;
+	dataObj['memberId'] 	= memberId;
+	dataObj['dispatchDetails'] = remarksData;
+	dataObj['function'] 	= "update";
+
+
+	//var url = "/dispatchUpdate/";
+	var url = "/dispatch/";
+	$.ajax({
+	    url: url,
+	    type: 'post',
+	    dataType: 'json',
+	    success: function (data) {
+		window.location='/tasks/';		
+	    },
+	    data: JSON.stringify(dataObj)
+	});
+
+}
+
+</script>
+</html>

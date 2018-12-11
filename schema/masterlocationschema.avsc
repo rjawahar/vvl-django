@@ -1,0 +1,35 @@
+{
+ "type": "record",
+ "name": "MasterLocationDetail",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+	     {
+	     "name": "masterLocationArray",
+	           "type": [{
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterLocation",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "id", "type": ["long","null"]},
+			     {"name": "country_code", "type":["int","null"]},
+			     {"name": "country_name", "type":["string","null"], "default": "null"},
+			     {"name": "state_code", "type":["int","null"]},
+			     {"name": "state_name", "type":["string","null"], "default": "null"},
+			     {"name": "district_code", "type":["int","null"]},
+			     {"name": "district_name", "type":["string","null"], "default": "null"},
+			     {"name": "taluk_code", "type":["int","null"]},
+			     {"name": "taluk_name", "type":["string","null"], "default": "null"},
+			     {"name": "village_code", "type":["int","null"]},
+			     {"name": "village_name", "type":["string","null"], "default": "null"},
+			     {"name": "level", "type":["string","null"], "default": "null"},
+			     {"name": "latitude", "type":["string","null"], "default": "null"},
+			     {"name": "longitude", "type":["string","null"], "default": "null"},
+			     {"name": "pincode", "type": ["long","null"]}
+			      ]
+	                      }
+	                  },"null"]
+     	     }
+           ]
+}

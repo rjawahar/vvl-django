@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+    <link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+    <link type="text/css" href="/static/css/jquery-confirm.css" rel="stylesheet"  />
+
+    <!-- Madura css -->
+    <link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css" id="style-resource-2">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic" id="style-resource-3">
+    <link rel="stylesheet" href="/static/css/neon-core-min.css" id="style-resource-5">
+    <link rel="stylesheet" href="/static/css/neon-theme-min.css" id="style-resource-6">
+    <link rel="stylesheet" href="/static/css/neon-form-min.css" id="style-resource-7">
+    <link rel="stylesheet" href="/static/css/jalert.css">
+    <link rel="stylesheet" href="/static/css/form.css">
+    <link rel="stylesheet" href="/static/css/BVR_form.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>
+    <!-- Main Library js-->
+    <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+    <!-- Main Library js-->
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+    <!-- Bootstrap js-->
+    <script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+    <script type="text/javascript" src="/static/js/crossfilter.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-confirm.js"></script>
+
+    <!-- Data -->
+    <script type="text/javascript" src="/static/form/data.js"></script>
+
+    <!-- master Data -->
+    <script type="text/javascript" src="/static/form/masterData.js"></script>
+    <script type="text/javascript" src="/static/form/masterDataLoad.js"></script>
+
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="navbar navbar-fixed-top">
+        {% include "header.html" %}
+    </div>
+    <!-- Main Content -->
+    <div class="main">
+        <form name="bvrReportInformation" id="form" action=".">
+            <div class="task-div">
+                <div class="main-task">
+                    <div class="right-pane-task" id="right-pane-task">
+                        <!--right-pane-task-detail start-->
+                        <div id="tabs">
+                            <ul id="form-tab">
+                                <li><a href="#pane1">Business Verification Report</a></li>
+                                <li style="float:right;list-style-type:none;">
+                                    <span class="document-toggle" style="float:right;display:inline-block;padding-bottom:10px;cursor:pointer;"><i class="entypo-attach"></i>Documents</span>
+                                </li>
+                                <li style="float:right;">
+                                    <span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;cursor:pointer;"><i class="entypo-chat"></i> Comments</span>
+                                </li>
+                            </ul>
+                            <div id="commentsModal" class="modal">
+                                <div class="modal-content">
+                                    <span class="close">x</span>
+                                    <p> <strong><i class="entypo-chat">COMMENTS	</i></strong></p>
+                                    <div class="modal-body" id="commentsTab">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="documentsModal" class="modal">
+                                <div class="modal-content">
+                                    <span class="close">x</span>
+                                    <p> <strong><i class="entypo-attach">DOCUMENTS ATTACHED</i></strong></p>
+                                    <div class="modal-body" id="documentsTab">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right-pane-task-detail detail-max" id="right-pane-task-detail" style="border-bottom: 1px solid #aaaaaa;background-color: white;">
+                                <div class="Business-Verification-details">
+                                    <div width="100%">
+                                        <div class="business-info-outer" style="background-color: white;">
+                                            <div class="business-info">
+                                                <div class="head-bussiness" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#basic_information" class="accordion-toggle">
+                                                        <div colspan="4"> Applicant's Information </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <!--Business details information-->
+                                                <div class="body-bussiness" id="mmfl">
+                                                    <div class="row-div-bussiness">
+                                                        <div class="colomn-div-bussiness">
+                                                            <label>Member ID </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="memberid" name="memberid" placeholder="Member ID"></font>
+                                                        </div>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label>Loan ID </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="loanid" name="loanid" placeholder="Loan ID"></font>
+                                                        </div>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label>Applicant Name </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="applicant_name" name="applicant_name" placeholder="Applicant Name"></font>
+                                                        </div>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label>Resident Address </label>
+                                                            <font class="font_colon">:</font>
+                                                            <div class="colomn-div" style="width:40%;padding-left:initial;">
+                                                                <font id="current_address" name="current_address" placeholder="RESIDENT ADDRESS"></font></div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label> Living with </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="live_with" name="live_with" placeholder="Living with"></font>
+                                                        </div>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label> Mobile Number </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="mobile_number" name="mobile_number" placeholder="Mobile Number"></font>
+                                                        </div>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label> Number of Children </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="no_of_children" name="no_of_children" placeholder="Number of Children"></font>
+                                                        </div>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label>Business Address </label>
+                                                            <font class="font_colon">:</font>
+                                                            <div class="colomn-div" style="width:40%;padding-left:initial;">
+                                                                <font id="business_address" name="business_address"></font>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+
+                                                        <div class="colomn-div-bussiness">
+                                                            <label>Office No </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="biz_office_address_mobile_number" name="biz_office_address_mobile_number" placeholder="MOBILE NUMBER" /></font>
+                                                        </div>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label>Nature Of Business </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="biz_nature" name="biz_nature" placeholder="APPLICATION ID"></font>
+                                                        </div>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label>No of Years in Business </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="biz_no_of_yrs" name="biz_no_of_yrs" placeholder="MEMBER ID"></font>
+                                                        </div>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label>Location of Business </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="biz_location" name="biz_location" placeholder="LOAN ID"></font>
+                                                        </div>
+                                                        <div class="colomn-div-bussiness">
+                                                            <label> Rent Paid Per Month </label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="rent_pay_month" name="rent_pay_month" placeholder="DDMMYYYY"></font>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content span5">
+                                        <!-- for tab -->
+                                        <!--Tab pane1 start-->
+                                        <div id="pane1" class="tab-pane">
+                                            <!-- for tab -->
+                                            <div class="head" style="background-color: #981B1B;color: whitesmoke; border-bottom: 1px solid whitesmoke;">
+                                                <div class="sub-header" data-toggle="collapse" data-target="#proof_information" class="accordion-toggle">
+                                                    <div colspan="4"> BUSINESS DETAILS </div>
+                                                </div>
+                                            </div>
+                                            <div class="body" id="business_details">
+                                                <div class="row-div">
+                                                    <div class="colomn-div">
+                                                        <label id="biz_name_of_the_applicant_label">Name of the applicant</label>
+                                                        </br>
+                                                        <input type="text" id="biz_name_of_the_applicant" name="biz_name_of_the_applicant" placeholder="APPLICATION NAME ID" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="biz_name_of_the_firm_label">Name of the firm </label>
+                                                        </br>
+                                                        <input type="text" id="biz_name_of_the_firm" name="biz_name_of_the_firm" placeholder="FIRM NAME" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="biz_name_of_the_proprietor_label">Name of the properitor </label>
+                                                        </br>
+                                                        <input type="text" id="biz_name_of_the_proprietor" name="biz_name_of_the_proprietor" placeholder="PROPERITOR NAME" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div" id="select_box">
+                                                        <label id="biz_ownership_of_the_premises_label">Ownership of the permises </label>
+                                                        </br>
+                                                        <input id="biz_ownership_of_the_premises" name="biz_ownership_of_the_premises" placeholder="OWNERSHIP OF PERMISES" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="biz_rentorlease_amount_label">Rent/lease amount </label>
+                                                        </br>
+                                                        <input type="text" id="biz_rentorlease_amount" name="biz_rentorlease_amount" placeholder="LEASE AMOUNT" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div" id="select_box_nb">
+                                                        <label id="biz_nature_of_business_label">Nature of the Business </label>
+                                                        </br>
+                                                        <input id="biz_nature_of_business" name="biz_nature_of_business" placeholder="NATURE OF THE BUSINESS" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div" id="select_box_ls">
+                                                        <label id="biz_location_of_the_store_label">Location of the store </label>
+                                                        </br>
+                                                        <input id="biz_location_of_the_store" name="biz_location_of_the_store" placeholder="STORE LOCATION" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="biz_landmark_label">Landmark </label>
+                                                        </br>
+                                                        <input type="text" id="biz_landmark" name="biz_landmark" placeholder="LANDMARK" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="biz_numberof_years_in_this_location_label">No.of years in this location </label>
+                                                        </br>
+                                                        <input type="text" id="biz_numberof_years_in_this_location" name="biz_numberof_years_in_this_location" placeholder="NUM OF YEARS" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="biz_size_of_the_shop_label">Size of the shop </label>
+                                                        </br>
+                                                        <input type="text" id="biz_size_of_the_shop" name="biz_size_of_the_shop" placeholder="SHOP SIZE" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="biz_products_sold_label">Products sold </label>
+                                                        </br>
+                                                        <input type="text" id="biz_products_sold" name="biz_products_sold" placeholder="PRODUCTS SOLD" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="biz_stock_level_label">Stock Level </label>
+                                                        </br>
+                                                        <input type="text" id="biz_stock_level" name="biz_stock_level" placeholder="STOCK LEVEL" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="biz_value_of_stock_label">Value of the Stock </label>
+                                                        </br>
+                                                        <input type="text" id="biz_value_of_stock" name="biz_value_of_stock" placeholder="STOCK VALUE" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="biz_business_turnover_per_day_label">Business turnover per day </label>
+                                                        </br>
+                                                        <input type="text" id="biz_business_turnover_per_day" name="biz_business_turnover_per_day" placeholder="TURN OVER" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear-fix"></div>
+                                            <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                    <div colspan="4">CONTACTED PERSON</div>
+                                                </div>
+                                            </div>
+                                            <div class="body" id="contact_person">
+                                                <div class="row-div">
+                                                    <div class="colomn-div">
+                                                        <label id="contacted_name_of_the_person_spoken_to_label">Name of the person spoken to </label>
+                                                        </br>
+                                                        <input type="text" id="contacted_name_of_the_person_spoken_to" name="contacted_name_of_the_person_spoken_to" placeholder="SPOKEN PERSON" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="contacted_relationship_to_the_owner_label">Relationship to the owner </label>
+                                                        </br>
+                                                        <input type="text" id="contacted_relationship_to_the_owner" name="contacted_relationship_to_the_owner" placeholder="OWNER RELATIONSHIP" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear-fix"></div>
+                                            <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                <div class="sub-header" data-toggle="collapse" data-target="#Employees_and_working_ hours" class="accordion-toggle">
+                                                    <div colspan="4">EMPLOYEES AND WORKING HOURS</div>
+                                                </div>
+                                            </div>
+                                            <div class="body" id="Employees_work_hours">
+                                                <div class="row-div">
+                                                    <div class="colomn-div">
+                                                        <label id="empwork_number_of_employees_label">No.of employees </label>
+                                                        </br>
+                                                        <input type="text" id="empwork_number_of_employees" name="empwork_number_of_employees" placeholder="NO.OF EMPLOYESS" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="empwork_number_of_employees_seen_label">No. of employees seen </label>
+                                                        </br>
+                                                        <input type="text" id="empwork_number_of_employees_seen" name="empwork_number_of_employees_seen" placeholder="NO.OF EMPLOYEES SEEN" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="empwork_total_employee_salary_per_month_label">Total Employee salary per month </label>
+                                                        </br>
+                                                        <input type="text" id="empwork_total_employee_salary_per_month" name="empwork_total_employee_salary_per_month" placeholder="TOTAL SALARY" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="empwork_number_of_working_hours_label">No. of working hours </label>
+                                                        </br>
+                                                        <input type="text" id="empwork_number_of_working_hours" name="empwork_number_of_working_hours" placeholder="NUM OF WORKING HOURS" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="empwork_peak_hour_timing_label">Peak hour timing </label>
+                                                        </br>
+                                                        <input type="text" id="empwork_peak_hour_timing" name="empwork_peak_hour_timing" placeholder="PEAK HOUR TIMING" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="empwork_peak_hour_per_day_label">Peak hour per day </label>
+                                                        </br>
+                                                        <input type="text" id="empwork_peak_hour_per_day" name="empwork_peak_hour_per_day" placeholder="PEAK HOUR PER DAY" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear-fix"></div>
+                                            <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                <div class="sub-header" data-toggle="collapse" data-target="#Employees_and_working_ hours" class="accordion-toggle">
+                                                    <div colspan="4">BILL DETAILS</div>
+                                                </div>
+                                            </div>
+                                            <div class="body" id="Bill_details">
+                                                <div class="row-div">
+                                                    <div class="colomn-div">
+                                                        <label id="bill_value_of_bills_collected_label">Value of bills collected </label>
+                                                        </br>
+                                                        <input type="text" id="bill_value_of_bills_collected" name="bill_value_of_bills_collected" placeholder="VALUES OF BILLS COLLECTED" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="bill_period_from_label">Bill period from </label>
+                                                        </br>
+                                                        <input type="text" id="bill_period_from" name="bill_period_from" placeholder="BILL PERIOD FROM" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="bill_period_to_label">Bill period to</label>
+                                                        </br>
+                                                        <input type="text" id="bill_period_to" name="bill_period_to" placeholder="BILL PERIOD TO" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="bill_number_of_days_label">No. of days</label>
+                                                        </br>
+                                                        <input type="text" id="bill_number_of_days" name="bill_number_of_days" placeholder="NUM OF DAYS" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear-fix"></div>
+                                            <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                    <div colspan="4">VERIFICATION</div>
+                                                </div>
+                                            </div>
+                                            <div class="body" id="Verification">
+                                                <div class="row-div">
+                                                    <div class="colomn-div">
+                                                        <label id="vfc_business_proof_verified_label">Business proof Verified</label>
+                                                        </br>
+                                                        <input type="text" id="vfc_business_proof_verified" name="vfc_business_proof_verifiedd" placeholder="BUSINESS PROOF VERIFIED" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="vfc_name_board_seen_label">Name board seen</label>
+                                                        </br>
+                                                        <input type="text" id="vfc_name_board_seen" name="vfc_name_board_seen" placeholder="NAME BOARD SEEN" />
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear-fix"></div>
+                                            <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                    <div colspan="4">BUSINESS ASSET</div>
+                                                </div>
+                                            </div>
+                                            <div class="body" id="Business_Asset">
+                                                <div class="row-div">
+                                                    <div class="colomn-div">
+                                                        <label id="bizast_weighing_scale_label">Weighing scale </label>
+                                                        </br>
+                                                        <input type="text" id="bizast_weighing_scale" name="bizast_weighing_scale" placeholder="WEIGHING SCALE" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="bizast_photocopier_label">Photocopier</label>
+                                                        </br>
+                                                        <input type="text" id="bizast_photocopier" name="bizast_photocopier" placeholder="PHOTOCOPIER" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="bizast_freezer_label">Freezer</label>
+                                                        </br>
+                                                        <input type="text" id="bizast_freezer" name="bizast_freezer" placeholder="FREEZER" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="bizast_laminating_machine_label">Laminating machine</label>
+                                                        </br>
+                                                        <input type="text" id="bizast_laminating_machine" name="bizast_laminating_machine" placeholder="FREEZER" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="bizast_pco_label">PCO</label>
+                                                        </br>
+                                                        <input type="text" id="bizast_pco" name="bizast_pco" placeholder="PCO" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="bizast_any_other_asset_label">Any other Asset</label>
+                                                        </br>
+                                                        <input type="text" id="bizast_any_other_asset" name="bizast_any_other_asset" placeholder="ANY OTHER ASSET" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear-fix"></div>
+                                            <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                    <div colspan="4">FAMILY DETAILS</div>
+                                                </div>
+                                            </div>
+                                            <div class="body" id="Family details">
+                                                <div class="row-div">
+                                                    <div class="colomn-div">
+                                                        <label id="family_person_label">Person </label>
+                                                        </br>
+                                                        <input type="text" id="family_person" name="family_person" placeholder="PERSON" />
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label id="sex_label">Sex</label>
+                                                        </br>
+                                                        <input type="text" id="sex" name=sex" placeholder="SEX" />
+											</div>
+											<div class="colomn-div">
+												<label id="education_label">Education</label></br>
+												<input type="text" id="education" name="education"  placeholder="EDUCATION"  />
+											</div>
+											<div class="colomn-div">
+												<label id="income_label">Income	</label></br>
+												<input type="text" id="income" name="income" placeholder="INCOME" />
+											</div>
+											<div class="colomn-div">
+												<label id="remarks_label">Remarks</label></br>
+												<input type="text" id="remarks"  name="remarks" placeholder="REMARKS" />
+											</div>						    
+										</div>						
+									</div>
+									<div class="clear-fix"></div>
+									<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke; ">
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+											<div colspan="4">OTHER SOURCE OF INCOME</div>
+										</div>
+									</div>
+									<div class = "body" id="Other_source_of_Income">
+										<div class="row-div">
+											<div class="colomn-div">
+												<label id="income_agriland_label">Agri Land	</label></br>
+												<input type="text" id="income_agriland"  name="income_agriland" placeholder="AGRI LAND" />
+											</div>
+											<div class="colomn-div">
+												<label id="income_extend_label">Extent	</label></br> 
+												<input type="text" id="income_extend"  	name="income_extend"  placeholder="EXTENT" />
+											</div>
+											<div class="colomn-div">
+												<label id="income_crop_label" >Crop</label></br>
+												<input type="text" id="income_crop"  name="income_crop" placeholder="CROP"  />
+											</div>
+											<div class="colomn-div">
+												<label id="income_annual_profit_label">Annual profit</label></br>
+												<input type="text" id="income_annual_profit"  name="income_annual_profit"  placeholder="ANNUAL PROFIT" />
+											</div>
+											<div class="colomn-div">
+												<label id="income_annual_rentals_label">Rental's</label></br>
+												<input type="text" id="income_annual_rentals"  	name="income_annual_rentals" placeholder="RENTAL 'S" />
+											</div>
+											<div class="colomn-div">
+												<label id="income_annual_number_of_premises_label">No. of premises</label></br>
+												<input type="text" id="income_annual_number_of_premises" name="income_annual_number_of_premises" placeholder="PREMISES" />
+											</div>
+											<div class="colomn-div">
+												<label id="income_annual_rent_received_per_month_label">Rent received per month	</label></br>
+												<input type="text" id="income_annual_rent_received_per_month"  name="income_annual_rent_received_per_month"  placeholder="RENT" />
+											</div>						    						    						    						    
+										</div>						
+									</div>
+									<div class="clear-fix"></div>
+									<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+											<div colspan="4">OTHER BUSINESS</div>
+										</div>
+									</div>
+									<div class = "body" id="Other_Business">
+										<div class="row-div">
+											<div class="colomn-div">
+												<label id="other_name_of_the_firm_label">Name of firm	</label></br>
+												<input type="text" id="other_name_of_the_firm"  name="other_name_of_the_firm"  	placeholder="NAME OF FIRM" />
+											</div>
+											<div class="colomn-div">
+												<label id="other_firm_type_label">Type	</label></br> 
+												<input type="text" id="other_firm_type" name="other_firm_type"  placeholder="TYPE" />
+											</div>
+											<div class="colomn-div">
+												<label id="other_firm_profit_label">Profit</label></br>
+												<input type="text" id="other_firm_profit"  name="other_firm_profit"  placeholder="PROFIT"  />
+											</div>
+											<div class="colomn-div">
+												<label id="other_firm_products_sold_label">Products sold</label></br>
+												<input type="text" id="other_firm_products_sold"  name="other_firm_products_sold"  placeholder="PRODUCT SOLD" />
+											</div>						    
+										</div>						
+									</div>
+									<div class="clear-fix"></div>
+									<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+											<div colspan="4">OTHER LOANS</div>
+										</div>
+									</div>
+									<div class = "body" id="Other_loans">
+										<div class="row-div">
+											<div class="colomn-div">
+												<label id="other_loan_type_label">Type of loan</label></br>
+												<input type="text" id="other_loan_type"  name="other_loan_type"  placeholder="lOAN TYPE" />
+											</div>
+											<div class="colomn-div">
+												<label id="other_loan_company_label">Company</label></br> 
+												<input type="text" id="other_loan_company"  name="other_loan_company"  placeholder="COMPANY" />
+											</div>
+											<div class="colomn-div">
+												<label id="other_loan_emi_label" >EMI	</label></br>
+												<input type="text" id="other_loan_emi"  name="other_loan_emi"  placeholder="EMI"  />
+											</div>
+											<div class="colomn-div">
+												<label id="other_loan_tenure_label" >Tenure</label></br>
+												<input type="text" id="other_loan_tenure"  name="other_loan_tenure"  placeholder="TENURE" />
+											</div>
+											<div class="colomn-div">
+												<label id="other_loan_month_balance_label">Balance month</label></br>
+												<input type="text" id="other_loan_month_balance"  name="other_loan_month_balance"  placeholder="BALANCE MONTH" />
+											</div>			
+											<div class="colomn-div">
+												<label id="other_loan_remarks_label">Remarks</label></br>
+												<input type="text" id="other_loan_remarks"  name="other_loan_remarks"  placeholder="REMARKS" />
+											</div>
+											<div class="colomn-div">
+												<label id="enduser_of_the_loan_label">End use of the loan</label></br>
+												<input type="text" id="enduser_of_the_loan"  name="enduser_of_the_loan" placeholder="END USE OF THE LOAN" />
+											</div>
+											<div class="colomn-div">
+												<label id="Value_of_sale_during_pd_label" >Value of sale during PD</label></br>
+												<input type="text" id="Value_of_sale_during_pd" name="Value_of_sale_during_pd"  placeholder="VALUE OF SALE DURING PD" />
+											</div>						    						    						    						    						    						    						    						    
+										</div>						
+									</div>
+									<div class="clear-fix"></div>
+									<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+											<div colspan="4">DISTRIBUTOR REFERENCE CHECK</div>
+										</div>
+									</div>
+									<div class = "body" id="Distributor_reference_check">
+										<div class="row-div">
+											<div class="colomn-div">
+												<label id="distributor_name_label">Distributor Name</label></br>
+												<input type="text" id="distributor_name" name="distributor_name" placeholder="DISTRIBUTOR NAME" />
+
+											</div>
+											<div class="colomn-div">
+												<label id="distributor_address_label">Address of the disbributor</label></br> 
+												<input type="text" id="distributor_address"  name="distributor_address"  placeholder="DISTRIBUTOR ADDRESS" />
+
+											</div>
+											<div class="colomn-div">
+												<label id="distributor_phoneno_label" >Phone No.</label></br>
+												<input type="text" id="distributor_phoneno" name=distributor_phoneno"  placeholder="PHONE NO"  />
+
+											</div>
+											<div class="colomn-div">
+												<label id="name_of_the_person_spoken_to_label" >Name of the person spoken to	</label></br>
+												<input type="text" id="name_of_the_person_spoken_to"  name="name_of_the_person_spoken_to"  placeholder="SPOKEN PERSON" />
+
+											</div>
+											<div class="colomn-div">
+												<label id="distributor_supplied_products_label">Products supplied		</label></br>
+												<input type="text" id="distributor_supplied_products" 	name="distributor_supplied_products"  	placeholder="PRODUCT SUPPLIED" />
+
+											</div>
+											<div class="colomn-div">
+												<label id="relationship_in_years_label">Relationship in years		</label></br>
+												<input type="text" id="relationship_in_years" 	name="relationship_in_years"  	placeholder="RELATIONSHIP" />
+
+											</div>
+											<div class="colomn-div">
+												<label id="distributor_supplies_mon_avg_label">Avg. monthly supplies		</label></br>
+												<input type="text" id="distributor_supplies_mon_avg" name="distributor_supplies_mon_avg" placeholder="AVG. MONTHLY SUPPLIES" />
+
+											</div>
+											<div class="colomn-div">
+												<label id="distributor_type_of_sale_label">Type of sale			</label></br>
+												<input type="text" id="distributor_type_of_sale"  name="distributor_type_of_sale"  placeholder="DISTRIBUTOR TYPE OF SALE" />
+
+											</div>
+											<div class="colomn-div">
+												<label id="distributor_credit_period_in_days_label">Credit period in days		</label></br>
+												<input type="text" id="distributor_credit_period_in_days" name="distributor_credit_period_in_days"  placeholder="CREDIT PERIOD IN DAYS" />
+
+											</div>
+											<div class="colomn-div">
+												<label id="customer_behaviour_label">Customer behaviour		</label></br>
+												<input type="text" id="customer_behaviour"  name="customer_behaviour"  	placeholder="CUSTOMER BEHAVIOUR" />
+
+											</div>						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    
+										</div>						
+									</div>
+									<div class="clear-fix"></div>
+									<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+											<div colspan="4">BUSINESS STATUS CHECK</div>
+										</div>
+									</div>
+									<div class = "body" id="Status_check">
+										<div class="row-div">
+											<div class="colomn-div">
+												<label id="status_of_business_check_label">Business Status</label></br>
+												<input 	type="radio"	 style="width:10%;" 	id="status_of_business_check" 	name="status_of_business_check"  value="Positive" checked>	Positive	</input>
+												<input 	type="radio"	 style="width:10%;" 	id="status_of_business_check" 	name="status_of_business_check"  value="Negative" >	Negative	</input><font class="mandatory">*</font>
+											</div>
+											<div class="colomn-div">
+												<label id="biz_remarks_label">Remarks</label></br>
+												<input type="text" id="biz_remarks"  name="remarks"  placeholder="REMARKS" /><font class="mandatory">*</font>										
+											</div>							    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    
+										</div>						
+									</div>
+									<!--pane1 ends-->
+									<div class="clear-fix"></div>
+										<div class="row-div">
+										<div class="colomn-div">
+										<div id="shop_photo">			    				
+											<label id="shop_photo_with_the_applicant_label">Shop photo with the applicant-I</label></br>
+											<input  type="file" id="shop_photo_img" name="shop_photo_with_the_applicant" placeholder="SHOP PHOTO WITH THE APPLICANT" style="width:60%;display:inline-block;" /> 
+											<div class="img-input">
+												<img   id="shopPhotoPop" class="file_img" src="" style="float:right;margin-right:20%;"/>
+												<input  type="text" id="applicant_with_shop_photo1"  name="shop_photo_img"  placeholder="SHOP PHOTO WITH THE APPLICANT IMG" style="width:68%;" />
+												<font class="mandatory">*</font>
+									   		</div>	
+										</div>
+										</div>
+										<div class="colomn-div">	
+										<div id="shop_photo">			    				
+											<label id="shop_photo_with_the_applicant_label">Shop photo with the applicant-II</label></br>
+											<input  type="file" id="shop_photo_img1"  name="shop_photo_with_the_applicant1"  placeholder="SHOP PHOTO WITH THE APPLICANT" style="width:60%;display:inline-block;"/> 
+											<div class="img-input">
+												<img   id="shopPhotoPop1" class="file_img" src="" style="float:right;margin-right:20%;"/>
+												<input  type="text" id="applicant_with_shop_photo2"  name="shop_photo_img" placeholder="SHOP PHOTO WITH THE APPLICANT IMG" style="width:68%;"/>
+
+									   		</div>	
+										</div>
+										</div>
+										<div class="colomn-div">	
+										<div id="shop_photo">			    				
+											<label id="shop_photo_with_the_applicant_label">Shop photo with the applicant-III</label></br>
+											<input  type="file" id="shop_photo_img2" name="shop_photo_with_the_applicant2" placeholder="SHOP PHOTO WITH THE APPLICANT" style="width:60%;display:inline-block;"/> 
+											<div class="img-input">
+												<img   id="shopPhotoPop2" class="file_img" src="" style="float:right;margin-right:20%;"/>
+												<input  type="text" id="applicant_with_shop_photo3"  	name="shop_photo_img"  	placeholder="SHOP PHOTO WITH THE APPLICANT IMG" style="width:68%;"/>
+
+									   		</div>	
+										</div>				    									    
+					   				</div>
+					   				</div>
+					   				</div>
+									<div class="clear-fix"></div>
+									<div class="form-group text-center">
+										<div class="form-group text-center">
+											<div class="form-button">
+												<textarea style="margin-top:2%;width:45%;height:20%;background-color:white;font-size: 11px;visibility:hidden;" id="comments" placeholder="Comments" onkeypress="return alpha(event)"></textarea><font class="mandatory">*</font><br>
+												<a href="javascript:void(0)" onclick=' '	 class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+											   	    <i class="icon-entypo-cancel"  style="width:30px;height: 28px;color: white;padding:6px;">	</i>
+													Cancel
+												</a>						
+												<a href="javascript:void(0)" onclick="submitBvrForm();" class="btn btn-red btn-icon icon-left"  style="height:30px;padding-left:40px;">
+											   	     <i class="icon-entypo-check" style="width:30px;height: 28px;color: white;padding:6px; float:left;"></i>
+											   	     Submit
+												</a>
+										   	</div>				
+										</div>
+									<!--End Business details updateDocument-->
+									</div>
+									</div>						
+								</div>
+							</div>							
+						</div><!--right-pane-task-detail End-->							
+						<div class="right-pane-task-document-list comment-min" id="right-pane-task-document-list" style="width:21%;border: 1px solid #981b1b;overflow-Y:scroll;background-color: #f4f4f4;">	
+							<div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;" data-toggle="collapse" data-target="#comment-list-pane">
+								<div class="sub-header" >
+								  	<div colspan="4"><font style="font-size:15px;"> Documents Attached <i class="entypo-attach"></i></font></div>
+								</div>
+							</div>
+							<div  class="document-list-pane" id="document-list-pane" style="background-color:#f4f4f4;"></div>
+						</div>
+						<div class="right-pane-task-comment-list comment-min" id="right-pane-task-comment-list" style="width:21%;overflow-y:auto;height:542.202px;/*margin-top: -37%;width:initial;overflow-Y:scroll;*/">
+							<div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom:1px solid whitesmoke;"  data-target="#comment-list-pane">
+								<div class="sub-header" >
+									<div colspan="4"><font style="font-size:15px;"> Comments <i class="entypo-chat"></i></font></div>
+								</div>
+							</div>
+							<div id="comment-list-pane" class="comment-list-pane" ></div>
+						</div>
+
+					</div>
+				</div>
+		    </div>
+		</form> <!--Form Ends-->
+	</div>
+	<div class="popup"></div>
+	<div class="container">
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog" style="height:100%;">
+				<div class="modal-content">
+			  		<div class="modal-header">
+						<h4 class="modal-title">Please Input the below Mandatory Fields</h4>
+			  		</div>
+			  		<div class="modal-body">
+						<p id="alertContentId" ></p>
+			  		</div>
+			  		<div class="modal-footer">
+						<button type="button" class="btn btn-default"  style="margin-right: 5%;font-weight:bold;" data-dismiss="modal">Close</button>
+			  		</div>
+				</div>
+		  	</div>
+		</div>
+	</div>
+{% include "footer.html" %} 
+</body>
+<script type="text/javascript" src="/static/form/business_verification_form.js"></script> 
+<script type="text/javascript" src="/static/form/commonFunctions.js"></script>
+
+<script type="text/javascript">  
+ 	/*Common Variables*/
+ 	
+ 	function alpha(e) {
+	    var k;
+	    document.all ? k = e.keyCode : k = e.which;
+	    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+	}
+ 	
+	var screenHeight 	 =  $(window).height();
+	var memberdetails 	 = '{{ memberDetails | safe}} ';
+	var member_id		 = "{{ memberId | escapejs }}";
+	var loan_id		 	 = "{{ loanId 	| escapejs }}";	
+	var user_id		 	 = "{{ user 	| escapejs }}";
+	var task_id			 = "{{ taskId 	| escapejs }}";
+	var alf_token		 = "{{ alf_token		| escapejs }}";
+	var processid =  "{{ processId | escapejs }}";
+	var data 		 	 =  memberdetails;
+
+	var d 		= new Date(); // for now
+	var timeIn 	= (d.getHours()+":"+d.getMinutes()).toString();
+
+	if(memberdetails){
+    	    data = JSON.parse(memberdetails);
+	}	
+	var json_data = data;
+	setScreenHeightWithComments();
+	commentsPopUp(json_data);
+    documentsPopUp(json_data);
+	loadData();
+	
+	/*Display the input data from bvr form in a grid*/
+	window.onload = function() {
+		if(data.mlcompositeArray){
+		   
+				var arr	= {};
+				var businessData = {
+					'businessVerificationArray': [{
+						"biz_verification_id" : 2244,
+						"member_id" : 5552,
+						"loan_id" : 10034,
+						"date" : "22-01-2020 ",
+						"branch_name" : "mmfl_Tambaram ",
+						"time_in" : "time_in ",
+						"time_out" : "time_out ",
+						"user_id" : 334,
+
+						"biz_name_of_the_applicant" : "vickram ",
+						"biz_name_of_the_firm" : "neew ",
+						"biz_name_of_the_proprietor" : "santhosh ",
+						"biz_ownership_of_the_premises" : "am ",
+						"biz_rentorlease_amount" : 12,
+						"biz_nature_of_business" : "standard ",
+						"biz_location_of_the_store" : "near mount everest ",
+						"biz_landmark" : "himalayas ",
+						"biz_numberof_years_in_this_location" : 12,
+						"biz_size_of_the_shop" : 21,
+						"biz_products_sold" : 4,
+						"biz_stock_level" : 3,
+						"biz_value_of_stock" : 2,
+						"biz_business_turnover_per_day" : 4,
+
+						"contacted_name_of_the_person_spoken_to" : "contacted_name_of_the_person_spoken_to ",
+						"contacted_relationship_to_the_owner" : "contacted_relationship_to_the_owner ",
+
+						"empwork_number_of_employees" : 5,
+						"empwork_number_of_employees_seen" : 6,
+						"empwork_total_employee_salary_per_month" : 2,
+						"empwork_number_of_working_hours" : 6,
+						"empwork_peak_hour_timing" : 7,
+						"empwork_peak_hour_per_day" :1,
+
+						"bill_value_of_bills_collected" : 6,
+						"bill_period_from" : 9,
+						"bill_period_to" : 0,
+						"bill_number_of_days" : 1,
+
+						"vfc_business_proof_verified" : "vfc_business_proof_verified ", 
+						"vfc_name_board_seen" : "vfc_name_board_seen ",
+
+						 "businessAssetArray":[{
+									"bizast_weighing_scale": "bizast_weighing_scale ",
+									"bizast_photocopier": "bizast_photocopier ",
+									"bizast_freezer": "bizast_freezer ",
+									"bizast_laminating_machine": "bizast_laminating_machine ",
+									"bizast_pco": "bizast_pco ",
+									"bizast_any_other_asset": "bizast_any_other_asset ",
+									}],
+						"familyDetailsArray":[{
+									"family_person": "family_person ",
+									"sex": "sex ",
+									"education": "education ", 
+									"income": 12.4,
+									"remarks": "remarks ",							
+									}],
+
+						"income_agriland" : 45,
+						"income_extend" : 45,
+						"income_crop" : 45,
+						"income_annual_profit" : 45,
+						"income_annual_rentals" : 45,
+						"income_annual_number_of_premises" : 45,
+						"income_annual_rent_received_per_month" : 45,
+
+						"otherBusinessArray":[{
+									"other_name_of_the_firm": "other_name_of_the_firm ",
+									"other_firm_type": "other_firm_type ",
+									"other_firm_profit": 339,
+									"other_firm_products_sold": 23,
+									}],
+
+						"otherLoansArray":[{
+									"other_loan_type": "other_loan_type ",
+									"other_loan_company": "other_loan_company ",
+									"other_loan_emi": 23,
+									"other_loan_tenure": 33,
+									"other_loan_month_balance": 44,
+									"other_loan_remarks": "other_loan_remarks ",
+									"enduser_of_the_loan": "enduser_of_the_loan ",
+									"Value_of_sale_during_pd": "Value_of_sale_during_pd ",
+									}],
+
+						"distributorReferenceArray":[{
+										"distributor_name": "distributor_name ",
+										"distributor_address": "distributor_address ",
+										"distributor_phoneno": 44,
+										"name_of_the_person_spoken_to": "name_of_the_person_spoken_to ",
+										"distributor_supplied_products": "distributor_supplied_products ",
+										"relationship_in_years": 99,
+										"distributor_supplies_mon_avg": 22,
+										"distributor_type_of_sale": "distributor_type_of_sale ",
+										"distributor_credit_period_in_days": 44,
+										"customer_behaviour": "cusomer ",
+										"shop_photo_with_the_applicant":" "
+									}]
+
+				}]};
+
+				var obj = businessData.businessVerificationArray[0];
+				for(var key in obj){      	     								// Looping through the Json object  
+					arr[key]=obj[key];
+					if(document.getElementById(key)){						// Checking whether the element exists in DOM 
+					
+						document.getElementById(key).value=obj[key];  				// Assigning the value to the element	
+					}
+					if(arr[key] != null && typeof(arr[key])==='object'){				// Checking whether the value of key is object  
+						var obj1=arr[key];
+						var keys=Object.keys(obj1);
+						for(var i=0;i<keys.length;i++){						//Looping till the length of inner array of objects in JSON   
+						
+							var obj2=obj1[i];
+							for(var key1 in obj2){						// Looping through each and every array of object  
+								if(document.getElementById(key1)){		// Checking whether the element exists in DOM 
+									document.getElementById(key1).value=obj2[key1];	// Assigning the value to the element	
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+</script>
+
+</html>

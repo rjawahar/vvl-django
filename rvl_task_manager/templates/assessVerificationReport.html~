@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+    <link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+
+    <!-- Madura css -->
+    <link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css" id="style-resource-2">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic" id="style-resource-3">
+    <link rel="stylesheet" href="/static/css/neon-core-min.css" id="style-resource-5">
+    <link rel="stylesheet" href="/static/css/neon-theme-min.css" id="style-resource-6">
+    <!--<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">-->
+    <link rel="stylesheet" href="/static/css/jalert.css">
+    <link rel="stylesheet" href="/static/css/form.css">
+    <link rel="stylesheet" href="/static/css/BVR_form.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link type="text/css" href="/static/css/jquery-confirm.css" rel="stylesheet"  />
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>
+    <!-- Main Library js-->
+    <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+    <!-- Main Library js-->
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+    <!-- Bootstrap js-->
+    <script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+    <script type="text/javascript" src="/static/js/crossfilter.js"></script>
+<script type="text/javascript" src="/static/js/jquery-confirm.js"></script>
+    
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="navbar navbar-fixed-top">
+        {% include "header.html" %}
+    </div>
+    <div class="main">
+        <div class="task-div">
+            <div class="main-task">
+                <div class="right-pane-task" id="right-pane-task" style="width:99%;padding-top:8px; ">
+                    <div id="tabs">
+                        <ul id="form-tab">
+                            <li><a href="#pane1">Business Verification Report</a>
+                            </li>
+                            <li><a href="#pane2">Residence Verification Report</a>
+                            </li>
+                            <li style="float:right;list-style-type:none;">
+                                <span class="document-toggle" style="float:right;display:inline-block;padding-bottom:10px;cursor:pointer;"><i class="entypo-attach"></i>Documents</span>
+                            </li>
+                            <li style="float:right;">
+                                <span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;cursor:pointer;"><i class="entypo-chat"></i> Comments</span>
+                            </li>
+                        </ul>
+                        <div id="commentsModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close">x</span>
+                                <p> <strong><i class="entypo-chat">COMMENTS	</i></strong>
+                                </p>
+                                <div class="modal-body" id="commentsTab">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="documentsModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close">x</span>
+                                <p> <strong><i class="entypo-attach">DOCUMENTS ATTACHED</i></strong>
+                                </p>
+                                <div class="modal-body" id="documentsTab">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right-pane-task-detail detail-max" id="right-pane-task-detail">
+                            <div class="Business-Verification-details">
+                                <div class="tab-content span5">
+                                    <!-- for tab -->
+                                    <!--Tab pane1 start-->
+                                    <div id="pane1" class="tab-pane">
+                                        <!-- for tab -->
+                                        <div width="100%">
+                                            <div class="main-pane-info-outer">
+                                                <div class="main-pane-info">
+                                                    <div class="head-main-pane" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                        <div class="sub-header" data-toggle="collapse" data-target="#basic_information" class="accordion-toggle">
+                                                            <div colspan="4"> Applicant's Information </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="body-bussiness" id="mmfl">
+                                                        <div class="row-div-bussiness">
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Member ID</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="memberid_biz" name="memberid" placeholder="Member ID"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Loan ID</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="loanid_biz" name="loanid" placeholder="Loan ID"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Applicant Name </label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="applicant_name_biz" name="applicant_name" class="applicant_name" placeholder="Applicant Name "></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Resident Address</label>
+                                                                <font class="font_colon">:</font>
+                                                                <div class="colomn-div" style="width:40%;padding-left:initial;">
+                                                                    <font id="current_address_biz" name="current_address" placeholder="RESIDENT ADDRESS"></font>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label> Living with</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="live_with_biz" name="live_with" placeholder="Living with"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label> Mobile Number </label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="mobile_number_biz" name="mobile_number" placeholder="Mobile Number"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label> Number of Children </label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="no_of_children_biz" name="no_of_children" placeholder="Number of Children"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Business Address</label>
+                                                                <font class="font_colon">:</font>
+                                                                <div class="colomn-div" style="width:40%;padding-left:initial;">
+                                                                    <font id="business_address_biz" name="business_address"></font>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Office No</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="biz_office_address_mobile_number_biz" name="biz_office_address_mobile_number" placeholder="MOBILE NUMBER" />
+                                                                </font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Nature Of Business</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="biz_nature_biz" name="biz_nature" placeholder="APPLICATION ID"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>No of Years in Business</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="biz_no_of_yrs_biz" name="biz_no_of_yrs" placeholder="MEMBER ID"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Location of Business </label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="biz_location_biz" name="biz_location" placeholder="LOAN ID"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Rent Paid Per Month </label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="rent_pay_month_biz" name="rent_pay_month" placeholder="DDMMYYYY"></font>
+                                                            </div>
+                                                        </div>
+                                                        <!--Close of business-info-outer-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--For next grid-->
+                                            <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                <div class="sub-header" data-toggle="collapse" data-target="#proof_information" class="accordion-toggle">
+                                                    <div colspan="4"> BUSINESS DETAILS </div>
+                                                </div>
+                                            </div>
+                                            <div class="body" id="business_details">
+                                                <div class="row-div">
+                                                    <div class="colomn-div">
+                                                        <label>Name of the applicant</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_name_of_the_applicant"></font>
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Name of the firm</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_name_of_the_firm"></font>
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Name of the properitor</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_name_of_the_proprietor"></font>
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Ownership of the permises</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_ownership_of_the_premises"></font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Rent/lease amount</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_rentorlease_amount"></font>
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Nature of the Business</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_nature_of_business"></font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Location of the store</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_location_of_the_store"></font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Landmark</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_landmark"></font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>No.of years in this location</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_numberof_years_in_this_location"></font>
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Size of the shop</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_size_of_the_shop"></font>
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Products sold</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_products_sold"></font>
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Stock Level</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_stock_level"></font>
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Value of the Stock</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_value_of_stock"></font>
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    <div class="colomn-div">
+                                                        <label>Business turnover per day</label>
+                                                        <font class="font_colon">:</font>
+                                                        <font id="biz_business_turnover_per_day"></font>
+                                                    </div>
+                                                </div>
+                                                <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                        <div colspan="4">CONTACTED PERSON</div>
+                                                    </div>
+                                                </div>
+                                                <div class="body" id="contact_person">
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label>Name of the person spoken to</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="contacted_name_of_the_person_spoken_to"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Relationship to the owner</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="contacted_relationship_to_the_owner"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#Employees_and_working_ hours " class="accordion-toggle">
+                                                        <div colspan="4">EMPLOYEES AND WORKING HOURS</div>
+                                                    </div>
+                                                </div>
+                                                <div class="body" id="Employees_work_hours">
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label>No.of employees</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="empwork_number_of_employees"></font >
+													</div>
+													<div class="colomn-div">
+													  	<label>No. of employees seen</label>
+													  	<font class="font_colon">:</font>
+                                                            <font id="empwork_number_of_employees_seen"></font >
+													</div>
+													<div class="colomn-div">
+													  	<label>Total Employee salary per month</label>
+													  	<font class="font_colon">:</font>
+                                                            <font id="empwork_total_employee_salary_per_month"></font >
+													</div>
+													<div class="colomn-div">
+													  	<label>No. of working hours</label>
+													  	<font class="font_colon">:</font>
+                                                            <font id="empwork_number_of_working_hours"></font >
+													</div>
+													<div class="colomn-div">
+													  	<label>Peak hour timing</label>
+													  	<font class="font_colon">:</font>
+                                                            <font id="empwork_peak_hour_timing"></font >
+													</div>
+													<div class="colomn-div">
+														 <label>Peak hour per day</label>
+														 <font class="font_colon">:</font>
+                                                            <font id="empwork_peak_hour_per_day"></font >
+														</div>
+													</div>
+												</div>
+												<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+												  	<div class="sub-header"  data-toggle="collapse" data-target="#Employees_and_working_ hours " class="accordion-toggle">
+														<div colspan="4">BILL DETAILS</div>
+												  	</div>
+												</div>
+												<div class = "body" id="Bill_details">
+												  	<div class="row-div">
+														<div class="colomn-div">
+															<label>Value of bills collected</label>
+															<font class="font_colon">:</font>
+                                                            <font id="bill_value_of_bills_collected"></font >
+							    						<font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Bill period from</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="bill_period_from"></font >
+							    							<font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Bill period to</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="bill_period_to"></font >
+							    							<font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>No. of days</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="bill_number_of_days"></font >
+						  	 							   <font class="mandatory">*</font>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                        <div colspan="4">VERIFICATION</div>
+                                                    </div>
+                                                </div>
+                                                <div class="body" id="Verification">
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label>Business proof Verified</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="vfc_business_proof_verified"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Name board seen</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="vfc_name_board_seen"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                        <div colspan="4">BUSINESS ASSET</div>
+                                                    </div>
+                                                </div>
+                                                <div class="body" id="Business_Asset">
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label>Weighing scale</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="bizast_weighing_scale"></font >
+														</div>
+														<div class="colomn-div">
+														  	<label>Photocopier</label>
+														 	<font class="font_colon">:</font>
+                                                            <font id="bizast_photocopier"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Freezer</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="bizast_freezer"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Laminating machine</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="bizast_laminating_machine"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>PCO</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="bizast_pco"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Any other Asset</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="bizast_any_other_asset"></font>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                        <div colspan="4">FAMILY DETAILS</div>
+                                                    </div>
+                                                </div>
+                                                <div class="body" id="Family details ">
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label>Person</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="family_person"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Sex</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="sex"></font >
+														</div>
+														<div class="colomn-div">
+															<label>Education</label>
+															<font class="font_colon">:</font><font id="education"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Income</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="income"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Remarks</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="remarks"></font>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                        <div colspan="4">OTHER SOURCE OF INCOME</div>
+                                                    </div>
+                                                </div>
+                                                <div class="body" id="Other_source_of_Income ">
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label>Agri Land</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="income_agriland"></font >
+														</div>
+														<div class="colomn-div">
+															<label>Extent</label>
+															<font class="font_colon">:</font>
+                                                            <font id="income_extend" name="income_extend" placeholder="EXTENT" /></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Crop</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="income_crop"></font >
+														</div>
+														<div class="colomn-div">
+															<label>Annual profit</label>
+															<font class="font_colon">:</font>
+                                                            <font id="income_annual_profit"></font >
+														</div>
+														<div class="colomn-div">
+															<label>Rental's</label>
+															<font class="font_colon">:</font>
+                                                            <font id="income_annual_rentals"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>No. of premises</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="income_annual_number_of_premises"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Rent received per month</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="income_annual_rent_received_per_month"></font>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                        <div colspan="4">OTHER BUSINESS</div>
+                                                    </div>
+                                                </div>
+                                                <div class="body" id="Other_Business">
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label>Name of firm</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="other_name_of_the_firm"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Type</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="other_firm_type"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Profit</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="other_firm_profit"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Products sold</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="other_firm_products_sold"></font>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                        <div colspan="4">OTHER LOANS</div>
+                                                    </div>
+                                                </div>
+                                                <div class="body" id="Other_loans ">
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label>Type of loan</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="other_loan_type"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Company</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="other_loan_company"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>EMI</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="other_loan_emi"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Tenure</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="other_loan_tenure"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Balance month</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="other_loan_month_balance"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Remarks</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="other_loan_remarks"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>End use of the loan</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="enduser_of_the_loan"></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Value of sale during PD</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="Value_of_sale_during_pd"></font>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                        <div colspan="4">DISTRIBUTOR REFERENCE CHECK</div>
+                                                    </div>
+                                                </div>
+                                                <div class="body" id="Distributor_reference_check">
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label>Distributor Name</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="distributor_name"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Address of the disbributor</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="distributor_address"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Phone No.</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="distributor_phoneno"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Name of the person spoken to</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="name_of_the_person_spoken_to"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Products supplied</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="distributor_supplied_products" name="distributor_supplied_products" placeholder="PRODUCT SUPPLIED" /></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Relationship in years</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="relationship_in_years" name="relationship_in_years" placeholder="RELATIONSHIP" /></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Avg. monthly supplies</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font type="text" id="distributor_supplies_mon_avg" name="distributor_supplies_mon_avg" placeholder="AVG. MONTHLY SUPPLIES" /></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Type of sale</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="distributor_type_of_sale" name="distributor_type_of_sale" placeholder="DISTRIBUTOR TYPE OF SALE" /></font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Credit period in days</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="distributor_credit_period_in_days" name="distributor_credit_period_in_days" placeholder="CREDIT PERIOD IN DAYS" /></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label>Customer behaviour</label>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="customer_behaviour" name="customer_behaviour" placeholder="CUSTOMER BEHAVIOUR" /></font>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+                                                        <div colspan="4">BUSINESS STATUS CHECK</div>
+                                                    </div>
+                                                </div>
+                                                <div class="body" id="Status_check">
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label id="status_of_business_check_label">Business Status</label>
+                                                            </br>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="status_of_business_check" name="status_of_business_check" placeholder="STATUS BUSINESS CHECK" /></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label id="remarks">Remarks</label>
+                                                            </br>
+                                                            <font class="font_colon">:</font>
+                                                            <font id="biz_remarks" name="biz_remarks" placeholder="REMARKS" /></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row-div">
+                                                    <div class="colomn-div" id="shopPhoto1" style="display:none;">
+                                                        <label>Shop photo with the Applicant-I</label><font id="colon">:</font>
+                                                        <img id="shop-photo-img" class="file_img" src="" />
+                                                    </div>
+                                                    <div class="colomn-div" id="shopPhoto2" style="display:none;">
+                                                        <label>Shop photo with the Applicant-II</label><font id="colon">:</font>
+                                                        <img id="shop-photo-img1" class="file_img" src="" />
+
+                                                    </div>
+                                                    <div class="colomn-div" id="shopPhoto3" style="display:none;">
+                                                        <label>Shop photo with the Applicant-III</label><font id="colon">:</font>
+                                                        <img id="shop-photo-img2" class="file_img" src="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--pane1 close-->
+                                    <!-- Tab pane 2 start-->
+                                    <div id="pane2" class="tab-pane  active">
+                                        <div width="100%">
+                                            <div class="main-pane-info-outer">
+                                                <div class="main-pane-info">
+                                                    <div class="head-main-pane" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+                                                        <div class="sub-header" data-toggle="collapse" data-target="#basic_information" class="accordion-toggle">
+                                                            <div colspan="4"> Applicant's Information </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="body-main-pane" id="mmfl">
+                                                        <div class="row-div-main-pane">
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Member ID</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="memberid_res" name="memberid" placeholder="Member ID"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Loan ID</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="loanid_res" name="loanid" placeholder="Loan ID"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Applicant Name</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="applicant_name_res" name="applicant_name" class="applicant_name" placeholder="Applicant Name "></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Resident Address</label>
+                                                                <font class="font_colon">:</font>
+                                                                <div class="colomn-div" style="width:40%;padding-left:initial;">
+                                                                    <font id="current_address_res" name="current_address" placeholder="RESIDENT ADDRESS"></font></div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label> Living with</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="live_with_res" name="live_with" placeholder="Living with"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label> Mobile Number</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="mobile_number_res" name="mobile_number" placeholder="Mobile Number"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label> Number of Children</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="no_of_children_res" name="no_of_children" placeholder="Number of Children"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Business Address </label>
+                                                                <font class="font_colon">:</font>
+                                                                <div class="colomn-div" style="width:40%;padding-left:initial;">
+                                                                    <font id="business_address_res" name="business_address"></font>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Office No</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="biz_office_address_mobile_number_res" name="biz_office_address_mobile_number" placeholder="MOBILE NUMBER" /></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Nature Of Business</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="biz_nature_res" name="biz_nature" placeholder="APPLICATION ID"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>No of Years in Business</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="biz_no_of_yrs_res" name="biz_no_of_yrs" placeholder="MEMBER ID"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label>Location of Business</label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="biz_location_res" name="biz_location" placeholder="LOAN ID"></font>
+                                                            </div>
+                                                            <div class="colomn-div-bussiness">
+                                                                <label> Rent Paid Per Month </label>
+                                                                <font class="font_colon">:</font>
+                                                                <font id="rent_pay_month_res" name="rent_pay_month" placeholder="DDMMYYYY"></font>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="residence-details">
+                                                <div class="tab-content span5">
+                                                    <!-- for tab -->
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#mmfl-info" class="accordion-toggle">MMFL DETAILS </div>
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label> Applicant ID </label>
+                                                            <font>:</font>
+                                                            <font type="text" id="member_id" name="member_id" placeholder="APPLICANT ID">	</font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label> Reference No. </label>
+                                                            <font>:</font> <font type="text" id="loan_id" name="loan_id" placeholder="REFERENCE NO">	</font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label> Date </label>
+                                                            <font>:</font>
+                                                            <font type="date" id="date" name="date"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label> MMFL Branch Name </label>
+                                                            <font>:</font>
+                                                            <font type="text" id="branch_name" name="branch_name" placeholder="BRANCH NAME" /> </font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label> User ID </label> <font>:</font>
+                                                            <font type="text" id="user_id" name="user_id" placeholder="USER ID">	</font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#contacted-person-info" class="accordion-toggle">CONTACTED PERSON DETAILS </div>
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label> Name of the Person Contacted </label>
+                                                            <font>:</font> <font type="text" id="name_of_the_person_spoken_to" name="name_of_the_person_spoken_to" placeholder="CONTACTED PERSON NAME">		</font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label> Relationship with Applicant </label>
+                                                            <font>:</font>
+                                                            <font type="text" id="relationship_to_the_owner" name="relationship_to_the_owner" placeholder="RELATIONSHIP WITH APPLICANT"></font>
+                                                            <font class="mandatory">*</font>
+
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label> Time In </label>
+                                                            <font>:</font>
+                                                            <font type="time" id="time_in" name="time_in"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label> Time Out </label>
+                                                            <font>:</font>
+                                                            <font type="time" id="time_out" name="time_out"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#verification-info" class="accordion-toggle">VERIFICATION INFO</div>
+                                                    <div class='colomn-div'>
+                                                        <label> Resident Address </label>
+                                                        <font>:</font>
+                                                        <font type="text" id="address" name="address" placeholder="RESIDENT ADDRESS" style="height:40px;width:40%"></font>
+                                                        <font class="mandatory">*</font>
+                                                    </div>
+                                                    </br>
+                                                    <div class="row-div">
+                                                        <div class="colomn-div" style="width:45%;">
+                                                            <label> Confirmation from the Contacted Person that the Applicant stays in the above address </label>
+                                                            <font>:</font>
+                                                            <font id="addres_conformation" name="addres_conformation"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div" style="width:45%;">
+                                                            <label> Address Proof Verified </label> <font>:</font>
+                                                            <font id="addres_proof_shown" name="addres_proof_shown"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="sub-header" data-toggle="collapse" data-target="#residential-info" class="accordion-toggle">RESIDENTIAL INFORMATION</div>
+                                                    <div class="row-div">
+                                                        <div class="colomn-div">
+                                                            <label> Residence Ownership </label>
+                                                            <font>:</font>
+                                                            <font type="text" id="residence_ownership" name="residence_ownership" placeholder="RESIDENCE OWNER NAME"></font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="colomn-div">
+                                                            <label> Years Stayed in the Address </label>
+                                                            <font>:</font>
+                                                            <font type="text" id="years_in_the_address" name="years_in_the_address" placeholder="YEARS STAYED IN THE ADDRESS">	</font>
+                                                            <font class="mandatory">*</font> </div>
+                                                        <div class="colomn-div">
+                                                            <label> Living with Family </label>
+                                                            <font>:</font>
+                                                            <font id="living_with_family" name="living_with_family"> </font>
+                                                            <font class="mandatory">*</font>
+                                                        </div>
+                                                        <div class="row-div">
+                                                            <div class="colomn-div">
+                                                                <label> No. of People Living </label>
+                                                                <font>:</font> <font type="text" id="number_of_people_living" name="number_of_people_living" placeholder="NO. OF PEOPLE LIVING"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Approachability </label>
+                                                                <font>:</font> <font type="text" id="approachability" name="approachability" placeholder="APPROACHABILITY"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Type of House </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="type_of_house" name="type_of_house" placeholder="TYPE OF HOUSE"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> No. of Rooms </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="number_of_rooms" name="number_of_rooms" placeholder="NO. OF ROOMS"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row-div">
+                                                            <div class="colomn-div">
+                                                                <label> Roofing </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="roofing" name="roofing" placeholder="ROOFING"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Interior Wall </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="interior_wall" name="interior_wall" placeholder="INTERIOR WALL"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Furnishing </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="furnishing" name="furnishing" placeholder="FURNISHING">		</font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Type of Flooring </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="type_of_flooring" name="type_of_flooring" placeholder="TYPE OF FLOORING">	</font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row-div">
+                                                            <div class="colomn-div">
+                                                                <label> Vehicles Owned </label>
+                                                                <font>:</font>
+                                                                <font id="vehicles_owned" name="vehicles_owned"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Household Items Visible </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="household_items_visible" name="household_items_visible" placeholder="HOUSEHOLD ITEMS VISIBLE">	</font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Residence in Negative Area </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="residence_in_negative_area" name="residence_in_negative_area" placeholder="RESIDENCE IN NEG AREA"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row-div">
+                                                            <div class="colomn-div">
+                                                                <label> Area </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="area" name="area" placeholder="AREA"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Locality </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="locality" name="locality" placeholder="LOCALITY">	</font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Landmark </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="landmark" name="landmark" placeholder="LANDMARK">	</font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                        </div>
+                                                        </br>
+                                                        <div class="sub-header" data-toggle="collapse" data-target="#neighbour-verification" class="accordion-toggle"> NEIGHBOUR VERIFICATION </div>
+                                                        <div class="sub-sub-header" data-toggle="collapse" data-target="#neighbour-verification" class="accordion-toggle" align="center"> <strong> CHECK 1</strong>
+                                                        </div>
+                                                        <div class="row-div">
+                                                            <div class="colomn-div">
+                                                                <label> Name </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="name_1" name="name_1" placeholder="NAME"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Address </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="address_1" name="address_1" placeholder="ADDRESS"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Phone Number </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="phone_number_1" name="phone_number_1" placeholder="PHONE NO">	</font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row-div">
+                                                            <div class="colomn-div">
+                                                                <label> Known Each Other </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="known_each_other_1" name="known_each_other_1" placeholder="KNOWN EACH OTHER"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Behaviour of the Customer </label>
+                                                                <font>:</font> <font type="text" id="behaviour_of_the_customer_1" name="behaviour_of_the_customer_1" placeholder="BEHAVIOUR OF CUSTOMER">		</font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Financial Status of the Customer </label>
+                                                                <font>:</font> <font type="text" id="financial_status_of_the_customer_1" name="financial_status_of_the_customer_1" placeholder="FINANCIAL STATUS OF CUSTOMER">	</font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Any Other Information </label>
+                                                                <font>:</font> <font type="text" id="any_other_information_1" name="any_other_information_1" placeholder="ANY OTHER INFORMATION">		</font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="sub-sub-header" data-toggle="collapse" data-target="#neighbour-verification" class="accordion-toggle" align="center"><strong> CHECK 2</strong>
+                                                        </div>
+                                                        <div class="row-div">
+                                                            <div class="colomn-div">
+                                                                <label> Name </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="name_2" name="name_2" placeholder="NAME">	</font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Address </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="address_2" name="address_2" placeholder="ADDRESS"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Phone Number </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="phone_number_2" name="phone_number_2" placeholder="PHONE NO"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row-div">
+                                                            <div class="colomn-div">
+                                                                <label> Known Each Other </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="known_each_other_2" name="known_each_other_2" placeholder="KNOWN EACH OTHER"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Behaviour of the Customer </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="behaviour_of_the_customer_2" name="behaviour_of_the_customer_2" placeholder="BEHAVIOUR OF CUSTOMER"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Financial Status of the Customer </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="financial_status_of_the_customer_2" name="financial_status_of_the_customer_2" placeholder="FINANCIAL STATUS OF CUSTOMER">	
+                                                                </font> <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Any Other Information </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="any_other_information_2" name="any_other_information_2" placeholder="ANY OTHER INFORMATION"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                        </div>
+                                                        </br>
+                                                        <div class="sub-header" data-toggle="collapse" data-target="#neighbour-verification" class="accordion-toggle"> STATUS AND REMARKS</div>
+                                                        <div class="row-div">
+                                                            <div class="colomn-div">
+                                                                <label> Status of Residence Check </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="status_of_residence_check" name="status_of_residence_check" placeholder="STATUS OF RESIDENCE CHECK"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Status of Neighbour Check </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="status_of_neighbor_check" name="status_of_neighbor_check" placeholder="STATUS OF NEIGHBOUR CHECK"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> OverAll Status </label>
+                                                                <font>:</font>
+                                                                <font id="overall_status" name="overall_status">  </font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="colomn-div">
+                                                                <label> Remarks if any </label>
+                                                                <font>:</font>
+                                                                <font type="text" id="remarks_if_any" name="remarks_if_any" placeholder="REMARKS IF ANY"></font>
+                                                                <font class="mandatory">*</font>
+                                                            </div>
+                                                            <div class="row-div">
+                                                                <div class="colomn-div">
+                                                                    <label> Finance Executive Details </label>
+                                                                    <font>:</font>
+                                                                    <font type="text" id="fi_executive_details" name="fi_executive_details" placeholder="FINANCE EXECUTIVE DETAILS"></font>
+                                                                    <font class="mandatory">*</font>
+                                                                </div>
+                                                                <div class="colomn-div">
+                                                                    <label> Finance Executive Name </label>
+                                                                    <font>:</font>
+                                                                    <font type="text" id="name" name="name" placeholder="FINANCE EXECUTIVE NAME"></font>
+                                                                    <font class="mandatory">*</font>
+                                                                </div>
+                                                                <div class="colomn-div">
+                                                                    <label> Time of Visit </label>
+                                                                    <font>:</font>
+                                                                    <font type="time" id="time_of_visit" name="time_of_visit">	</font>
+                                                                    <font class="mandatory">*</font>
+                                                                </div>
+                                                            </div>
+                                                            </br>
+                                                            <div class="row-div">
+                                                                <div class="colomn-div" id="resPhoto1" style="display:none;">
+                                                                    <label> Residence Photo with Applicant-I </label>
+                                                                    <font>:</font>
+                                                                    <img id="res-photo-pop" class="file_img" src="" />
+                                                                </div>
+                                                                <div class="colomn-div" id="resPhoto2" style="display:none;">
+                                                                    <label> Residence Photo with Applicant-II </label>
+                                                                    <font>:</font>
+                                                                    <img id="res-photo-pop1" class="file_img" src="" />
+                                                                </div>
+                                                                <div class="colomn-div" id="resPhoto3" style="display:none;">
+                                                                    <label> Residence Photo with Applicant-III </label>
+                                                                    <font>:</font>
+                                                                    <img id="res-photo-pop2" class="file_img" src="" />
+                                                                </div>
+                                                                <div class="colomn-div"></div>
+                                                            </div>
+                                                            </br>
+                                                            </br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Tab pane 2-->
+                                </div>
+                                <!-- tab span 5 -->
+                            </div>
+                            <!-- Business verification details -->
+                            <div class="form-group text-center">
+                                <div class="">
+                                    <div class="colomn-div-footer" id="colomn-div-footer">
+                                        <textarea style="width:90%;height:20%;background-color:white;font-size: 11px;" id="comments" placeholder="Comments"></textarea><font class="mandatory">*</font>
+                                        <div style="padding-top:1%;border: 1px solid #AB5E5E">
+                                            <div class="colomn-div" style="width:100%;">
+                                                <div class="colomn-div-inline-row" style="width:62%;">
+                                                    <font>Name</font>
+                                                </div>
+                                                <div class="colomn-div-inline-row" style="width:15%;">
+                                                    <font>Rework</font>
+                                                </div>
+                                                <div class="colomn-div-inline-row" style="width:15%;">
+                                                    <font>Approved</font>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="colomn-div" style="width:100%;">
+                                                <div class="colomn-div-inline-row" style="width:62%;">
+                                                    <label style="width:60%;">Resident Verification </label>
+                                                </div>
+                                                <div class="colomn-div-inline-row" style="width:15%;">
+                                                    <input type="radio" name="Resident" style="width:10px;" value="Rework" checked>
+                                                </div>
+                                                <div class="colomn-div-inline-row" style="width:15%;">
+                                                    <input type="radio" name="Resident" style="width:10px;" value="Approved">
+                                                </div>
+                                            </div>
+                                            <div class="colomn-div" style="width:100%;">
+                                                <div class="colomn-div-inline-row" style="width:62%;">
+                                                    <label style="width:60%;">Business Verification</label>
+                                                </div>
+                                                <div class="colomn-div-inline-row" style="width:15%;">
+                                                    <input type="radio" name="Business" style="width:10px;" value="Rework" checked>
+                                                </div>
+                                                <div class="colomn-div-inline-row" style="width:15%;">
+                                                    <input type="radio" name="Business" style="width:10px;" value="Approved">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="padding-top:1%;">
+                                            <a href="javascript:void(0)" onclick='window.location="/tasks/"' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;margin-bottom: 5px;margin-top: 5px;">
+                                                <i class="icon-entypo-cancel" style="width:30px;height: 28px;color: white;padding:6px;"></i> Cancel
+                                            </a>
+                                            <a href="javascript:void(0)" onclick="submitProcessFormAssessVerification();" class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;margin-bottom: 5px;margin-top: 5px;">
+                                                <i class="icon-entypo-check" style="width:30px;height: 28px;color: white;padding:6px;"></i> Submit
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-pane-task-document-list comment-min" id="right-pane-task-document-list" style="width:21%;border: 1px solid #981b1b;overflow-Y:scroll;background-color: #f4f4f4;">
+                        <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;" data-toggle="collapse" data-target="#comment-list-pane">
+                            <div class="sub-header">
+                                <div colspan="4"><font style="font-size:15px;"> Documents Attached <i class="entypo-attach"></i></font>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="document-list-pane" id="document-list-pane" style="background-color:#f4f4f4;"></div>
+                    </div>
+                    <div class="right-pane-task-comment-list comment-min" id="right-pane-task-comment-list" style="width:21%;overflow-Y:scroll;">
+                        <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom:1px solid whitesmoke;" data-target="#comment-list-pane">
+                            <div class="sub-header">
+                                <div colspan="4"><font style="font-size:15px;"> Comments <i class="entypo-chat"></i></font>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="comment-list-pane" class="comment-list-pane"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--main tab-->
+        <div class="popup"></div>
+        {% include "footer.html" %}
+</body>
+<script type="text/javascript" src="/static/form/masterData.js"></script>
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script>
+<script type="text/javascript" src="/static/form/commonFunctions.js"></script>
+<script>
+        
+        var data 	= '{{memberDetails	| safe	   }}';
+        var member_id 	= "{{ memberId 		| escapejs }}";
+        var loan_id 	= "{{ loanId 		| escapejs }}";
+        var user_id = "{{ user 			| escapejs }}";
+        var task_id = "{{ taskId 		| escapejs }}";
+        var processid = "{{processId		| safe	   }}";
+        var alf_token = "{{ alf_token		| escapejs }}";
+        var allData = (JSON.parse(data));
+	var json_data = allData;
+	setScreenHeightWithComments();
+	commentsPopUp(json_data);
+	documentsPopUp(json_data);
+        setTimeout(paintAssessVerificationData, 500);
+    </script>
+</html>

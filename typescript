@@ -1,0 +1,507 @@
+Script started on Sat 05 Nov 2016 01:00:49 PM UTC
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# exit[Csudo exitservice taskManagerApp startexit[Kservice taskManagerApp start[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksudo nano /etc/init/taskManagerApp.conf
+[?1049h[1;44r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                                     File: /etc/init/taskManagerApp.conf                                                                                [3;1H(B[0m[36m#!/bin/bash[4d# All other lines should follow this one.[6d### BEGIN INIT INFO[7d# Provides:          scriptname[8d# Required-Start:    $remote_fs $syslog[9d# Required-Stop:     $remote_fs $syslog[10d# Default-Start:     2 3 4 5[11d# Default-Stop:      0 1 6[12d# Short-Description: Start daemon at boot time[13d# Description:       Enable service provided by daemon.[14d### END INIT INFO[16d[39m(B[mdescription (B[0;1m[33m"uWSGI instance to serve taskManagerApp"[18d[39m(B[mstart on runlevel [32m[[39m(B[m2345[32m][19d[39m(B[mstop on runlevel [32m[![39m(B[m2345[32m][21d[36m#setuid root[22d#setgid root[24d[39m(B[mscript[25d(B[0;1m[34mcd[39m(B[m /opt/task_manager/[26;5H. taskManagerEnv/bin/activate[27;5Huwsgi --die-on-term --ini ./conf/taskManagerUwsgi.ini[28dend script[42;76H(B[0;7m[ Read 26 lines ][43d^G(B[m Get Help[43;29H(B[0;7m^O(B[m WriteOut[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[43;141H(B[0;7m^C(B[m Cur Pos[44d(B[0;7m^X(B[m Exit[44;29H(B[0;7m^J(B[m Justify[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[14d[15d[16d[17d[18d[19d[20d[21d[22d[23d[24d[25d[26d[27d [42d[K[27d    uwsgi[1;159H(B[0;7mModified[27;10H(B[m  --die-on-term --ini ./conf/taskManagerUwsgi.ini[27;11H- --die-on-term --ini ./conf/taskManagerUwsgi.ini[27;12H-- --die-on-term --ini ./conf/taskManagerUwsgi.ini[27;13Hm --die-on-term --ini ./conf/taskManagerUwsgi.ini[27;14Ha --die-on-term --ini ./conf/taskManagerUwsgi.ini[27;15Hs --die-on-term --ini ./conf/taskManagerUwsgi.ini[27;16Ht --die-on-term --ini ./conf/taskManagerUwsgi.ini[27;17He --die-on-term --ini ./conf/taskManagerUwsgi.ini[27;18Hr --die-on-term --ini ./conf/taskManagerUwsgi.ini[27;19H[42d(B[0;7mFile Name to Write: /etc/init/taskManagerApp.conf                                                                                                                       [43;29H(B[m[14X[43;43H(B[0;7mM-D(B[m DOS Format            [43;85H(B[0;7mM-A(B[m Append  [43;113H[14X[43;127H(B[0;7mM-B(B[m Backup File[K[44;2H(B[0;7mC(B[m Cancel[44;29H[14X[44;43H(B[0;7mM-M(B[m Mac Format           [44;85H(B[0;7mM-P(B[m Prepend[K[42;50H[1;159H[39;49m(B[0;7m        [42;75H(B[m[1K (B[0;7m[ Wrote 26 lines ](B[m[K[43;29H(B[0;7m^O(B[m WriteOut[17X[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[17X[43;141H(B[0;7m^C(B[m Cur Pos[44;2H(B[0;7mX(B[m Exit  [44;29H(B[0;7m^J(B[m Justify[18X[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[27;19H[43d[J[44;168H[44;1H[?1049l[?1l>]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo nano /etc/init/taskManagerApp.confexit[Ksudo exitservice taskManagerApp start
+taskManagerApp start/running, process 20558
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp startnano /etc/init/taskManagerApp.confexit[Ksudo exitservice taskManagerApp starttusdeactivate [K[6Pclearps -ef | grep uwsgi
+root     20563     1  3 13:01 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20567 20563  0 13:01 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20568 20563  0 13:01 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20570 20563  0 13:01 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20571 20563  0 13:01 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20576 20535  0 13:01 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# kill -9 20563
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# kill -9 20563ps -ef | grep uwsgi
+root     20578 20535  0 13:01 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     20580 20535  0 13:01 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi[6Pkill -9 20563ps -ef | grep uwsgisudo service taskManagerApp startnano /etc/init/taskManagerApp.conf
+[?1049h[1;44r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                                     File: /etc/init/taskManagerApp.conf                                                                                [3;1H(B[0m[36m#!/bin/bash[4d# All other lines should follow this one.[6d### BEGIN INIT INFO[7d# Provides:          scriptname[8d# Required-Start:    $remote_fs $syslog[9d# Required-Stop:     $remote_fs $syslog[10d# Default-Start:     2 3 4 5[11d# Default-Stop:      0 1 6[12d# Short-Description: Start daemon at boot time[13d# Description:       Enable service provided by daemon.[14d### END INIT INFO[16d[39m(B[mdescription (B[0;1m[33m"uWSGI instance to serve taskManagerApp"[18d[39m(B[mstart on runlevel [32m[[39m(B[m2345[32m][19d[39m(B[mstop on runlevel [32m[![39m(B[m2345[32m][21d[36m#setuid root[22d#setgid root[24d[39m(B[mscript[25d(B[0;1m[34mcd[39m(B[m /opt/task_manager/[26;5H. taskManagerEnv/bin/activate[27;5Huwsgi --master --die-on-term --ini ./conf/taskManagerUwsgi.ini[28dend script[42;76H(B[0;7m[ Read 26 lines ][43d^G(B[m Get Help[43;29H(B[0;7m^O(B[m WriteOut[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[43;141H(B[0;7m^C(B[m Cur Pos[44d(B[0;7m^X(B[m Exit[44;29H(B[0;7m^J(B[m Justify[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[14d[15d[16d[17d[18d[19d[20d[21d[22d[23d[24d[25d[26d[42d[K[27d[28d[29d[A[A    uwsgi [1;159H(B[0;7mModified[27;11H(B[m[1P[1P[1P[1P[1P[1P[1P[1P[1P  [42d(B[0;7mFile Name to Write: /etc/init/taskManagerApp.conf                                                                                                                       [43;29H(B[m[14X[43;43H(B[0;7mM-D(B[m DOS Format            [43;85H(B[0;7mM-A(B[m Append  [43;113H[14X[43;127H(B[0;7mM-B(B[m Backup File[K[44;2H(B[0;7mC(B[m Cancel[44;29H[14X[44;43H(B[0;7mM-M(B[m Mac Format           [44;85H(B[0;7mM-P(B[m Prepend[K[42;50H[1;159H[39;49m(B[0;7m        [42;75H(B[m[1K (B[0;7m[ Wrote 26 lines ](B[m[K[43;29H(B[0;7m^O(B[m WriteOut[17X[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[17X[43;141H(B[0;7m^C(B[m Cur Pos[44;2H(B[0;7mX(B[m Exit  [44;29H(B[0;7m^J(B[m Justify[18X[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[27;11H[43d[J[44;168H[44;1H[?1049l[?1l>]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo nano /etc/init/taskManagerApp.conf[20Pps -ef | grep uwsgi[6Pkill -9 20563ps -ef | grep uwsgisudo service taskManagerApp startnano /etc/init/taskManagerApp.conf
+[?1049h[1;44r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                                     File: /etc/init/taskManagerApp.conf                                                                                [3;1H(B[0m[36m#!/bin/bash[4d# All other lines should follow this one.[6d### BEGIN INIT INFO[7d# Provides:          scriptname[8d# Required-Start:    $remote_fs $syslog[9d# Required-Stop:     $remote_fs $syslog[10d# Default-Start:     2 3 4 5[11d# Default-Stop:      0 1 6[12d# Short-Description: Start daemon at boot time[13d# Description:       Enable service provided by daemon.[14d### END INIT INFO[16d[39m(B[mdescription (B[0;1m[33m"uWSGI instance to serve taskManagerApp"[18d[39m(B[mstart on runlevel [32m[[39m(B[m2345[32m][19d[39m(B[mstop on runlevel [32m[![39m(B[m2345[32m][21d[36m#setuid root[22d#setgid root[24d[39m(B[mscript[25d(B[0;1m[34mcd[39m(B[m /opt/task_manager/[26;5H. taskManagerEnv/bin/activate[27;5Huwsgi --die-on-term --ini ./conf/taskManagerUwsgi.ini[28dend script[42;76H(B[0;7m[ Read 26 lines ][43d^G(B[m Get Help[43;29H(B[0;7m^O(B[m WriteOut[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[43;141H(B[0;7m^C(B[m Cur Pos[44d(B[0;7m^X(B[m Exit[44;29H(B[0;7m^J(B[m Justify[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[14d[15d[16d[17d[18d[19d[20d[21d[22d[23d[24d[25d[26d[27d[28d[42d[K[29d[A[A[A[A[A[A[A[A[A7[20;42r8M[1;44r[1;159H(B[0;7mModified[21d(B[m[20;42r[20;1HM[1;44r[21;1H[36m# Automatically restart process if crashed[22d[39m(B[mrespawn7[23;42r8[23dM[1;44r[23;1H[42d(B[0;7mFile Name to Write: /etc/init/taskManagerApp.conf                                                                                                                       [43;29H(B[m[14X[43;43H(B[0;7mM-D(B[m DOS Format            [43;85H(B[0;7mM-A(B[m Append  [43;113H[14X[43;127H(B[0;7mM-B(B[m Backup File[K[44;2H(B[0;7mC(B[m Cancel[44;29H[14X[44;43H(B[0;7mM-M(B[m Mac Format           [44;85H(B[0;7mM-P(B[m Prepend[K[42;50H[1;159H[39;49m(B[0;7m        [42;75H(B[m[1K (B[0;7m[ Wrote 29 lines ](B[m[K[43;29H(B[0;7m^O(B[m WriteOut[17X[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[17X[43;141H(B[0;7m^C(B[m Cur Pos[44;2H(B[0;7mX(B[m Exit  [44;29H(B[0;7m^J(B[m Justify[18X[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[23d[43d[J[44;168H[44;1H[?1049l[?1l>]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo nano /etc/init/taskManagerApp.conf[20Pps -ef | grep uwsgi[6Pkill -9 20563ps -ef | grep uwsgi[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksudo service taskManagerApp startnano /etc/init/taskManagerApp.confexit[Ksudo exitservice taskManagerApp starttusdeactivate [K[6Pclearps -ef | grep uwsgi
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgisudo nano /etc/init/taskManagerApp.conf[20Pps -ef | grep uwsgisudo nano /etc/init/taskManagerApp.conf[20Pps -ef | grep uwsgi[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksudo service taskManagerApp start
+taskManagerApp start/running, process 20613
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp start[14Pps -ef | grep uwsgi
+root     20618     1  8 13:15 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20682 20618  0 13:15 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20683 20618  0 13:15 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20685 20618  0 13:15 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20686 20618  0 13:15 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20691 20535  0 13:15 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# kill -9 [1@s[1@u[1@d[1@o[1@ [C[C[C[C[C[C[C[Cuwsgi
+kill: failed to parse argument: 'uwsgi'
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 uwsgi[K[K[K[K[K20618
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 20618uwsgi[1@ps -ef | grep[C[C[C[C[C[C
+root     20706 20535  0 13:15 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     20708 20535  0 13:15 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     20710 20535  0 13:15 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     20712 20535  0 13:15 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     20714 20535  0 13:16 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     20716 20535  0 13:16 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     20718 20535  0 13:16 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     20720 20535  0 13:16 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     20722 20535  0 13:16 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi[1Psudo kill -9 20618uwsgi[1@ps -ef | grep[C[C[C[C[C[C
+root     20724 20535  0 13:16 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi[1Psudo kill -9 20618uwsgi[1@ps -ef | grep[C[C[C[C[C[Csudo service taskManagerApp start[K[Ktus
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[K[K[Krt
+taskManagerApp start/running, process 20739
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp start[K[Ktus
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksudo service taskManagerApp starttus[15Pps -ef | grep uwsgi[1Psudo kill -9 20618ps -ef | grep uwsgi
+root     20744     1  0 13:16 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20808 20744  0 13:16 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20809 20744  0 13:16 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20811 20744  0 13:16 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20812 20744  0 13:16 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20834 20535  0 13:17 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi[Ksudo service taskManagerApp starttus[15Pps -ef | grep uwsgi[1Psudo kill -9 20618[K[K[K744
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 20744ps -ef | grep uwsgi[Ksudo service taskManagerApp start[K[Ktus
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[16Pkill -9 20744ps -ef | grep uwsgi[Ksudo service taskManagerApp start
+taskManagerApp start/running, process 20851
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp start[K[Ktus
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[1Prttus[16Pkill -9 20744ps -ef | grep uwsgi[Ksudo service taskManagerApp starttus[15Pps -ef | grep uwsgi[1Psudo kill -9 20618uwsgi[1@ps -ef | grep[C[C[C[C[C[Csudo service taskManagerApp start[14Pps -ef | grep uwsgisudo nano /etc/init/taskManagerApp.conf
+[?1049h[1;44r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                                     File: /etc/init/taskManagerApp.conf                                                                                [3;1H(B[0m[36m#!/bin/bash[4d# All other lines should follow this one.[6d### BEGIN INIT INFO[7d# Provides:          scriptname[8d# Required-Start:    $remote_fs $syslog[9d# Required-Stop:     $remote_fs $syslog[10d# Default-Start:     2 3 4 5[11d# Default-Stop:      0 1 6[12d# Short-Description: Start daemon at boot time[13d# Description:       Enable service provided by daemon.[14d### END INIT INFO[16d[39m(B[mdescription (B[0;1m[33m"uWSGI instance to serve taskManagerApp"[18d[39m(B[mstart on runlevel [32m[[39m(B[m2345[32m][19d[39m(B[mstop on runlevel [32m[![39m(B[m2345[32m][21d[36m# Automatically restart process if crashed[22d[39m(B[mrespawn[24d[36m#setuid root[25d#setgid root[27d[39m(B[mscript[28d(B[0;1m[34mcd[39m(B[m /opt/task_manager/[29;5H. taskManagerEnv/bin/activate[30;5Huwsgi --die-on-term --ini ./conf/taskManagerUwsgi.ini[31dend script[42;76H(B[0;7m[ Read 29 lines ][43d^G(B[m Get Help[43;29H(B[0;7m^O(B[m WriteOut[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[43;141H(B[0;7m^C(B[m Cur Pos[44d(B[0;7m^X(B[m Exit[44;29H(B[0;7m^J(B[m Justify[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[14d[15d[16d[17d[18d[19d[20d[21d[22d[23d[24d[25d[26d[27d[28d[42d[K[29d[30d    uwsgi -[1;159H(B[0;7mModified[30;11H(B[m[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P(B[0;1m[34mrm[39m(B[m[1Pm[1P[1P[1P [42d(B[0;7mFile Name to Write: /etc/init/taskManagerApp.conf                                                                                                                       [43;29H(B[m[14X[43;43H(B[0;7mM-D(B[m DOS Format            [43;85H(B[0;7mM-A(B[m Append  [43;113H[14X[43;127H(B[0;7mM-B(B[m Backup File[K[44;2H(B[0;7mC(B[m Cancel[44;29H[14X[44;43H(B[0;7mM-M(B[m Mac Format           [44;85H(B[0;7mM-P(B[m Prepend[K[42;50H[1;159H[39;49m(B[0;7m        [42;75H(B[m[1K (B[0;7m[ Wrote 29 lines ](B[m[K[43;29H(B[0;7m^O(B[m WriteOut[17X[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[17X[43;141H(B[0;7m^C(B[m Cur Pos[44;2H(B[0;7mX(B[m Exit  [44;29H(B[0;7m^J(B[m Justify[18X[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[30;11H[43d[J[44;168H[44;1H[?1049l[?1l>]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo nano /etc/init/taskManagerApp.conf[5Pservice taskManagerApp status[K[K[Krt [K[K[Ktus
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[K[K[Krt
+taskManagerApp start/running, process 20956
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp start[K[Ktus
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[1Prttusnano /etc/init/taskManagerApp.conf[5Pservice taskManagerApp status[1Prttus[16Pkill -9 20744ps -ef | grep uwsgi[Ksudo service taskManagerApp starttus[15Pps -ef | grep uwsgi[1Psudo kill -9 20618uwsgi[1@ps -ef | grep[C[C[C[C[C[Csudo service taskManagerApp start[14Pps -ef | grep uwsgisudo nano /etc/init/taskManagerApp.conf[20Pps -ef | grep uwsgisudo nano /etc/init/taskManagerApp.conf
+[?1049h[1;44r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                                     File: /etc/init/taskManagerApp.conf                                                                                [3;1H(B[0m[36m#!/bin/bash[4d# All other lines should follow this one.[6d### BEGIN INIT INFO[7d# Provides:          scriptname[8d# Required-Start:    $remote_fs $syslog[9d# Required-Stop:     $remote_fs $syslog[10d# Default-Start:     2 3 4 5[11d# Default-Stop:      0 1 6[12d# Short-Description: Start daemon at boot time[13d# Description:       Enable service provided by daemon.[14d### END INIT INFO[16d[39m(B[mdescription (B[0;1m[33m"uWSGI instance to serve taskManagerApp"[18d[39m(B[mstart on runlevel [32m[[39m(B[m2345[32m][19d[39m(B[mstop on runlevel [32m[![39m(B[m2345[32m][21d[36m# Automatically restart process if crashed[22d[39m(B[mrespawn[24d[36m#setuid root[25d#setgid root[27d[39m(B[mscript[28d(B[0;1m[34mcd[39m(B[m /opt/task_manager/[29;5H. taskManagerEnv/bin/activate[30;5Huwsgi --ini ./conf/taskManagerUwsgi.ini[31dend script[42;76H(B[0;7m[ Read 29 lines ][43d^G(B[m Get Help[43;29H(B[0;7m^O(B[m WriteOut[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[43;141H(B[0;7m^C(B[m Cur Pos[44d(B[0;7m^X(B[m Exit[44;29H(B[0;7m^J(B[m Justify[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[14d[15d[16d[17d[18d[19d[20d[21d[22d[23d[24d[42d[K[25d[26d[27d[28d[29d[30d[31d[A[A[30d[30;44H[1;159H(B[0;7mModified[30;11H(B[m---ini ./conf/taskManagerUwsgi.ini[30;12H----ini ./conf/taskManagerUwsgi.ini[30;13H[32m-d[39m(B[m--ini ./conf/taskManagerUwsgi.ini[30;14H-di--ini ./conf/taskManagerUwsgi.ini[30;15He--ini ./conf/taskManagerUwsgi.ini[30;16H---ini ./conf/taskManagerUwsgi.ini[30;17Ho--ini ./conf/taskManagerUwsgi.ini[30;18Hn--ini ./conf/taskManagerUwsgi.ini[30;19H---ini ./conf/taskManagerUwsgi.ini[30;20Ht--ini ./conf/taskManagerUwsgi.ini[30;21He--ini ./conf/taskManagerUwsgi.ini[30;22Hr--ini ./conf/taskManagerUwsgi.ini[30;23Hm--ini ./conf/taskManagerUwsgi.ini[30;24H --ini ./conf/taskManagerUwsgi.ini[30;25H[42d(B[0;7mFile Name to Write: /etc/init/taskManagerApp.conf                                                                                                                       [43;29H(B[m[14X[43;43H(B[0;7mM-D(B[m DOS Format            [43;85H(B[0;7mM-A(B[m Append  [43;113H[14X[43;127H(B[0;7mM-B(B[m Backup File[K[44;2H(B[0;7mC(B[m Cancel[44;29H[14X[44;43H(B[0;7mM-M(B[m Mac Format           [44;85H(B[0;7mM-P(B[m Prepend[K[42;50H[1;159H[39;49m(B[0;7m        [42;75H(B[m[1K (B[0;7m[ Wrote 29 lines ](B[m[K[43;29H(B[0;7m^O(B[m WriteOut[17X[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[17X[43;141H(B[0;7m^C(B[m Cur Pos[44;2H(B[0;7mX(B[m Exit  [44;29H(B[0;7m^J(B[m Justify[18X[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[30;25H[43d[J[44;168H[44;1H[?1049l[?1l>]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo nano /etc/init/taskManagerApp.conf
+[?1049h[1;44r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                                     File: /etc/init/taskManagerApp.conf                                                                                [3;1H(B[0m[36m#!/bin/bash[4d# All other lines should follow this one.[6d### BEGIN INIT INFO[7d# Provides:          scriptname[8d# Required-Start:    $remote_fs $syslog[9d# Required-Stop:     $remote_fs $syslog[10d# Default-Start:     2 3 4 5[11d# Default-Stop:      0 1 6[12d# Short-Description: Start daemon at boot time[13d# Description:       Enable service provided by daemon.[14d### END INIT INFO[16d[39m(B[mdescription (B[0;1m[33m"uWSGI instance to serve taskManagerApp"[18d[39m(B[mstart on runlevel [32m[[39m(B[m2345[32m][19d[39m(B[mstop on runlevel [32m[![39m(B[m2345[32m][21d[36m# Automatically restart process if crashed[22d[39m(B[mrespawn[24d[36m#setuid root[25d#setgid root[27d[39m(B[mscript[28d(B[0;1m[34mcd[39m(B[m /opt/task_manager/[29;5H. taskManagerEnv/bin/activate[30;5Huwsgi --die-on-term --ini ./conf/taskManagerUwsgi.ini[31dend script[42;76H(B[0;7m[ Read 29 lines ][43d^G(B[m Get Help[43;29H(B[0;7m^O(B[m WriteOut[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[43;141H(B[0;7m^C(B[m Cur Pos[44d(B[0;7m^X(B[m Exit[44;29H(B[0;7m^J(B[m Justify[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[14d[15d[16d[17d[18d[19d[20d[21d[22d[23d[24d[25d[26d[27d[43d[J[44;168H[44;1H[?1049l[?1l>]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo nano /etc/init/taskManagerApp.conf[C[1P/taskManagerApp.conf[1P/taskManagerApp.conf[1P/taskManagerApp.conf[1P/taskManagerApp.conf[1PtaskManagerApp.conf[1P/taskManagerApp.conf[1P/taskManagerApp.conf[1P/taskManagerApp.conf[1PtaskManagerApp.conf./taskManagerApp.confc/taskManagerApp.confo/taskManagerApp.conf[1P/taskManagerApp.conf[1P/taskManagerApp.conf[C/taskManagerApp.confc/taskManagerApp.confo/taskManagerApp.confn/taskManagerApp.conff/taskManagerApp.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[KManagerUwsgi.ini 
+[?1049h[1;44r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                                     File: ./conf/taskManagerUwsgi.ini                                                                                  [3;1H(B[m# taskManagerUwsgi.ini file[4d[uwsgi][5dsocket = 0.0.0.0:8080[6dchdir = /opt/task_manager/[7dpidfile = /opt/task_manager/project-master.pid[8dwsgi-file = wsgi.py[9dprotocol = http[10dmaster   = true[11dprocesses = 4[12dthreads = 2[13ddaemonize = /var/log/uwsgi.log[14dvacuum = true[15dstats = 127.0.0.1:9191[42;76H(B[0;7m[ Read 13 lines ][43d^G(B[m Get Help[43;29H(B[0;7m^O(B[m WriteOut[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[43;141H(B[0;7m^C(B[m Cur Pos[44d(B[0;7m^X(B[m Exit[44;29H(B[0;7m^J(B[m Justify[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[1;159H(B[0;7mModified[13d(B[m[1P[1P[1P[1P[1P[1P[1P[1P[1Pl = /var/log/uwsgi.loglo = /var/log/uwsgi.loglog = /var/log/uwsgi.loglogt = /var/log/uwsgi.log[5Go = /var/log/uwsgi.log[6G[42d(B[0;7mFile Name to Write: ./conf/taskManagerUwsgi.ini                                                                                                                         [43;29H(B[m[14X[43;43H(B[0;7mM-D(B[m DOS Format            [43;85H(B[0;7mM-A(B[m Append  [43;113H[14X[43;127H(B[0;7mM-B(B[m Backup File[K[44;2H(B[0;7mC(B[m Cancel[44;29H[14X[44;43H(B[0;7mM-M(B[m Mac Format           [44;85H(B[0;7mM-P(B[m Prepend[K[42;48H[1;159H[39;49m(B[0;7m        [42;75H(B[m[1K (B[0;7m[ Wrote 13 lines ](B[m[K[43;29H(B[0;7m^O(B[m WriteOut[17X[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[17X[43;141H(B[0;7m^C(B[m Cur Pos[44;2H(B[0;7mX(B[m Exit  [44;29H(B[0;7m^J(B[m Justify[18X[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[13;6H[42d(B[0;7mFile Name to Write: ./conf/taskManagerUwsgi.ini                                                                                                                         [43;29H(B[m[14X[43;43H(B[0;7mM-D(B[m DOS Format            [43;85H(B[0;7mM-A(B[m Append  [43;113H[14X[43;127H(B[0;7mM-B(B[m Backup File[K[44;2H(B[0;7mC(B[m Cancel[44;29H[14X[44;43H(B[0;7mM-M(B[m Mac Format           [44;85H(B[0;7mM-P(B[m Prepend[K[42;48H[42;75H[39;49m(B[m[1K (B[0;7m[ Wrote 13 lines ](B[m[K[43;29H(B[0;7m^O(B[m WriteOut[17X[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[17X[43;141H(B[0;7m^C(B[m Cur Pos[44;2H(B[0;7mX(B[m Exit  [44;29H(B[0;7m^J(B[m Justify[18X[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[13;6H[43d[J[44;168H[44;1H[?1049l[?1l>]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo nano ./conf/taskManagerUwsgi.ini /etc/init/taskManagerApp.conf[5Pservice taskManagerApp status
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp statusnano ./conf/taskManagerUwsgi.ini [4Pservice taskManagerApp status[K[K[Krt
+taskManagerApp start/running, process 21067
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp starttusnano ./conf/taskManagerUwsgi.ini /etc/init/taskManagerApp.conf[5Pservice taskManagerApp status[1Prttusnano /etc/init/taskManagerApp.conf[5Pservice taskManagerApp status[1Prttus[16Pkill -9 20744ps -ef | grep uwsgi[Kps -ef | grep uwsgi
+root     20856     1  0 13:18 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20920 20856  0 13:18 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20921 20856  0 13:18 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20923 20856  0 13:18 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     20924 20856  0 13:18 ?        00:00:00 [01;31m[Kuwsgi[m[K --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21113 20535  0 13:34 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgisudo service taskManagerApp starttusnano ./conf/taskManagerUwsgi.ini [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K kill -9 uwsgi
+kill: failed to parse argument: 'uwsgi'
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 uwsgi[K[K[K[K[K20856
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 20856uwsgi[1@ps -ef | grep[C[C[C[C[C[C
+root     21123 20535  0 13:35 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     21125 20535  0 13:35 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     21127 20535  0 13:35 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi[1Psudo kill -9 20856uwsgi[1@ps -ef | grep[C[C[C[C[C[Csudo service taskManagerApp starttusnano ./conf/taskManagerUwsgi.ini 
+[?1049h[1;44r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                                     File: ./conf/taskManagerUwsgi.ini                                                                                  [3;1H(B[m# taskManagerUwsgi.ini file[4d[uwsgi][5dsocket = 0.0.0.0:8080[6dchdir = /opt/task_manager/[7dpidfile = /opt/task_manager/project-master.pid[8dwsgi-file = wsgi.py[9dprotocol = http[10dmaster   = true[11dprocesses = 4[12dthreads = 2[13dlogto = /var/log/uwsgi.log[14dvacuum = true[15dstats = 127.0.0.1:9191[42;76H(B[0;7m[ Read 13 lines ][43d^G(B[m Get Help[43;29H(B[0;7m^O(B[m WriteOut[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[43;141H(B[0;7m^C(B[m Cur Pos[44d(B[0;7m^X(B[m Exit[44;29H(B[0;7m^J(B[m Justify[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[3d[43d[J[44;168H[44;1H[?1049l[?1l>]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo nano ./conf/taskManagerUwsgi.ini [19Pps -ef | grep uwsgi[1Psudo kill -9 20856uwsgi[1@ps -ef | grep[C[C[C[C[C[Csudo service taskManagerApp starttusnano ./conf/taskManagerUwsgi.ini 
+[?1049h[1;44r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                                     File: ./conf/taskManagerUwsgi.ini                                                                                  [3;1H(B[m# taskManagerUwsgi.ini file[4d[uwsgi][5dsocket = 0.0.0.0:8080[6dchdir = /opt/task_manager/[7dpidfile = /opt/task_manager/project-master.pid[8dwsgi-file = wsgi.py[9dprotocol = http[10dmaster   = true[11dprocesses = 4[12dthreads = 2[13dlogto = /var/log/uwsgi.log[14dvacuum = true[15dstats = 127.0.0.1:9191[42;76H(B[0;7m[ Read 13 lines ][43d^G(B[m Get Help[43;29H(B[0;7m^O(B[m WriteOut[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[43;141H(B[0;7m^C(B[m Cur Pos[44d(B[0;7m^X(B[m Exit[44;29H(B[0;7m^J(B[m Justify[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[3d[43d[J[44;168H[44;1H[?1049l[?1l>]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo nano ./conf/taskManagerUwsgi.ini [19Pps -ef | grep uwsgi[1Psudo kill -9 20856uwsgi[1@ps -ef | grep[C[C[C[C[C[Csudo service taskManagerApp starttusnano ./conf/taskManagerUwsgi.ini [4Pservice taskManagerApp statusnano ./conf/taskManagerUwsgi.ini /etc/init/taskManagerApp.conf[5Pservice taskManagerApp statusnano /etc/init/taskManagerApp.conf
+[?1049h[1;44r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                                     File: /etc/init/taskManagerApp.conf                                                                                [3;1H(B[0m[36m#!/bin/bash[4d# All other lines should follow this one.[6d### BEGIN INIT INFO[7d# Provides:          scriptname[8d# Required-Start:    $remote_fs $syslog[9d# Required-Stop:     $remote_fs $syslog[10d# Default-Start:     2 3 4 5[11d# Default-Stop:      0 1 6[12d# Short-Description: Start daemon at boot time[13d# Description:       Enable service provided by daemon.[14d### END INIT INFO[16d[39m(B[mdescription (B[0;1m[33m"uWSGI instance to serve taskManagerApp"[18d[39m(B[mstart on runlevel [32m[[39m(B[m2345[32m][19d[39m(B[mstop on runlevel [32m[![39m(B[m2345[32m][21d[36m# Automatically restart process if crashed[22d[39m(B[mrespawn[24d[36m#setuid root[25d#setgid root[27d[39m(B[mscript[28d(B[0;1m[34mcd[39m(B[m /opt/task_manager/[29;5H. taskManagerEnv/bin/activate[30;5Huwsgi --die-on-term --ini ./conf/taskManagerUwsgi.ini[31dend script[42;76H(B[0;7m[ Read 29 lines ][43d^G(B[m Get Help[43;29H(B[0;7m^O(B[m WriteOut[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[43;141H(B[0;7m^C(B[m Cur Pos[44d(B[0;7m^X(B[m Exit[44;29H(B[0;7m^J(B[m Justify[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[14d[15d[16d[17d[18d[19d[20d[21d[22d[23d[24d[25d[26d[27d[28d[42d[K[29d[30d    uwsgi [1;159H(B[0;7mModified[30;11H(B[m---die-on-term --ini ./conf/taskManagerUwsgi.ini[30;12H----die-on-term --ini ./conf/taskManagerUwsgi.ini[30;13Hm--die-on-term --ini ./conf/taskManagerUwsgi.ini[30;14Ha--die-on-term --ini ./conf/taskManagerUwsgi.ini[30;15Hs--die-on-term --ini ./conf/taskManagerUwsgi.ini[30;16Ht--die-on-term --ini ./conf/taskManagerUwsgi.ini[30;17He--die-on-term --ini ./conf/taskManagerUwsgi.ini[30;18Hr--die-on-term --ini ./conf/taskManagerUwsgi.ini[30;19H --die-on-term --ini ./conf/taskManagerUwsgi.ini[30;20H[42d(B[0;7mFile Name to Write: /etc/init/taskManagerApp.conf                                                                                                                       [43;29H(B[m[14X[43;43H(B[0;7mM-D(B[m DOS Format            [43;85H(B[0;7mM-A(B[m Append  [43;113H[14X[43;127H(B[0;7mM-B(B[m Backup File[K[44;2H(B[0;7mC(B[m Cancel[44;29H[14X[44;43H(B[0;7mM-M(B[m Mac Format           [44;85H(B[0;7mM-P(B[m Prepend[K[42;50H[1;159H[39;49m(B[0;7m        [42;75H(B[m[1K (B[0;7m[ Wrote 29 lines ](B[m[K[43;29H(B[0;7m^O(B[m WriteOut[17X[43;57H(B[0;7m^R(B[m Read File[43;85H(B[0;7m^Y(B[m Prev Page[43;113H(B[0;7m^K(B[m Cut Text[17X[43;141H(B[0;7m^C(B[m Cur Pos[44;2H(B[0;7mX(B[m Exit  [44;29H(B[0;7m^J(B[m Justify[18X[44;57H(B[0;7m^W(B[m Where Is[44;85H(B[0;7m^V(B[m Next Page[44;113H(B[0;7m^U(B[m UnCut Text[44;141H(B[0;7m^T(B[m To Spell[30;20H[43d[J[44;168H[44;1H[?1049l[?1l>]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo nano /etc/init/taskManagerApp.conf[1P./conf/taskManagerUwsgi.ini [19Pps -ef | grep uwsgi[1Psudo kill -9 20856uwsgi[1@ps -ef | grep[C[C[C[C[C[Csudo service taskManagerApp starttus[1Prt
+taskManagerApp start/running, process 21141
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp startnano /etc/init/taskManagerApp.conf[1P./conf/taskManagerUwsgi.ini [19Pps -ef | grep uwsgi
+root     21144 21141  2 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21147 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21148 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21150 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21152 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21156 20535  0 13:36 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgisudo service taskManagerApp startnano /etc/init/taskManagerApp.conf[1P./conf/taskManagerUwsgi.ini [19Pps -ef | grep uwsgi[1Psudo kill -9 20856[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksudo kill -9 uwsgi[1@ps -ef | grep[C[C[C[C[C[Csudo service taskManagerApp starttus
+taskManagerApp start/running, process 21141
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[15Pps -ef | grep uwsgi
+root     21144 21141  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21147 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21148 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21150 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21152 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21165 20535  0 13:37 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgisudo service taskManagerApp status
+taskManagerApp start/running, process 21141
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[15Pps -ef | grep uwsgisudo service taskManagerApp status[15Pps -ef | grep uwsgisudo service taskManagerApp status[15Pps -ef | grep uwsgisudo service taskManagerApp startnano /etc/init/taskManagerApp.conf[1P./conf/taskManagerUwsgi.ini [19Pps -ef | grep uwsgi[Ksudo kill -9 uwsgi[K[K[K[K[K21141
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 21141service taskManagerApp status
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[16Pkill -9 21141service taskManagerApp status[15Pps -ef | grep uwsgi
+root     21144     1  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21147 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21148 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21150 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21152 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21224 20535  0 13:38 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgisudo service taskManagerApp status
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[15Pps -ef | grep uwsgi
+root     21144     1  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21147 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21148 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21150 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21152 21144  0 13:36 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21233 20535  0 13:38 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 21144
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 21144ps -ef | grep uwsgi
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi[1Psudo kill -9 21144ps -ef | grep uwsgi
+root     21239 20535  0 13:39 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi
+root     21241 20535  0 13:39 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi[1Psudo kill -9 21144ps -ef | grep uwsgisudo service taskManagerApp status
+taskManagerApp stop/waiting
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[15Pps -ef | grep uwsgisudo service taskManagerApp status[15Pps -ef | grep uwsgi[1Psudo kill -9 21144ps -ef | grep uwsgisudo service taskManagerApp status[K[K[Krt
+taskManagerApp start/running, process 21256
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp starttus
+taskManagerApp start/running, process 21256
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[1Prttus[15Pps -ef | grep uwsgi
+root     21259 21256  2 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21262 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21263 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21265 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21267 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21278 20535  0 13:40 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgisudo service taskManagerApp status[15Pps -ef | grep uwsgisudo service taskManagerApp status
+taskManagerApp start/running, process 21256
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo service taskManagerApp status[15Pps -ef | grep uwsgi
+root     21259 21256  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21262 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21263 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21265 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21267 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21287 20535  0 13:40 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 21256
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 21256ps -ef | grep uwsgi
+root     21259     1  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21262 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21263 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21265 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21267 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21332 20535  0 13:40 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi[1Psudo kill -9 21256[K[K[K[K[K1
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# sudo kill -9 1ps -ef | grep uwsgi
+root     21259     1  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21262 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21263 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21265 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21267 21259  0 13:39 ?        00:00:00 [01;31m[Kuwsgi[m[K --master --die-on-term --ini ./conf/taskManagerUwsgi.ini
+root     21336 20535  0 13:41 pts/1    00:00:00 grep --color=auto [01;31m[Kuwsgi[m[K
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# 
+]0;root@Django-SScore: /opt/task_managerroot@Django-SScore:/opt/task_manager# ps -ef | grep uwsgi[5Psudo kill -9 1[K21259
+]0;root@Django-SScore: /opt/t

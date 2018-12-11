@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+<link rel="stylesheet" href="/static/css/custom2.css"><!-- custom css for loan officer process -->
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script><!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+
+<!--MASTER DATA -->
+<script type="text/javascript" src="/static/form/masterData.js"></script> 
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+
+</head>
+<body>
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+	{% include "header_common.html" %} 
+	</div>
+	
+	<!-- Main Content -->
+    	<div class="main">	
+	    <div class="task-div">	
+		<div class="main-task">
+		    <div  class="right-pane-task" id="right-pane-task" style="width:100%;margin: 10 auto;">
+			 <div class="center-pane" style="width:50%;margin: 3% auto; display:block;"> 
+			 	<!--Header for the div-->
+				<div class="h3-heading" >
+					<h3 >Approve Loan Cheque</h3>
+					<h4 id="load_id">Loan No : ( 514243656648453 )  &  Member Id : ( 551 )</h4>
+				</div>
+				<!--Input Data-->
+				<div class="member_class" >
+				    <div class="colomn-div"><label>Loan A/C Number</label> <font>  : </font> <input type="text" id="fk_loan_account_number" name="" placeholder="LOAN A/C NUMBER" disabled/><font class="mandatory">*</font></div>
+				</div>
+				<div class="member_class" >
+				    <div class="colomn-div"><label>Cheque Number</label>   <font>  : </font>   <input type="text" id="chq_number" name="" placeholder="CHEQUE NUMBER" disabled	/><font class="mandatory">*</font></div>
+				</div>
+				<div class="member_class" >
+				    <div class="colomn-div"><label>Cheque Id</label>   <font>  : </font>   <input type="text" id="chequeid"       name="" placeholder="CHEQUE NUMBER" disabled	/><font class="mandatory">*</font></div>
+				</div>
+				<div class="member_class">
+				    <div  class="colomn-div"><label>Cheque Issuer(Bank name)</label><font>  : </font><input type="text" id="chq_issue_bank_name"   name="" placeholder="CHEQUE ISSUER" disabled/><font class="mandatory">*</font></div>
+				</div>
+				<div class="member_class">
+				    <div  class="colomn-div"><label>Sanction Amount</label><font>  : </font> <input type="text" id="loan_sanctioned_amount" name="" placeholder="SACTION AMOUNT" disabled/><font class="mandatory">*</font></div>
+				</div>
+				<div class="member_class">
+				    <div  class="colomn-div"><label>Date Of Cheque</label> <font>  : </font> <input type="text" id="chq_issued_on_date"     name="" placeholder="DATE OF CHEQUE" disabled/><font class="mandatory">*</font></div>
+				</div>
+				<!--Submit Or Approve DIV-->
+				<div class="form-group text-center">
+				    <div class="">
+					<div class="colomn-div-footer" >
+					<textarea style="width:90%;height:20%;visibility:hidden;" id="comments"    placeholder="Comments"></textarea>
+					<a href="javascript:void(0)" onclick='window.location="/tasks/";' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+					   <i class="icon-entypo-cancel" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+					    Cancel
+					</a>
+					<a href="javascript:void(0)" 	onclick='prepareLoanCheque("Approved","1");' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+					   <i class="icon-entypo-check" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+					    Approve
+					</a>
+					</div>
+				    </div>
+				</div>	
+			   </div> 
+		       </div>
+	 	  </div>
+	     </div>
+  	</div>
+	{% include "footer.html" %} 
+</body>
+<script type="text/javascript">  
+	
+var taskData = {};
+var memberdetails= '{{memberDetails|safe}}';
+var processid 	= '{{processId|safe}}';
+var process 	= '{{process|safe}}';
+var taskid 	= '{{taskId|safe}}';
+var memberId 	= '{{memberId|safe}}';
+var loanId 	= '{{loanId|safe}}';
+var userid 	= '{{userId|safe}}';
+var User 	= '{{user|safe}}';
+var remarks     = '{{Application_Remarks|safe}}';
+var processObj  =  JSON.parse(process);
+var ChequeId 	= '';
+
+jQuery(document).ready(function($) {
+    $('.dropDownHook span').on('click', function() {
+        $(this).parents('.dropDownHook').children('.dropDownContent').stop(true, true).slideToggle('medium', function() {
+            if ($('.dropDownContent').is(':visible')) {
+            }
+            else {
+            }
+        });
+    });
+    
+    $("#chq_issued_on_date").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,//this option for allowing user to select month
+      changeYear: true });
+          
+    $('html').on('click', function() {
+        $('.dropDownContent:visible').slideToggle('fast');
+    });
+
+    $('.dropDownHook > *').on('click', function(event) {
+        event.stopPropagation();
+    });
+    /*Master Data Parse and paint data in HTML*/
+    setSelectOptionInForm();	/*Function in masterDataLoad.js	*/
+    
+    /*Data Parsing and painting*/
+    if(memberdetails){
+	memberdetails =  JSON.parse(memberdetails);
+	if(memberdetails['chequedetailArray']){
+	    if(memberdetails['chequedetailArray'][0]){
+		var chequedetailArray = memberdetails['chequedetailArray'][0];
+		var keys = Object.keys(chequedetailArray);
+		for(var i=0; i<keys.length; i++){
+		    if($.inArray(keys[i], selectionFields) != -1){
+			if(selectionFieldMasters[keys[i]]){
+				if(selectionFieldMasters[keys[i]][chequedetailArray[keys[i]]]){						
+					document.getElementById(''+keys[i]+'').value = selectionFieldMasters[keys[i]][chequedetailArray[keys[i]]];
+				}else{
+					document.getElementById(keys[i]).value = chequedetailArray[keys[i]];
+				}
+			}else{
+				document.getElementById(keys[i]).value = chequedetailArray[keys[i]];
+			}
+		    }else{
+			 if(document.getElementById(keys[i])){
+				document.getElementById(keys[i]).value = chequedetailArray[keys[i]];
+			 }
+		    }
+		}
+	    }
+	}
+    }
+    
+    /*Loan details in Div Header*/	
+    if(loanId){
+	$(".h3-heading h4").html("Loan Id : "+loanId+ "    &     Member Id : "+memberId+"");
+    }
+    /*UPdate the cheque ID*/
+    if(processObj){
+	if(processObj['ChequeId']){
+	    ChequeId = processObj['ChequeId']['value'];	
+	}
+    }	
+});
+
+function prepareLoanCheque(d, val){
+
+	/*Current Date*/
+	var currentDateValue  = (new Date());
+	currentDateValue = JSON.stringify(currentDateValue);
+	currentDateValue = currentDateValue.replace(/"/g,'');
+
+	/*Input values*/
+	var fk_loan_account_number = document.getElementById('fk_loan_account_number').value;
+	var chq_number		   = document.getElementById('chq_number').value;
+	var chq_issue_bank_name    = document.getElementById('chq_issue_bank_name').value;
+	var loan_sanctioned_amount = document.getElementById('loan_sanctioned_amount').value;
+	var chq_issued_on_date     = document.getElementById('chq_issued_on_date').value;
+	var remarks 		   = document.getElementById('comments').value;
+
+	/*Formating the Input values for AVRO*/
+	var chequedetailArray = {
+					"validation_member_id"	: parseInt(memberId),
+					"validation_loan_id"	: parseInt(loanId),
+					"validation_cheque_id"	: parseInt(ChequeId),
+					"remarks"		: remarks,
+					"process_id"		: processid,
+					"task_id"		: taskid,	
+					"validation_status"	: parseInt(1),
+					"validation_last_modified_date"	: currentDateValue,
+					"validation_fk_last_modified_by": parseInt(1),
+					"validation_fk_sci_client_id"	: parseInt(1)
+				};
+	/*Process detail and Format for process Update*/
+	var process = {
+		    "variables": {
+			"LoanCheque_Approve_Status" : {
+				"value" : "Approved", 
+				"type"	: "String"
+			    }
+		 	}
+		   };
+
+	/*Data Merging to send throught Post*/
+	var dataObj = {};
+	dataObj['processid'] 	= processid;
+	dataObj['taskid'] 	= taskid;
+	dataObj['loanId'] 	= loanId;
+	dataObj['memberId'] 	= memberId;
+	dataObj['chequedetailArray'] = chequedetailArray;
+	dataObj['process'] 	= process;	
+
+	/*AJAX call:*/
+	var url = "/approveLoanCheque/";
+	$.ajax({
+	    url: url,
+	    type: 'post',
+	    dataType: 'json',
+	    success: function (data) {
+		window.location='/tasks/';		
+	    },
+	    data: JSON.stringify(dataObj)
+	});
+}
+</script>
+</html>

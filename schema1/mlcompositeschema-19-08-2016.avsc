@@ -1,0 +1,532 @@
+{
+ "type": "record",
+ "name": "MLComposites",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+    {
+     "name": "mlcompositeArray",
+	  "type": {
+	    "type": "array",
+	    "items": {
+	      "name": "MLComposite",
+	      "type": "record",
+     	      "namespace": "com.mf.loan.process.model",
+	 "fields": [
+	     {"name": "memberid", "type": ["long","null"]},
+	     {"name": "member_account_number", "type": ["long","null"]},
+	     {"name": "firstname", "type": "string"},
+	     {"name": "middlename", "type": ["string","null"], "default": "null"},
+	     {"name": "lastname", "type": "string"},
+	     {"name": "local_name", "type": ["string","null"], "default": "null"},
+	     {"name": "marital_status", "type": ["string","null"], "default": "null"},
+	     {"name": "spouse_name", "type": ["string","null"], "default": "null"},
+	     {"name": "father_name", "type": "string"},
+	     {"name": "gender", "type": "string"},
+	     {"name": "member_photo", "type": ["string","null"], "default": "null"},
+	     {"name": "joined_date", "type": ["string","null"], "default": "null"},
+	     {"name": "dob", "type": "string"},
+	     {"name": "age", "type": "long"},
+	     {"name": "religion", "type": ["string","null"], "default": "null"},
+	     {"name": "caste", "type": ["string","null"], "default": "null"},
+	     {"name": "mobile_number", "type": "long"},
+	     {"name": "landline_number", "type": ["long","null"]},
+	     {"name": "fk_education_type_id", "type": ["long","null"]},
+	     {"name": "no_of_dependents",  "type": ["string","null"], "default": "null"},
+	     {"name": "no_of_child_below17", "type": ["string","null"], "default": "null"},
+	     {"name": "no_of_child_above17", "type": ["string","null"], "default": "null"},
+	     {"name": "live_with", "type": ["string","null"], "default": "null"},
+	     {"name": "last_modified_date", "type": "string"},
+	     {"name": "fk_last_modified_by", "type": "string"}, 
+	     {"name": "fk_sci_client_id", "type": "long"},
+	     {"name": "member_photo_fk_alf_node_ref", "type":["string","null"], "default": "null"},
+	     {"name": "member_photo_fk_alf_file_name", "type":["string","null"], "default": "null"},
+	     {"name": "member_photo_fk_alf_node_ref1", "type":["string","null"], "default": "null"},
+	     {"name": "member_photo_fk_alf_file_name1", "type":["string","null"], "default": "null"},
+		 
+	     {"name": "member_details_json", "type": [{"type": "map", "values": "string"},"null"]},
+
+	     {"name": "bank_record_id", "type": ["long","null"]},
+	     {"name": "bank_records_memberid", "type": ["long","null"], "aliases": ["fk_member_id"]},
+	     {"name": "fk_bank_account_type_id1", "type": ["long","null"]},
+	     {"name": "id1_bank_account_number", "type":["string","null"], "default": "null"},
+	     {"name": "id1_name_as_per_bank_records", "type":["string","null"], "default": "null"},
+	     {"name": "id1_bank_ifsc_code", "type":["string","null"], "default": "null"},
+	     {"name": "id1_bank_name", "type":["string","null"], "default": "null"},
+	     {"name": "fk_bank_account_type_id2", "type": ["long","null"]},
+	     {"name": "id2_bank_account_number", "type":["string","null"], "default": "null"},
+	     {"name": "id2_name_as_per_bank_records", "type":["string","null"], "default": "null"},
+	     {"name": "id2_bank_ifsc_code", "type":["string","null"], "default": "null"},
+	     {"name": "id2_bank_name", "type":["string","null"], "default": "null"},
+	     {"name": "fk_bank_account_type_id3", "type": ["long","null"]},
+	     {"name": "id3_bank_account_number", "type":["string","null"], "default": "null"},
+	     {"name": "id3_name_as_per_bank_records", "type":["string","null"], "default": "null"},
+	     {"name": "id3_bank_ifsc_code", "type":["string","null"], "default": "null"},
+	     {"name": "id3_bank_name", "type":["string","null"], "default": "null"},
+	     {"name": "member_bank_last_modified_date", "type":"string"},
+	     {"name": "member_bank_fk_last_modified_by", "type":"string"}, 
+	     {"name": "member_bank_fk_sci_client_id", "type":"long"},
+	     {"name": "member_bank_fk_alf_node_ref", "type":["string","null"], "default": "null"},
+	     {"name": "member_bank_fk_alf_file_name", "type":["string","null"], "default": "null"},
+	     {"name": "member_bank_fk_alf_node_ref1", "type":["string","null"], "default": "null"},
+	     {"name": "member_bank_fk_alf_file_name1", "type":["string","null"], "default": "null"},
+	     {"name": "member_bank_fk_alf_node_ref2", "type":["string","null"], "default": "null"},
+	     {"name": "member_bank_fk_alf_file_name2", "type":["string","null"], "default": "null"},
+	     {"name": "member_bank_details_json", "type": [{"type": "map", "values": "string"},"null"]},
+
+	     {"name": "business_details_id", "type": ["long","null"]},
+	     {"name": "business_details_memberid", "type": ["long","null"], "aliases": ["fk_member_id"]},
+	     {"name": "fk_constitution_type_id", "type": ["long","null"]},
+	     {"name": "date_of_incorporation", "type": ["string","null"], "default": "null"},
+	     {"name": "fk_type_of_industrry_id", "type": ["long","null"]},
+	     {"name": "share_holding_in_industry", "type": ["long","null"]},
+	     {"name": "industry_networth", "type":["double","null"]},
+	     {"name": "name_of_product", "type": ["string","null"], "default": "null"},
+	     {"name": "units_in_production", "type": ["string","null"], "default": "null"},
+	     {"name": "installed_units", "type": ["string","null"], "default": "null"},
+	     {"name": "biz_nature", "type": ["string","null"], "default": "null"},
+	     {"name": "biz_no_of_yrs", "type": ["long","null"]},
+	     {"name": "biz_location", "type": ["string","null"], "default": "null"},
+	     {"name": "biz_localbody_app", "type": ["string","null"], "default": "null"},
+	     {"name": "biz_issued_by", "type": ["string","null"], "default": "null"},
+	     {"name": "biz_no", "type": ["string","null"], "default": "null"},
+	     {"name": "biz_date", "type": ["string","null"], "default": "null"},
+	     {"name": "biz_valid_upto", "type": ["string","null"], "default": "null"},
+	     {"name": "rent_pay_month", "type":["double","null"]},
+	     {"name": "rent_pay_year", "type":["double","null"]},
+	     {"name": "percentage_of_sales", "type": ["long","null"]},
+	     {"name": "biz_details_last_modified_by", "type": "string"},
+	     {"name": "biz_details_last_modified_date", "type": "string"},
+	     {"name": "biz_details_fk_sci_client_id", "type": "long"},
+	     {"name": "biz_id_alf_node_ref", "type":["string","null"], "default": "null"},
+	     {"name": "biz_id_alf_file_name", "type":["string","null"], "default": "null"},
+	     {"name": "biz_id_alf_node_ref1", "type":["string","null"], "default": "null"},
+	     {"name": "biz_id_alf_file_name1", "type":["string","null"], "default": "null"},
+	     {"name": "business_details_json", "type": [{"type": "map", "values": "string"},"null"]},
+
+	     {"name": "permanent_address_id", "type": ["long","null"]},
+	     {"name": "permanent_address_memberid", "type": ["long","null"], "aliases": ["fk_member_id"]},
+	     {"name": "permanent_door_no", "type":["string","null"], "default": "null"},
+	     {"name": "permanent_street_name", "type":["string","null"], "default": "null"},
+	     {"name": "permanent_location_name", "type":["string","null"], "default": "null"},
+	     {"name": "fk_permanent_village_or_town_id", "type": ["long","null"]},
+	     {"name": "permanent_state", "type": ["long","null"]},
+	     {"name": "permanent_district", "type": ["long","null"]},
+	     {"name": "permanent_taluk", "type": ["long","null"]},
+	     {"name": "permanent_pincode", "type": ["long","null"]},
+	     {"name": "fk_permanent_proof_type_id", "type": ["long","null"]},
+	     {"name": "permanent_proof_value", "type":["string","null"], "default": "null"},
+	     {"name": "permanent_document_url", "type":["string","null"], "default": "null"},
+	     {"name": "permanent_address_landline_number", "type": ["long","null"]},
+	     {"name": "permanent_address_mobile_number", "type": ["long","null"]},
+	     {"name": "permanent_address_latitude", "type":["string","null"], "default": "null"},
+	     {"name": "permanent_address_longitude", "type":["string","null"], "default": "null"},
+	     {"name": "permanent_address_fk_last_modified_by", "type":"string"},
+	     {"name": "permanent_address_last_modified_date", "type":"string"},
+	     {"name": "permanent_address_fk_sci_client_id", "type":"long"},
+	     {"name": "permanent_address_fk_alf_node_ref", "type":["string","null"], "default": "null"},
+	     {"name": "permanent_address_fk_alf_file_name", "type":["string","null"], "default": "null"},
+	     {"name": "permanent_address_details_json", "type": [{"type": "map", "values": "string"},"null"]},
+
+	     {"name": "current_address_id", "type": ["long","null"]},
+	     {"name": "current_address_memberid", "type": ["long","null"], "aliases": ["fk_member_id"]},
+	     {"name": "current_door_no", "type":["string","null"], "default": "null"},
+	     {"name": "current_street_name", "type":["string","null"], "default": "null"},
+	     {"name": "current_location_name", "type":["string","null"], "default": "null"},
+	     {"name": "fk_curr_village_or_town_id", "type": ["long","null"]},
+	     {"name": "current_state", "type": ["long","null"]},
+	     {"name": "current_district", "type": ["long","null"]},
+	     {"name": "current_taluk", "type": ["long","null"]},
+	     {"name": "current_pincode", "type": ["long","null"]},
+	     {"name": "fk_current_address_proof_type_id", "type": ["long","null"]},
+	     {"name": "current_document_value", "type":["string","null"], "default": "null"},
+	     {"name": "current_document_url", "type":["string","null"], "default": "null"},
+	     {"name": "current_address_landline_number", "type": ["long","null"]},
+	     {"name": "current_address_mobile_number", "type": ["long","null"]},
+	     {"name": "current_address_latitude", "type":["string","null"], "default": "null"},
+	     {"name": "current_address_longitude", "type":["string","null"], "default": "null"},
+	     {"name": "current_address_fk_last_modified_by", "type":"string"},
+	     {"name": "current_address_last_modified_date", "type":"string"},
+	     {"name": "current_address_sci_client_id", "type":"long"},
+	     {"name": "current_address_fk_alf_node_ref", "type":["string","null"], "default": "null"},
+	     {"name": "current_address_fk_alf_file_name", "type":["string","null"], "default": "null"},
+	     {"name": "current_address_details_json", "type": [{"type": "map", "values": "string"},"null"]},
+
+	     {"name": "biz_address_id", "type": ["long","null"]},
+	     {"name": "biz_address_memberid", "type": ["long","null"], "aliases": ["fk_member_id"]},
+	     {"name": "biz_door_no", "type":["string","null"], "default": "null"},
+	     {"name": "biz_street_name", "type":["string","null"], "default": "null"},
+	     {"name": "biz_location_name", "type":["string","null"], "default": "null"},
+	     {"name": "fk_biz_village_or_town", "type": ["long","null"]},
+	     {"name": "biz_state", "type": ["long","null"]},
+	     {"name": "biz_district", "type": ["long","null"]},
+	     {"name": "biz_taluk", "type": ["long","null"]},
+	     {"name": "biz_pincode", "type": ["long","null"]},
+	     {"name": "fk_biz_address_proof_type_id", "type": ["long","null"]},
+	     {"name": "biz_address_proof_value", "type":["string","null"], "default": "null"},
+	     {"name": "biz_office_address_landline_number", "type": ["long","null"]},
+	     {"name": "biz_office_address_mobile_number", "type": ["long","null"]},
+	     {"name": "biz_address_latitude", "type":["string","null"], "default": "null"},
+	     {"name": "biz_address_longitude", "type":["string","null"], "default": "null"},
+	     {"name": "fk_biz_registered_address_proof_type_id", "type": ["long","null"]},
+	     {"name": "biz_registered_office_address_value", "type": ["string","null"], "default": "null"},
+	     {"name": "biz_documet_url", "type":["string","null"], "default": "null"},
+	     {"name": "biz_registered_door_no", "type":["string","null"], "default": "null"},
+	     {"name": "biz_registered_location", "type":["string","null"], "default": "null"},
+	     {"name": "biz_registered_street_name", "type":["string","null"], "default": "null"},
+	     {"name": "biz_registered_village_or_town_id", "type": ["long","null"]},
+	     {"name": "biz_registered_sate", "type":["string","null"], "default": "null"},
+	     {"name": "biz_registered_pincode", "type": ["long","null"]},
+	     {"name": "biz_registered_address_longitude", "type":["string","null"], "default": "null"},
+	     {"name": "biz_registered_address_latitude", "type":["string","null"], "default": "null"},
+	     {"name": "biz_registered_address_landline_number", "type": ["long","null"]},
+	     {"name": "biz_registered_address_mobile_number", "type": ["long","null"]},
+	     {"name": "biz_address_fk_last_modified_by", "type":"string"},
+	     {"name": "biz_address_last_modified_date", "type":"string"},
+	     {"name": "biz_address_fk_sci_client_id", "type":"long"},
+	     {"name": "biz_address_fk_alf_node_ref", "type":["string","null"], "default": "null"},
+	     {"name": "biz_address_fk_alf_file_name", "type":["string","null"], "default": "null"},
+	     {"name": "biz_address_fk_alf_node_ref1", "type":["string","null"], "default": "null"},
+	     {"name": "biz_address_fk_alf_file_name1", "type":["string","null"], "default": "null"},
+	     {"name": "business_address_details_json", "type": [{"type": "map", "values": "string"},"null"]},
+
+             {
+	     "name": "memberFamilyArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MemberFamily",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "member_family_id", "type": ["long","null"]},
+			     {"name": "member_family_memberid", "type": ["long","null"], "aliases": ["fk_member_id"]},
+			     {"name": "family_member_name", "type":["string","null"], "default": "null"},
+			     {"name": "fk_family_member_relationship_type_id", "type": ["long","null"]},
+			     {"name": "fk_family_member_id_proof_type_id", "type": ["long","null"]},
+			     {"name": "family_member_proof_type_value", "type":["string","null"], "default": "null"},
+			     {"name": "family_member_is_employed", "type":["boolean","null"]},
+			     {"name": "family_member_employment_type", "type":["string","null"], "default": "null"},
+			     {"name": "family_member_proof_type_url", "type":["string","null"], "default": "null"},
+			     {"name": "family_member_income", "type":["string","null"], "default": "null"},
+			     {"name": "fk_family_member_education_type_id", "type": ["long","null"]},
+			     {"name": "member_family_fk_last_modified_by", "type":"string"},
+			     {"name": "member_family_last_modified_date", "type":"string"},
+			     {"name": "member_family_sci_client_id", "type":"long"},
+			     {"name": "member_family_fk_alf_node_ref", "type":["string","null"], "default": "null"},
+			     {"name": "member_family_fk_alf_file_name", "type":["string","null"], "default": "null"},
+			     {"name": "member_family_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+			      ]
+		               }
+		           }
+	     },
+
+	     {
+	     "name": "idProofArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "IdProof",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "id_proof_id", "type": ["long","null"]},
+			     {"name": "id_proof_member_id", "type": ["long","null"], "aliases": ["fk_member_id"]},
+			     {"name": "fk_id_proof_type_id", "type": ["long","null"]},
+			     {"name": "id_proof_type", "type":["string","null"], "default": "null"},
+			     {"name": "alf_node_ref", "type":["string","null"], "default": "null"},
+			     {"name": "alf_file_name", "type":["string","null"], "default": "null"},
+			     {"name": "alf_node_ref1", "type":["string","null"], "default": "null"},
+			     {"name": "alf_file_name1", "type":["string","null"], "default": "null"},
+			     {"name": "alf_node_ref2", "type":["string","null"], "default": "null"},
+			     {"name": "alf_file_name2", "type":["string","null"], "default": "null"},
+			     {"name": "id_proof_fk_last_modified_by", "type": "string"},
+			     {"name": "id_proof_last_modified_date", "type":"string"},
+	     		     {"name": "id_proof_fk_sci_client_id", "type":"long"},
+			     {"name": "id_proof_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+			      ]
+		               }
+		           }
+	     },
+
+	     {"name": "biz_financial_id", "type": ["long","null"]},
+	     {"name": "biz_income_member_id", "type": ["long","null"], "aliases": ["fk_member_id"]},
+	     {"name": "fk_biz_income_proof_type_id", "type": ["long","null"]},
+	     {"name": "annual_expenditure", "type": ["long","null"]},
+	     {"name": "annual_turnover", "type": ["long","null"]}, 
+	     {"name": "annual_growth_in_percentage", "type":["string","null"], "default": "null"},  
+	     {"name": "annual_profit_or_loss", "type": ["long","null"]}, 
+	     {"name": "brand_sale", "type":["double","null"]},
+	     {"name": "nonbrand_sale", "type":["double","null"]},
+	     {"name": "total_sale", "type":["double","null"]},
+	     {"name": "min_sale_day", "type":["double","null"]},
+	     {"name": "min_sale_month", "type":["double","null"]},
+	     {"name": "min_sale_year", "type":["double","null"]},
+	     {"name": "annual_household_income", "type":["double","null"]},
+	     {"name": "annual_expenses", "type":["double","null"]},
+	     {"name": "surplus_available", "type":["double","null"]}, 
+	     {"name": "biz_income_last_modified_date", "type":"string"},  
+	     {"name": "biz_income_fk_last_modified_by", "type":"string"},  
+	     {"name": "biz_income_fk_sci_client_id", "type":"long"},
+	     {"name": "business_financial_details_json", "type": [{"type": "map", "values": "string"},"null"]},
+
+             {
+	     "name": "businessStaffArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "BusinessStaff",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "biz_staff_id", "type": ["long","null"]},
+			     {"name": "biz_staff_member_id", "type": ["long","null"], "aliases": ["fk_member_id"]},
+			     {"name": "fk_biz_staff_rel_type_id", "type": ["long","null"]},
+			     {"name": "biz_staff_work_hour", "type":["string","null"], "default": "null"},
+			     {"name": "biz_staff_fk_last_modified_by", "type": "string"},
+			     {"name": "biz_staff_last_modified_date", "type":"string"},
+	     		     {"name": "biz_staff_fk_sci_client_id", "type":"long"},
+			     {"name": "biz_staff_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+			      ]
+		               }
+		           }
+	     },
+
+             {
+	     "name": "memberAssetArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MemberAsset",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "member_asset_id", "type": ["long","null"]},
+			     {"name": "member_asset_member_id", "type": ["long","null"], "aliases": ["fk_member_id"]},
+			     {"name": "fk_member_asset_type_id", "type": ["long","null"]},
+			     {"name": "member_asset_category", "type":["string","null"], "default": "null"},
+			     {"name": "member_asset_fk_last_modified_by", "type": "string"},
+			     {"name": "member_asset_last_modified_date", "type":"string"},
+	     		     {"name": "member_asset_fk_sci_client_id", "type":"long"},
+			     {"name": "member_asset_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+			      ]
+		               }
+		           }
+	     },	  
+   
+             {
+	     "name": "memberNetworkArray",
+	           "type": [{
+	              "type": "array",
+	              "items": {
+	                 "name": "MemberNetwork",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "member_network_id", "type": ["long","null"]},
+			     {"name": "member_network_member_id", "type": ["long","null"], "aliases": ["fk_member_id"]},
+			     {"name": "network_details_question", "type": ["long","null"]},
+			     {"name": "network_details_answer", "type": ["long","null"]},
+			     {"name": "member_network_fk_last_modified_by", "type": "string"},
+			     {"name": "member_network_last_modified_date", "type":"string"},
+	     		     {"name": "member_network_fk_sci_client_id", "type":"long"},
+			     {"name": "member_network_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+			      ]
+		               }
+		           },"null"]
+	     },
+
+	     {"name": "loanid", "type": ["long","null"]},
+	     {"name": "account_number", "type":["string","null"], "default": "null"},                
+	     {"name": "fk_fund_id", "type":["long","null"]},                 
+	     {"name": "fk_product_id_loan", "type":"long"},                 
+	     {"name": "fk_member_id", "type":"long"},                 
+	     {"name": "fk_purpose_id", "type":"long"},                
+	     {"name": "fk_loan_status_id", "type":["long","null"]}, 
+	     {"name": "application_loan_amount", "type":["double","null"]},  
+         {"name": "sanction_loan_amount", "type":["double","null"]},                 
+	     {"name": "principal_amount", "type":["double","null"]},                 
+	     {"name": "arrears_tolerance_amount", "type":["double","null"]},                 
+	     {"name": "nominal_interest_rate_per_period", "type":["double","null"]},                 
+	     {"name": "annual_nominal_interest_rate", "type":["double","null"]},                 
+	     {"name": "term_frequency", "type":["string","null"], "default": "null"},                 
+	     {"name": "repay_every", "type":["string","null"], "default": "null"},                 
+	     {"name": "no_of_repayments", "type":["long","null"]},                 
+	     {"name": "submittedon_date", "type":["string","null"], "default": "null"},                 
+	     {"name": "approvedon_date", "type":["string","null"], "default": "null"},                 
+	     {"name": "expected_disbursedon_date", "type":["string","null"], "default": "null"},                 
+	     {"name": "expected_firstrepaymenton_date", "type":["string","null"], "default": "null"},                 
+	     {"name": "interest_calculated_from_date", "type":["string","null"], "default": "null"},                 
+	     {"name": "disbursedon_date", "type":["string","null"], "default": "null"},                 
+	     {"name": "closedon_date", "type":["string","null"], "default": "null"},                 
+	     {"name": "total_charges_due_at_disbursement_derived", "type":["double","null"]},                 
+	     {"name": "principal_disbursed_derived", "type":["double","null"]},                 
+	     {"name": "principal_repaid_derived", "type":["double","null"]},                 
+	     {"name": "principal_writtenoff_derived", "type":["double","null"]},                 
+	     {"name": "principal_outstending_derived", "type":["double","null"]},                 
+	     {"name": "interest_charged_derived", "type":["double","null"]},                 
+	     {"name": "fk_last_modified_by_loan", "type":"string"},                 
+	     {"name": "last_modified_date_loan", "type":"string"},                 
+	     {"name": "loan_amount_released_on_date", "type":["string","null"], "default": "null"},                 
+	     {"name": "cheque_number", "type":["string","null"]},                
+	     {"name": "fk_sci_client_id_loan", "type":"long"},   
+	     {"name": "fk_loan_entity_details", "type":["long","null"]},
+	     {"name": "fk_master_member_role", "type":["long","null"]},
+	     {"name": "ml_fk_alf_node_ref", "type":["string","null"], "default": "null"},
+	     {"name": "ml_fk_alf_file_name", "type":["string","null"], "default": "null"},
+	     {"name": "ml_fk_alf_node_ref1", "type":["string","null"], "default": "null"},
+	     {"name": "ml_fk_alf_file_name1", "type":["string","null"], "default": "null"},              
+	     {"name": "member_loan_json", "type": [{"type": "map", "values": "string"},"null"]},
+	
+	     {
+     	     "name": "mlValidationArray",
+          	   "type": [{
+             	      "type": "array",
+              	      "items": {
+                         "name": "MlValidation",
+                         "type": "record",
+                         "namespace": "com.mf.loan.process.model",	
+                   "fields" : [
+			     {"name": "validation_id", "type": ["long","null"]},
+			     {"name": "validation_member_id", "type": ["long","null"], "aliases": ["fk_member_id"]},
+			     {"name": "validation_loan_id", "type": ["long","null"], "aliases": ["fk_loan_id"]},
+			     {"name": "validation_type", "type": ["long","null"]},
+			     {"name": "validation_level", "type": ["long","null"]},
+			     {"name": "validation_status", "type": ["long","null"]},
+			     {"name": "remarks", "type":["string","null"], "default": "null"},
+			     {"name": "process_id", "type":["string","null"], "default": "null"},
+			     {"name": "task_id", "type":["string","null"], "default": "null"},
+			     {"name": "validation_fk_last_modified_by", "type": ["string","null"], "default": "null"},
+			     {"name": "validation_last_modified_date", "type": ["string","null"], "default": "null"},
+			     {"name": "validation_fk_sci_client_id", "type": ["long","null"]},
+			     {"name": "member_loan_validation_json", "type": [{"type": "map", "values": "string"},"null"]}
+		              ]
+	                      }
+	                  },"null"]
+     	     },
+			 
+			 {
+     	     "name": "documentsArray",
+          	   "type": [{
+             	      "type": "array",
+              	      "items": {
+                         "name": "Docments",
+                         "type": "record",
+                         "namespace": "com.mf.loan.process.model",	
+                   "fields" : [
+					{"name": "doc_id", "type": ["long","null"]},
+					{"name": "doc_member_id", "type": ["long","null"], "aliases": ["fk_member_id"]},
+					{"name": "doc_loan_id", "type": ["long","null"], "aliases": ["fk_loan_id"]},
+					{"name": "doc_url", "type": ["string", "null"], "default": "null"},
+					{"name": "doc_name", "type": ["string", "null"], "default": "null"},
+					{"name": "doc_type", "type": ["string", "null"], "default": "null"},
+					{"name": "doc_status", "type": ["string", "null"], "default": "null"},
+					{"name": "remarks", "type": ["string", "null"], "default": "null"},
+					{"name": "doc_fk_last_modified_by", "type": ["string", "null"], "default": "null"},
+					{"name": "doc_last_modified_date", "type": ["string", "null"], "default": "null"},
+					{"name": "doc_fk_sci_client_id", "type": ["long", "null"]},
+					{"name": "documents_json", "type": [{"type": "map", "values": "string"},"null"]}
+		              ]
+	                      }
+	                  },"null"]
+     	     },
+			 
+			 {
+     	     "name": "phoneNumberArray",
+          	   "type": [{
+             	      "type": "array",
+              	      "items": {
+                         "name": "PhoneNumber",
+                         "type": "record",
+                         "namespace": "com.mf.loan.process.model",	
+                   "fields" : [
+					{"name": "phno_id", "type": ["long", "null"]},
+					{"name": "phno_member_id", "type": ["long", "null"]},
+					{"name": "phno_loan_id", "type": ["long", "null"]},
+					{"name": "number", "type": ["long", "null"]},
+					{"name": "phno_type", "type": ["string","null"]},
+					{"name": "phno_last_modified_by", "type": ["string", "null"]},
+					{"name": "phno_last_modified_date", "type": ["string", "null"]},
+					{"name": "phno_fk_sci_client_id", "type": ["long", "null"]},
+					{"name": "phoneNumber_json", "type": [{"type": "map", "values": "string"},"null"]}
+		              ]
+	                      }
+	                  },"null"]
+     	     },
+			 
+			 {
+     	     "name": "emailIdArray",
+          	   "type": [{
+             	      "type": "array",
+              	      "items": {
+                         "name": "Email",
+                         "type": "record",
+                         "namespace": "com.mf.loan.process.model",	
+                   "fields" : [
+					{"name": "email_id", "type": ["long", "null"]},
+					{"name": "email_member_id", "type": ["long", "null"]},
+					{"name": "email_loan_id", "type": ["long", "null"]},
+					{"name": "email", "type": ["string", "null"]},
+					{"name": "email_type", "type": ["string","null"]},
+					{"name": "email_last_modified_by", "type": ["string", "null"]},
+					{"name": "email_last_modified_date", "type": ["string", "null"]},
+					{"name": "email_fk_sci_client_id", "type": ["long", "null"]},
+					{"name": "email_json", "type": [{"type": "map", "values": "string"},"null"]}
+		              ]
+	                      }
+	                  },"null"]
+     	     },
+			 
+			  {
+     	     "name": "alfNodeArray",
+          	   "type": [{
+             	      "type": "array",
+              	      "items": {
+                         "name": "AlfNode",
+                         "type": "record",
+                         "namespace": "com.mf.loan.process.model",	
+                   "fields" : [
+					{"name": "alf_id", "type": ["long", "null"]},
+					{"name": "alf_member_id", "type": ["long", "null"]},
+					{"name": "alf_loan_id", "type": ["long", "null"]},
+					{"name": "alf_type", "type": ["string","null"]},
+					{"name": "alf_file_name", "type": ["string", "null"]},
+					{"name": "alf_node_ref", "type": ["string","null"]},
+					{"name": "alf_last_modified_by", "type": ["string", "null"]},
+					{"name": "alf_last_modified_date", "type": ["string", "null"]},
+					{"name": "alf_fk_sci_client_id", "type": ["long", "null"]},
+					{"name": "alf_json", "type": [{"type": "map", "values": "string"},"null"]}
+		              ]
+	                      }
+	                  },"null"]
+     	     },
+			 
+	     {
+     	     "name": "fieldTeamValidationArray",
+          	   "type": [{
+             	      "type": "array",
+              	      "items": {
+                         "name": "FtValidation",
+                         "type": "record",
+                         "namespace": "com.mf.loan.process.model",	
+                   "fields" : [
+			     {"name": "validation_id", "type": ["long","null"]},
+			     {"name": "validation_member_id", "type": ["long","null"], "aliases": ["fk_member_id"]},
+			     {"name": "validation_loan_id", "type": ["long","null"], "aliases": ["fk_loan_id"]},
+			     {"name": "remarks", "type":["string","null"], "default": "null"},
+			     {"name": "process_id", "type":["string","null"], "default": "null"},
+			     {"name": "task_id", "type":["string","null"], "default": "null"},
+			     {"name": "validation_status", "type": ["long","null"]},
+			     {"name": "validation_last_modified_date", "type": ["string","null"], "default": "null"},
+			     {"name": "validation_fk_last_modified_by", "type": ["string","null"], "default": "null"},
+			     {"name": "validation_fk_sci_client_id", "type": ["long","null"]},
+			     {"name": "field_team_validation_json", "type": [{"type": "map", "values": "string"},"null"]}
+		              ]
+	                      }
+	                  },"null"]
+     	     }	     
+	 	    ]
+	       }
+           }
+       }
+   ]
+}

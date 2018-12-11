@@ -1,0 +1,14 @@
+{
+ "type": "record",
+ "name": "UpdateLoanAmount",
+ "namespace": "com.mmfl.vvl.core.model",
+ "fields": [
+     {"name": "ml_id"			, "type": ["long","null"]},
+     {"name": "ml_member_id"		, "type": "long"	},
+     {"name": "ml_loan_id"		, "type": "long"	},
+     {"name": "ml_loan_amount"		, "type": "double"	},
+     {"name": "ml_loan_type_id"		, "type": "string"	},
+     {"name": "ml_fk_last_modified_by"	, "type": "string"	},
+     {"name": "ml_last_modified_date"	, "type": "string"	}
+           ]
+}

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+<link rel="stylesheet" href="/static/css/custom2.css">				<!-- custom css for loan officer process -->
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script>		<!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+
+
+<!--MASTER DATA -->
+<script type="text/javascript" src="/static/form/masterData.js"></script> 
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+<style>
+
+@media only screen and (min-width:0px){
+	.colomn-div label{
+		font-size:13px;
+		display	: inline-block;
+		width: 35%;
+		/*width	: 30%;
+		/*text-align:right;*/
+		text-align: left;
+		padding-left: 15%;
+		
+	}
+	.img-input input{
+		width	: 38%;
+		margin-left:43.5%;
+	}
+
+	.center-pane{
+		width:50%;
+		margin: 3% auto;
+		display:block;
+		border:2px solid sienna;
+		border-radius:10px;
+	}
+	.h3-heading h3{
+		padding-top:20px;
+		color:white;
+		font-weight:bolder;
+		margin-top:initial;
+	}
+	.file_img {
+	        float: right;
+	        display: inline-block;
+	        max-width: 21px;
+	        max-height: 21px;
+	        cursor: pointer;
+	        margin-right:12%;
+	        border: 0 none;
+	}
+	.right-pane-task{
+		width:100%;
+		margin: 10 auto;
+	}
+}
+@media only screen and (min-width:0px) and (max-width:600px){
+
+	.right-pane-task{
+		width:95%;
+
+	}
+	.center-pane{
+		width:90%;
+		line-height: normal;
+	}
+	.colomn-div input{
+    		margin-left: 5%;
+	}
+	.img-input input{
+			
+		margin-left:43.5%;
+	}
+	.colomn-div label{
+		font-size:13px;
+		padding-left:10%;
+		width: 36%;
+	}
+	
+}
+</style>
+
+</head>
+<body>
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+		{% include "header_common.html" %} 
+	</div>
+	{% csrf_token %}
+	<!-- Main Content -->
+    	<div class="main">	
+	    <div class="task-div">	
+		<div class="main-task">
+		   <div  class="right-pane-task" id="right-pane-task">
+			<div class="right-pane-task-detail detail-max" id="right-pane-task-detail" style="background-color: rgba(218, 216, 216, 0.2);">
+			<span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;"><i class="entypo-chat"></i> Comments</span>
+			
+     		        	<div class="center-pane" > 
+		       			<!--Div HEader-->
+					<div class="h3-heading" >
+						<h3 >Upload Documents</h3>
+						<h4 id="loan_id">	Loan ID : <span id="loan_Id">	198	</span> ,   Member Id : <span id="member_Id">	421	</span>	 & User ID: <span id="user_Id">		222222	</span> 	</h4>				</div>
+				
+					<!--INput Values-->
+					<div class="member_class" style="padding-top:8px;">
+				   		<div class="colomn-div">	<label>		LOS			</label>	<font>  : </font>
+							<input  	type="file" 		id="doc_name_1"  		name="doc_name_1"  	  onclick="setURL(this.id);" 	 placeholder="LOS IMAGE"	/>
+							<div class="img-input">
+								<img   	id="doc_1_pop"		class="file_img"	 src="" />	
+							   	<input  type="text" 		id="doc_url_1"   		name="doc_url_1"					 placeholder="LOS IMAGE" />
+							</div>	<br>
+				    		</div>
+					</div>
+					<div class="member_class" >
+				   		<div class="colomn-div">	<label>		LOS 1			</label>	<font>  : </font>
+							<input  	type="file"		id="doc_name_2"  		name="doc_name_2"	  onclick="setURL(this.id);" 	placeholder="LOS 1 IMAGE"/>
+							<div class="img-input">	
+								<img    id="doc_2_pop" 		class="file_img"	 src="" />	
+							    	<input  type="text" 		id="doc_url_2"   		name="doc_url_2"	 				placeholder="LOS 1 IMAGE"/>
+							</div>	<br>
+				   		</div>
+					</div>
+					<div class="member_class" >
+				   		<div class="colomn-div">	<label>		Loan Agreement		</label>	<font>  : </font>
+							<input  	type="file" 		id="doc_name_3"  		name="doc_name_3"	  onclick="setURL(this.id);" 	placeholder="LOAN AGREEMENT"	/>
+							<div class="img-input">
+								<img    id="doc_3_pop" 		class="file_img" 	 src="" />	
+							    	<input  type="text" 		id="doc_url_3"   		name="doc_url_3"					placeholder="LOAN AGREEMENT IMAGE"	/>
+						        </div>	</br>
+						</div>
+					</div>
+					<div class="member_class" >
+				    		<div class="colomn-div">	<label>		Loan Agreement 1 	</label>	<font>  : </font>
+							<input  	type="file" 		id="doc_name_4"  		name="doc_name_4"	  onclick="setURL(this.id);"	placeholder="LOAN AGREEMENT"	/>
+							<div class="img-input">  
+								<img    id="doc_4_pop" 		class="file_img"	 src="" />	
+							    	<input  type="text" 		id="doc_url_4"   		name="doc_url_4"		 			placeholder="LOAN AGREEMENT 1 IMAGE"	/>	
+						        </div>	</br>
+						</div>
+					</div>
+					<div class="member_class" >
+				    		<div class="colomn-div">	<label>		Promissory Note		</label>	<font>  : </font>
+							<input 		type="file" 		id="doc_name_5"  		name="doc_name_5"	  onclick="setURL(this.id);"	placeholder="PROMISSORY NOTE"	/>
+							<div class="img-input">
+								<img    id="doc_5_pop" 		class="file_img" 	src="" />	
+							    	<input  type="text" 		id="doc_url_5"   		name="doc_url_5"					placeholder="PROMISSORY NOTE IMAGE"/>
+						        </div>	</br>
+						</div>
+					</div>
+					<div class="member_class" >
+				    		<div class="colomn-div">	<label>		Promissory Note 1	</label>	<font>  : </font>
+							<input  	type="file" 		id="doc_name_6"  		name="doc_name_6"	  onclick="setURL(this.id);" 	placeholder="PROMISSORY NOTE"/>
+							<div class="img-input">
+								<img    id="doc_6_pop" 		class="file_img"	src="" />	
+							    	<input  type="text" 		id="doc_url_6"   		name="doc_url_6"					placeholder="PROMISSORY NOTE 1 IMAGE"/>
+						        </div>	</br>
+						</div>
+					</div>
+					<div class="member_class" >
+				    		<div class="colomn-div">	<label>		NACH Form		</label>	<font>  : </font>
+							<input  	type="file" 		id="doc_name_7"  		name="doc_name_7"	  onclick="setURL(this.id);" 	placeholder="NACH FORM"	/>
+							<div class="img-input">
+								<img    id="doc_7_pop" 		class="file_img" 	src="" />	
+							    	<input  type="text" 		id="doc_url_7"   		name="doc_url_7"					placeholder="NACH FORM IMAGE"/>
+						        </div>	</br>
+						</div>
+					</div>
+					<div class="member_class" >
+				    		<div class="colomn-div">	<label>		NACH Form 1		</label>	<font>  : </font>
+							<input  	type="file"		 id="doc_name_8"  		name="doc_name_8"	  onclick="setURL(this.id);"  	placeholder="NACH FORM">
+							<div class="img-input">
+								<img    id="doc_8_pop" 		class="file_img" 	src="" />	
+							    	<input  type="text" 		id="doc_url_8"   		name="doc_url_8"					placeholder="NACH FORM 1 IMAGE"/>
+						        </div>	</br>
+						</div>
+					</div>
+					<div class="member_class" >
+				    		<div class="colomn-div">	<label>		PDC			</label>	<font>  : </font>
+							<input  	type="file"	 	id="doc_name_9"  		name="doc_name_9"	  onclick="setURL(this.id);"	placeholder="PDC"/>
+							<div class="img-input">
+								<img    id="doc_9_pop" 		class="file_img" 	src="" />	
+							    	<input  type="text" 		id="doc_url_9"   		name="doc_url_9"	 				placeholder="PDC IMAGE"/>
+						        </div>	</br>
+						</div>
+					</div>
+					<div class="member_class" >
+				    		<div class="colomn-div">	<label>		PDC 1			</label>	<font>  : </font>
+							<input  	type="file"		 id="doc_name_10"  		name="doc_name_10"	  onclick="setURL(this.id);" 	placeholder="PDC"/>
+							<div class="img-input">
+								<img    id="doc_10_pop" 	class="file_img" 	src="" />	
+							    	<input  type="text" 		id="doc_url_10"   		name="doc_url_10"					placeholder="PDC 1 IMAGE"/>
+						        </div>	</br>
+						</div>
+					</div>
+				</div>
+				<!--Submit Button DIv-->
+				<div class="form-group text-center">
+					<div class="form-button" id="upload_button">
+						<a href="javascript:void(0)"	onclick=''	class="btn btn-red btn-icon icon-left"		 style="height:30px;padding-left:40px;">
+					  	        <i 	class="icon-entypo-cancel"	 style="width:30px;height: 28px;color: white;padding:6px;">	</i>
+					   	        Cancel
+						</a>
+						<a href="javascript:void(0)"	onclick="onUpload();" 	class="btn btn-red btn-icon icon-left" 		style="height:30px;padding-left:40px;">
+					  	        <i 	class="icon-entypo-check" 	style="width:30px;height: 28px;color: white;padding:6px;">	</i>
+					    	        Upload
+						</a>
+				    	</div>
+					<div class="form-button" id="reupload_button" style="display:none;">
+					    <textarea style="width:90%;height:20%;background-color:white;font-size: 11px;" id="comments"    placeholder="Comments"></textarea><font class="mandatory">*</font>
+					    <div style="padding-top:1%;">
+						<a href="javascript:void(0)"	onclick=''	class="btn btn-red btn-icon icon-left"		 style="height:30px;padding-left:40px;">
+					  	        <i class="icon-entypo-cancel"	 style="width:30px;height: 28px;color: white;padding:6px;">	</i>
+					   	        Cancel
+						</a>
+						<a href="javascript:void(0)"	onclick="onUpload('Rework Completed');" 	class="btn btn-red btn-icon icon-left" 		style="height:30px;padding-left:40px;">
+					  	        <i class="icon-entypo-check" 	style="width:30px;height: 28px;color: white;padding:6px;">	</i>
+					    	        Rework Completed
+						</a>
+					    </div>
+				    	</div>				    	
+				</div>
+				<div class="popup">	</div>
+		  	</div>
+		  	<div class="right-pane-task-comment-list comment-min " id="right-pane-task-comment-list">	
+					<div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;" data-toggle="collapse" data-target="#comment-list-pane">
+					    <div class="sub-header" >
+					      <div colspan="4"> Comments <i class="entypo-chat"></i></div>
+					    </div>
+					</div>
+					<div  class="comment-list-pane" id="comment-list-pane"></div>
+				</div>
+		    </div>
+	        </div>
+	    </div>
+
+	    {% include "footer.html" %} 
+
+</body>
+
+
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+<script type="text/javascript"> 
+
+    var data 	    = '{{ memberDetails	| safe	   }}';
+    var member_id   = "{{ memberId	| escapejs }}";
+    var loan_id	    = "{{ loanId 	| escapejs }}";	
+    var user_id	    = "{{ user 		| escapejs }}";
+    var task_id	    = "{{ taskId 	| escapejs }}";
+    var processid   = "{{processId	| safe	   }}";
+
+    var json_data   =  JSON.parse(data);
+
+    if(document.getElementById("loan_id")){
+    	document.getElementById("loan_id").innerHTML = 'Loan ID : <span id="loan_Id">'+loan_id+'</span>, Member Id : <span id="member_Id">'+member_id+'</span> '
+    }
+    
+    	/*For Comments*/
+	var html='<label class="comment-user" >No Comments</label>';
+	if(json_data.mlcompositeArray){
+		var objData = json_data.mlcompositeArray[0];
+		if(objData['mlValidationArray'].length>0){
+	    	    html=''; 		
+		    for(var i=0;i<objData['mlValidationArray'].length; i++){
+		    	var usernme = objData['mlValidationArray'][i]['validation_fk_last_modified_by'];
+		    	var remarks = objData['mlValidationArray'][i]['remarks'];	
+		    	var validation_last_modified_date = objData['mlValidationArray'][i]['validation_last_modified_date'];	
+
+			html +='<div id="comment-pane" class="comment-pane">'
+				    +'<div class="comments-list-pane">'
+					+'<label class="comment-user" ><i class="entypo-user"></i>'+usernme+'</label> <font class="comment-date"> '+validation_last_modified_date+' </font>'
+					+'<div class="comment-comment">'+remarks+'</div>'
+				    +'</div>'
+				+'</div>';	    
+		    }	
+		}
+	}
+	document.getElementById('comment-list-pane').innerHTML = html;    
+
+
+/*For Tab Pane*/
+$(document).ready(function() {
+
+    $('.comment-toggle').on('click', function () {
+	$('#right-pane-task-detail').toggleClass('detail-max detail-min');
+	$('#right-pane-task-comment-list').toggleClass('comment-min comment-max');
+    });
+
+    $(".tabs-menu a").click(function(event) {
+        event.preventDefault();
+        $(this).parent().addClass("current");
+        $(this).parent().siblings().removeClass("current");
+        var tab = $(this).attr("href");
+        $(".tab-content").not(tab).css("display", "none");
+        $(tab).fadeIn();
+    });
+});
+
+
+    if(json_data.documentsArray){
+	if(json_data.documentsArray[0]){
+	        
+             $('#upload_button').css("display","none");    
+             $('#reupload_button').css("display","block");
+	    for(var i=0;i<10;i++){	
+	        var obj=json_data.documentsArray[i];
+		for(key in obj){	
+		                
+		    if(key == "doc_name")
+			if(document.getElementById(key+"_"+(i+1)+""))
+			    document.getElementById("doc_url_"+(i+1)+"").value   =   obj[key];
+							
+			if(key == "doc_url")
+			    if(document.getElementById('doc_'+(i+1)+'_pop'))
+    			        $('#doc_'+(i+1)+'_pop').attr("src",	obj[key]);
+		}	
+	    }		
+	}
+    }
+    imagePopUp();
+
+    var today   = new Date();
+    var dd      = today.getDate();
+    var mm      = today.getMonth()+1; //January is 0!
+    var yyyy    = today.getFullYear();
+
+    if(dd<10) { dd  =  '0'+dd;  } 
+    if(mm<10) { mm  =  '0'+mm;  } 
+    today   =   yyyy + '-' + dd + '-' + mm;
+
+    /*Set Url for All Images*/       
+    function setURL(id){
+	var i  =  id.slice(-1);
+	$("#"+id).change(function(){
+	    if(i  ==  0){
+		document.getElementById("doc_url_10").value = this.value;
+    		readURL(this, "doc_10_pop");
+	    }
+	    document.getElementById("doc_url_"+i+"").value = this.value;
+    	    readURL(this, "doc_"+i+"_pop");
+	});
+	imagePopUp();
+    }
+    
+    	
+    var processupdate = {"variables": { "Upload_Doc_Status" : { "value" : "New" } } };
+    	
+    /*Upload Data or Documents for Upload and reupload of Documents Tasks*/ 	
+    function onUpload(){
+	var documentsArray=[];
+	var arr  =  {  "documentsArray"	: documentsArray  };
+	var doc_data = new FormData();
+	
+	var ProcessType = "Upload";
+	
+	if(json_data.documentsArray){
+	    if(json_data.documentsArray[0]){
+	        if(json_data.documentsArray.length > 0){
+	        
+	            for( var i = 0; i < 10; i++ ){
+	                if(jQuery('#doc_name_'+i+"")){
+	                    if(jQuery('#doc_name_'+i+"")[0]){
+	                        if(jQuery('#doc_name_'+i+"")[0].files){
+	                            jQuery.each(jQuery('#doc_name_'+i+"")[0].files, function(j, file) { 
+	                                json_data.documentsArray[i]["doc_fk_last_modified_by"] 	= user_id;
+	                                json_data.documentsArray[i]["doc_last_modified_date"] 	= today;
+                                        json_data.documentsArray[i]["doc_name"]  = document.getElementById("doc_name_"+i+"").value;
+	                                json_data.documentsArray[i]["doc_url"]   = document.getElementById("doc_url_"+i+"").value;
+                                        doc_data.append('file-'+(i+13), file);
+	                                if( json_data.documentsArray[i]["doc_name"]  &&  json_data.documentsArray[i]["doc_url"] ){
+	                                    doc_name_len		            = json_data.documentsArray[i]["doc_name"].length;
+		                            json_data.documentsArray[i]["doc_type"] = json_data.documentsArray[i]["doc_name"].substring(doc_name_len-4,doc_name_len);
+				
+	                                    if( json_data.documentsArray[i]["doc_name"]  && json_data.documentsArray[i]["doc_url"] ){		
+		                                json_data.documentsArray[i]["doc_status"]   =   "Document attached";
+		                                json_data.documentsArray[i]["remarks"]      =   "remarks:Document attached";
+		                            } else {
+		                                json_data.documentsArray[i]["doc_status"]   =   "Document not attached";
+		                                json_data.documentsArray[i]["remarks"]      =   "remarks:Document not attached";
+		                                json_data.documentsArray[i]["doc_url"]      =   "Document not attached";		                                
+		                                json_data.documentsArray[i]["doc_name"]     =   "Document not attached";		                                
+		                                json_data.documentsArray[i]["doc_type"]     =   "NoDoc.Noo";		                                		                                		                                
+		                                
+		                            }
+                 	                }                            
+	                            });
+	                        }
+	                    }
+	                }
+	            }
+	            processupdate = {"variables": { "Upload_Doc_Status" : { "value" : "ReworkCompleted" } } };
+	            ProcessType   = "ReUpload";
+	            arr 	  =  json_data;                     
+	        }
+	    }
+        }else{
+	
+	    for( var i = 1; i <= 10; i++ ){
+	            
+                var doc_details = {};
+                doc_details["doc_member_id"]	= parseInt(document.getElementById("member_Id").innerHTML);
+                doc_details["doc_loan_id"]	= parseInt(document.getElementById("loan_Id").innerHTML);
+                doc_details["doc_name"]		= document.getElementById("doc_name_"+i+"").value;
+                doc_details["doc_url"]		= document.getElementById("doc_url_"+i+"").value;
+		
+		/*For Document Name and URL*/
+                if( doc_details["doc_name"]  &&  doc_details["doc_url"] ){
+                    doc_name_len		        = doc_details["doc_name"].length;
+	            doc_details["doc_type"]	        = doc_details["doc_name"].substring(doc_name_len-4,doc_name_len);
+         	} else {
+                    doc_details["doc_name"]		=   "Document not attached";
+                    doc_details["doc_url"]		=   "Document not attached";                 	
+                    doc_details["doc_type"]    		=   "NoDoc.Noo";
+         	}		
+         	
+         	/*For Status and Remarks */
+                if( doc_details["doc_name"]  && doc_details["doc_url"] ){		
+                    doc_details["doc_status"] 	        =   "Document attached";
+                    doc_details["remarks"]	        =   "Document attached";
+                } else {
+                    doc_details["doc_status"] 	        =   "Document not attached";
+                    doc_details["remarks"]	        =   "Document not attached";
+                    doc_details["doc_type"]     	=   "NoDoc.Noo";
+                }          
+                       	
+                doc_details["doc_fk_last_modified_by"] 	= user_id;
+                doc_details["doc_last_modified_date"] 	= today;
+                doc_details["doc_fk_sci_client_id"]	= 1;
+                documentsArray.push(doc_details);
+	
+	        /*If File Exists*/
+	        if(jQuery('#doc_name_'+i+"")){
+                    if(jQuery('#doc_name_'+i+"")[0]){
+                        if(jQuery('#doc_name_'+i+"")[0].files){
+                            jQuery.each(jQuery('#doc_name_'+i+"")[0].files, function(j, file) {
+	                        console.log(file);
+	                        if(file){
+        	                    doc_data.append('file-'+(i+12), file);
+   	         	        }
+                            });
+                        }
+                    }
+                }
+	    }
+	    
+	    arr  =  {  "documentsArray"	: documentsArray  };
+        }
+		
+	doc_data.append('form_data' , JSON.stringify(arr) );
+	var obj =  {
+                "task_id"       : task_id   ,	
+                "process_id"    : processid ,
+                "processupdate" : processupdate 
+	        };
+	doc_data.append('process_data' , JSON.stringify(obj) );
+	doc_data.append('ProcessType'  , ProcessType  );	
+		
+	var opts = {
+                url         : '/uploadDocument',
+                data        : doc_data,
+                cache       : false,
+                contentType : false,
+                processData : false,
+                dataType    : 'json',
+                type        : 'POST',
+                success     : function (data) 
+                {	
+                    console.log(data);
+                    window.location='/tasks/';
+                },
+                error       : function(error) 
+                {
+		    console.log(error)
+                }
+	};
+	
+     	if(doc_data.fake) {
+    	// Make sure no text encoding stuff is done by xhr
+    		opts.xhr = function() { var xhr = jQuery.ajaxSettings.xhr(); xhr.send = xhr.sendAsBinary; return xhr; }
+   		opts.contentType = "multipart/form-data; boundary="+doc_data.boundary;
+    		opts.data = doc_data;
+	}
+	
+	jQuery.ajax(opts);
+   }
+
+
+</script>
+</html>
+

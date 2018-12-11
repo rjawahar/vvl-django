@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+<link type="text/css" href="/static/css/jquery-confirm.css" rel="stylesheet"  />
+
+ 
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script><!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+<script type="text/javascript" src="/static/js/jquery-confirm.js"></script>
+
+
+<!-- Data -->
+<script type="text/javascript" src="/static/form/data.js"></script> 
+
+
+<!-- master Data -->
+<script type="text/javascript" src="/static/form/masterData.js"></script> 
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+<script type="text/javascript" src="/static/form/form_v1.js"></script> 
+
+<script type="text/javascript">  
+
+	/*Common Variables*/
+	var screenHeight 	 = $(window).height();
+	var memberdetails 	 = '{{memberDetails|safe}}';
+	var userId	 	 = '{{user|safe}}';
+	var masterLocationData 	 = '';
+	var districtAndTalukData = [];
+
+	$(document).ready(function() {
+	    $(".tabs-menu a").click(function(event) {
+			event.preventDefault();
+			$(this).parent().addClass("current");
+			$(this).parent().siblings().removeClass("current");
+		
+			var tab = $(this).attr("href");
+			$(".tab-content").not(tab).css("display", "none");
+			$(tab).fadeIn();
+	    });
+
+	    $("#dob").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,//this option for allowing user to select month
+	    		  changeYear: true });	
+	    $("#biz_valid_upto").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,//this option for allowing user to select month
+	    		  changeYear: true });	      
+	});
+
+	$(function() {
+		$("#tabs").tabs();
+	});
+	
+	function pinChangeStDtTlVl(){
+	        /*State*/
+	        statePinDim 	= pincodeNDX.dimension(function (d) {		//--> Create Dimension for a State
+				  	return  d.state_name+'*'+d.state_code;
+				    });		        
+			/*District*/		    
+	        districtPinDim 	= pincodeNDX.dimension(function (d) {		//--> Create Dimension for a District
+				  	return  d.district_name+'*'+d.district_code;
+				    });	
+			/*Taluk*/		    
+	        talukPinDim 	= pincodeNDX.dimension(function (d) {		//--> Create Dimension for a Taluk
+				  	return  d.taluk_name+'*'+d.taluk_code;
+				    });		        
+			/*Village*/		    
+			villagePinDim 	= pincodeNDX.dimension(function (d) {		//--> Create Dimension for a Village
+				  	return  d.village_name+'*'+d.village_code;
+				    });		        
+	}
+	
+</script>
+   
+</head>
+<body >
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+		{% include "header.html" %} 
+	</div>
+	
+	<!-- Main Content -->
+    <div class="main">	
+	    <div class="task-div">	
+			<div class="main-task">
+			    <div  class="right-pane-task" id="right-pane-task">	
+					<div id="tabs">
+						<ul id="form-tab">
+							<li><a href="#pane1">Basic Details</a></li>
+							<li><a href="#pane2">Business Details</a></li>
+							<li><a href="#pane3">Research Details</a></li>
+							<li><a href="#pane4">Loan Details</a></li>
+						</ul>
+						<form name="memberInformation" id="form" action="." ><!-- Forms -->
+							{% csrf_token %}
+							<div class="right-pane-task-detail" id="right-pane-task-detail">
+								<div class="loan-application-basic-details" >
+									<div class="tab-content span5"><!-- for tab -->
+										<div id="pane1" class="tab-pane active" ><!-- for tab -->
+											<h4>Basic Details</h4>
+											<table width="100%">
+												<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+													<div class="sub-header"  data-toggle="collapse" data-target="#basic_information" class="accordion-toggle">
+														<div colspan="4" > BASIC INFORMATION </div>
+													</div>
+												</thead>
+												<tbody id="basic_information">
+													<div  class="row-div">
+														<div class="colomn-div"><label id="firstname_label">First Name</label></br>	<input type="text" id="firstname"     name="firstname"	placeholder="FIRST NAME"  maxlength=40 /><font class="mandatory">*</font></div>
+														<div class="colomn-div"><label id="middlename_label">Middle Name</label></br>	<input type="text" id="middlename"    name="middlename"   	placeholder="MIDDLE NAME" maxlength=40 /> </div>
+														<div class="colomn-div"><label id="lastname_label">Last Name</label></br>	<input type="text" id="lastname"   	  name="lastname"	placeholder="LAST NAME"	maxlength=40  /><font class="mandatory">*</font> </div>
+														
+													</div>
+													<div class="row-div">
+														<div class="colomn-div" id="gender">
+															<label id="gender_label">Gender</label></br>
+															<input style="width:10%;" type="radio" name="gender" value="Male"   checked>	Male	</input>
+															<input style="width:10%;" type="radio" name="gender" value="female" 	   >   Female	</input><font class="mandatory">*</font>
+														</div>
+														<div class="colomn-div" id="care_of_relation" >
+															<label id="care_of_relation_label"> Care of Relation</label></br>
+															<input style="width:10%;" type="radio" id="care_of_relation" name="care_of_relation" value="Son of"     checked>S/O</input>
+															<input style="width:10%;" type="radio" id="care_of_relation" name="care_of_relation" value="Wife of"    	 >W/O</input>
+															<input style="width:10%;" type="radio" id="care_of_relation" name="care_of_relation" value="Husband of" 	 >H/O</input>
+															<input style="width:10%;" type="radio" id="care_of_relation" name="care_of_relation" value="Daughter of" 	 >D/O</input><font class="mandatory">*</font>
+														</div>
+														<div class="colomn-div"><label id="father_name_label">Father Name</label></br>
+															<input type="text" id="father_name" name="father_name"  placeholder="FATHER NAME" maxlength=40 /><font class="mandatory">*</font>
+														</div>
+														<div class="colomn-div" id="spouse_div"><label id="spouse_name_label">Spouse Name</label></br>
+															<input disabled type="text" id="spouse_name" name="spouse_name" placeholder="SPOUSE NAME" maxlength=40 />
+														</div>
+													</div>
+													<div class="row-div" >
+														<div class="colomn-div"><label id="dob_label">Date Of Birth ( YYYY-MM-DD )</label></br><input type="text" id="dob" name="dob"   placeholder="YYYY-MM-DD"	onchange='ageAutoPopulate();'	/><font class="mandatory">*</font> </div>
+														<div class="colomn-div"><label id="age_label">Age</label></br><input type="text" id="age" name="age"   placeholder="AGE"	maxlength=2 /><font class="mandatory">*</font> </div>
+														<div class="colomn-div"><label id="current_address_location_name_label">Residence Status</label></br>
+															<select id="current_address_location_name" class="extra select form-control current_address_location_name" 	name="current_address_location_name"  		value=""></select>
+														</div>																						
+													</div>
+													<div class="row-div">
+														<div class="colomn-div"><label id="current_door_no_label">Door No</label></br><input type="text" id="current_door_no" minlength=3 maxlength=75	   name="current_door_no"		placeholder="HOUSE NO"	/><font class="mandatory">*</font> </div>
+														<div class="colomn-div"><label id="current_street_name_label">Street No</label></br><input type="text" id="current_street_name"  maxlength=75	   name="current_street_name" 		placeholder="STREET NO"	/><font class="mandatory">*</font></div>
+														<div class="colomn-div"><label id="current_location_name_label">Location</label></br><input type="text" id="current_location_name"  maxlength=60	   name="current_location_name"		placeholder="AREA"	/><font class="mandatory">*</font> </div>
+														<div class="colomn-div"><label id="current_pincode_label">Pincode</label></br><input type="text" maxlength="6" id="current_pincode" name="current_pincode"  placeholder="PINCODE" onkeypress='validate(event);' onchange="pincodeChange('curr',this.id);"/><font class="mandatory">*</font></div>						    
+													</div>
+													<div class="row-div">
+														<!-- State -->	
+														<div class="colomn-div"><label id="current_state_label">State</label></br>
+															<select id="current_state" class="extra select form-control current_state"   	name="current_state"  	placeholder="current_state"	onchange="currentStateChange();"></select> 
+															<font class="mandatory">*</font>
+														</div>
+														<!-- District -->						    
+														<div class="colomn-div"><label id="current_district_label">District</label></br>
+															<select id="current_district" class="extra select form-control current_district" name="current_district"  placeholder="current_district" onchange="currentDistrictChange();"></select> 
+															
+														</div>
+														<!-- Taluk -->						    
+														<div class="colomn-div"><label id="current_taluk_label">Taluk</label></br>
+															<select id="current_taluk" class="extra select form-control current_taluk"   	name="current_taluk"  	placeholder="current_taluk"	onchange="currentTalukChange();"></select> 
+															
+														</div>
+														<!-- City / Village -->						    
+														<div class="colomn-div"><label id="fk_curr_village_or_town_id_label">City / Village</label></br>
+															<select id="fk_curr_village_or_town_id" class="extra select form-control fk_curr_village_or_town_id"   	name="fk_curr_village_or_town_id"  	placeholder="fk_curr_village_or_town_id"	></select> 
+															
+														</div>
+													</div>
+													<div class="row-div">
+														<div class="colomn-div" ><label id="mobile_number_1_label">Mobile Number</label></br>	<input type="text"  id="mobile_number_1" onkeypress='validate(event)' maxlength="12" name="mobile_number_1"  placeholder="MOBILE"	  /><font class="mandatory">*</font></div>
+														<div class="colomn-div" id="mob"><label id="mobile_number_2_label">Alternate Mobile Number</label></br>	<input type="text"  id="mobile_number_2" onkeypress='validate(event)' maxlength="12" name="mobile_number_2"  placeholder="MOBILE"	  /><font class="mandatory">*</font>
+														<a href="javascript:void(0)"	id="add-mob-btn" onclick=''	class="btn btn-red btn-icon icon-left"		 style="height:15px;padding-left:3px;">
+												  	        <i 	class="entypo-plus"	 style="width:15px;height:15px;color: white;padding:0px;">	</i>
+												   	        
+												   	    </a>
+														</div>
+														<div class="colomn-div" id="email-div" ><label id="email_1_label">Email-ID</label></br><input type="email" id="email_1" name="email_1"   placeholder="EMAIL-ID"/>
+															<a href="javascript:void(0)"	id="add-email-btn" onclick=''	class="btn btn-red btn-icon icon-left"		 style="height:15px;padding-left:3px;">
+													  	        <i 	class="entypo-plus"	 style="width:15px;height:15px;color: white;padding:0px;">	</i>
+												   	    	</a>
+												   	    </div>	
+													</div>
+													
+												</tbody>
+												<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+													<div class="sub-header"  data-toggle="collapse" data-target="#proof_information" class="accordion-toggle">
+														<div colspan="4"> PROOF INFORMATION</div>
+													</div>
+												</thead>
+												<tbody id="proof_information">
+													<div class="row-div">
+												<font class="mandatory" style="font-weight:bold;">* Select Atleast Three ID Proofs'</font><br>
+												<!--div  class="colomn-div"><label id="fk_id_proof_type_id_1_label">ID Proof Type</label></div>
+												<div  class="colomn-div"><label id="id_proof_type_1_label">ID Proof No</label></div>
+												<div  class="colomn-div"><label id="alf_node_ref_1_label">ID Proof 1</label></div>
+												<div  class="colomn-div"><label id="alf_node_ref1_1_label" >ID Proof 2</label></div-->
+												
+												</div>
+													<div class="row-div" id="id_1">
+														<div  class="colomn-div"><label id="fk_id_proof_type_id_1_label">ID Proof Type</label>
+															<select disabled id="fk_id_proof_type_id_1" class="extra select form-control fk_id_proof_type_id"   	name="accountType_1"  	placeholder="ID PROOF TYPE"	>
+															</select> 
+															
+														</div>
+														<div  class="colomn-div"><label id="id_proof_type_1_label">ID Proof No</label><input type="text" id="id_proof_type_1"    name="id_proof_type_1"  placeholder="ID PROOF NO"	maxlength=20 /></div>
+														<div  class="colomn-div"><label id="alf_node_ref_1_label">ID Proof 1</label><br>
+															<div class="hidediv"><input  type="file" id="alf_node_ref_img_1"  style="visibility:hidden;"	name="alf_node_ref_img_1"	class="alf_node_ref_img"	onclick="setURL(this.id);" placeholder="ID PROOF IMAGE 1"	style="width:70%;display:inline-block;"/></div>
+															<input  type="button" style="width:28%;" value="Choose File" id="alf_node_ref_img_1_dup" onclick="validateIdProofArray('ref',this.id,this.event);" />
+															<div class="img-input">
+																<img    id="alf_node_ref_img_pop_1" class="file_img" src="" />	
+																<input  type="text" id="alf_node_ref_1"   	name="alf_node_ref_1"	 placeholder="ID IMAGE 1"		style="width:80%;"/>
+															</div>
+														</div>
+														<div  class="colomn-div"><label id="alf_node_ref1_1_label">ID Proof 2</label><br>
+															<div class="hidediv"><input  type="file" id="alf_node_ref1_img_1"  	style="visibility:hidden;" name="alf_node_ref1_1"	class="alf_node_ref1_img"	 onclick="setURL(this.id);"  placeholder="ID PROOF IMAGE 2"		style="width:70%;display:inline-block;"/></div> 
+															<input  type="button" style="width:28%;" value="Choose File" id="alf_node_ref1_img_1_dup" onclick="validateIdProofArray('ref1',this.id,this.event);" />
+															<div class="img-input">
+																<img    id="alf_node_ref1_img_pop_1" class="file_img" src="" />		
+																<input  type="text" id="alf_node_ref1_1"  	name="alf_node_ref1_1"  	placeholder="ID IMAGE 2"		style="width:80%;"/>
+															</div>
+														</div>
+													</div>
+													<div class="row-div" id="id_2">
+														<div  class="colomn-div">
+															<select disabled id="fk_id_proof_type_id_2" class="extra select form-control fk_id_proof_type_id"   	name="accountType_2"  	placeholder="ID PROOF TYPE"	></select>
+															</div>
+														<div  class="colomn-div">
+															<input type="text" id="id_proof_type_2"    name="id_proof_type_2"  placeholder="ID PROOF NO"	maxlength=20 /></div>
+														<div  class="colomn-div">
+															<div class="hidediv"><input  type="file" id="alf_node_ref_img_2"  style="visibility:hidden;"	name="alf_node_ref_2"	class="alf_node_ref_img" onclick="setURL(this.id);"	placeholder="ID PROOF IMAGE 1"	style="width:70%;display:inline-block;"/></div>
+															<input type="button" style="width:28%;" value="Choose File" id="alf_node_ref_img_2_dup" onclick="validateIdProofArray('ref',this.id,this.event);"/>
+															<div class="img-input">
+																<img    id="alf_node_ref_img_pop_2" class="file_img" src="" />	
+																<input  type="text" id="alf_node_ref_2"   	name="alf_node_ref_2"	 placeholder="ID IMAGE 1"		style="width:80%;"/>
+															</div>
+														</div>
+														<div  class="colomn-div">
+															<div class="hidediv"><input  type="file" id="alf_node_ref1_img_2" style="visibility:hidden;" name="alf_node_ref1_2"	class="alf_node_ref1_img"  onclick="setURL(this.id);"	placeholder="ID PROOF IMAGE 2"		style="width:70%;display:inline-block;"/> </div>
+															<input type="button" style="width:28%;" value="Choose File" id="alf_node_ref1_img_2_dup" onclick="validateIdProofArray('ref1',this.id,this.event);"/>
+															<div class="img-input">
+																<img    id="alf_node_ref1_img_pop_2" class="file_img" src="" />
+																<input  type="text" id="alf_node_ref1_2"  	name="alf_node_ref1_2"  	placeholder="ID IMAGE 2"		style="width:80%;"/>
+															</div>
+														</div>
+													</div>
+													<div class="row-div" id="id_3">
+														<div  class="colomn-div">
+															<select disabled id="fk_id_proof_type_id_3" class="extra select form-control fk_id_proof_type_id"   	name="accountType_3"  	placeholder="ID PROOF TYPE"	></select>
+													</div>
+														<div  class="colomn-div">
+															<input type="text" id="id_proof_type_3"    name="id_proof_type_3"  placeholder="ID PROOF NO" maxlength=20	/></div>
+														<div  class="colomn-div">
+															<div class="hidediv"><input  type="file" id="alf_node_ref_img_3"  style="visibility:hidden;"	name="alf_node_ref_3"	class="alf_node_ref_img" onclick="setURL(this.id);"	placeholder="ID PROOF IMAGE 1"	style="width:70%;display:inline-block;"/></div>
+															<input type="button" id="alf_node_ref_img_3_dup" value="Choose File" style="width:28%;" onclick="validateIdProofArray('ref',this.id,this.event)" />
+															<div class="img-input">
+																<img    id="alf_node_ref_img_pop_3" class="file_img" src="" />	
+																<input  type="text" id="alf_node_ref_3"   	name="alf_node_ref_3"	 placeholder="ID IMAGE 1"		style="width:80%;"/>
+															</div>
+														</div>
+														<div  class="colomn-div">
+															<div class="hidediv"><input  type="file" id="alf_node_ref1_img_3"  style="visibility:hidden;" 	 name="alf_node_ref1_3"	class="alf_node_ref1_img" onclick="setURL(this.id);"  placeholder="ID PROOF IMAGE 2"		style="width:70%;display:inline-block;"/> </div>
+															<input type="button" style="width:28%;" value="Choose File" id="alf_node_ref1_img_3_dup" onclick="validateIdProofArray('ref1',this.id,this.event);"/>
+															<div class="img-input">
+																<img    id="alf_node_ref1_img_pop_3" class="file_img" src="" />		
+																<input  type="text" id="alf_node_ref1_3"  	name="alf_node_ref1_3"  	placeholder="ID IMAGE 2"		style="width:80%;"/>
+															</div>
+														</div>
+														</div>
+														<div class="row-div">
+														<div  class="colomn-div">
+															<select disabled id="fk_id_proof_type_id_4" class="extra select form-control fk_id_proof_type_id"   	 	placeholder="ID PROOF TYPE"	></select>
+														</div>
+														<div  class="colomn-div">
+															<input type="text" id="id_proof_type_4"    name="id_proof_type_4"  placeholder="ID PROOF NO" maxlength=20	/></div>
+														<div  class="colomn-div">
+															<div class="hidediv"><input  type="file" id="alf_node_ref_img_4"  style="visibility:hidden;"	name="alf_node_ref_4"	class="alf_node_ref_img" onclick="setURL(this.id);"	placeholder="ID PROOF IMAGE 1"	style="width:70%;display:inline-block;"/></div>
+															<input type="button" id="alf_node_ref_img_4_dup" value="Choose File" style="width:28%;" onclick="validateIdProofArray('ref',this.id,this.event)" />
+															<div class="img-input">
+																<img    id="alf_node_ref_img_pop_4" class="file_img" src="" />	
+																<input  type="text" id="alf_node_ref_4"   	name="alf_node_ref_4"	 placeholder="ID IMAGE 1"		style="width:80%;"/>
+															</div>
+														</div>
+														<div  class="colomn-div">
+															<div class="hidediv"><input  type="file" id="alf_node_ref1_img_4"  style="visibility:hidden;" 	 name="alf_node_ref1_4"	class="alf_node_ref1_img" onclick="setURL(this.id);"  placeholder="ID PROOF IMAGE 2"		style="width:70%;display:inline-block;"/> </div>
+															<input type="button" style="width:28%;" value="Choose File" id="alf_node_ref1_img_4_dup" onclick="validateIdProofArray('ref1',this.id,this.event);"/>
+															<div class="img-input">
+																<img    id="alf_node_ref1_img_pop_4" class="file_img" src="" />		
+																<input  type="text" id="alf_node_ref1_4"  	name="alf_node_ref1_4"  	placeholder="ID IMAGE 2"		style="width:80%;"/>
+															</div>
+														</div>
+													</div>
+													<div class="row-div">
+														<div  class="colomn-div">
+															<select disabled id="fk_id_proof_type_id_5" class="extra select form-control fk_id_proof_type_id"   	 	placeholder="ID PROOF TYPE"	></select>
+														</div>
+														<div  class="colomn-div">
+															<input type="text" id="id_proof_type_5"    name="id_proof_type_5"  placeholder="ID PROOF NO" maxlength=20	/></div>
+														<div  class="colomn-div">
+															<div class="hidediv"><input  type="file" id="alf_node_ref_img_5"  style="visibility:hidden;"	name="alf_node_ref_5"	class="alf_node_ref_img" onclick="setURL(this.id);"	placeholder="ID PROOF IMAGE 1"	style="width:70%;display:inline-block;"/></div>
+															<input type="button" id="alf_node_ref_img_5_dup" value="Choose File" style="width:28%;" onclick="validateIdProofArray('ref',this.id,this.event)" />
+															<div class="img-input">
+																<img    id="alf_node_ref_img_pop_5" class="file_img" src="" />	
+																<input  type="text" id="alf_node_ref_5"   	name="alf_node_ref_5"	 placeholder="ID IMAGE 1"		style="width:80%;"/>
+															</div>
+														</div>
+														<div  class="colomn-div">
+															<div class="hidediv"><input  type="file" id="alf_node_ref1_img_5"  style="visibility:hidden;" 	 name="alf_node_ref1_5"	class="alf_node_ref1_img" onclick="setURL(this.id);"  placeholder="ID PROOF IMAGE 2"		style="width:70%;display:inline-block;"/> </div>
+															<input type="button" style="width:28%;" value="Choose File" id="alf_node_ref1_img_5_dup" onclick="validateIdProofArray('ref1',this.id,this.event);"/>
+															<div class="img-input">
+																<img    id="alf_node_ref1_img_pop_5" class="file_img" src="" />		
+																<input  type="text" id="alf_node_ref1_5"  	name="alf_node_ref1_5"  	placeholder="ID IMAGE 2"		style="width:80%;"/>
+															</div>
+														</div>
+													</div>
+													<div class="row-div">
+														<div  class="colomn-div">
+															<select disabled id="fk_id_proof_type_id_6" class="extra select form-control fk_id_proof_type_id"   	 	placeholder="ID PROOF TYPE"	></select>
+														</div>
+														<div  class="colomn-div">
+															<input type="text" id="id_proof_type_6"    name="id_proof_type_6"  placeholder="ID PROOF NO" maxlength=20	/></div>
+														<div  class="colomn-div">
+															<div class="hidediv"><input  type="file" id="alf_node_ref_img_6"  style="visibility:hidden;"	name="alf_node_ref_6"	class="alf_node_ref_img" onclick="setURL(this.id);"	placeholder="ID PROOF IMAGE 1"	style="width:70%;display:inline-block;"/></div>
+															<input type="button" id="alf_node_ref_img_6_dup" value="Choose File" style="width:28%;" onclick="validateIdProofArray('ref',this.id,this.event)" />
+															<div class="img-input">
+																<img    id="alf_node_ref_img_pop_6" class="file_img" src="" />	
+																<input  type="text" id="alf_node_ref_6"   	name="alf_node_ref_6"	 placeholder="ID IMAGE 1"		style="width:80%;"/>
+															</div>
+														</div>
+														<div  class="colomn-div">
+															<div class="hidediv"><input  type="file" id="alf_node_ref1_img_6"  style="visibility:hidden;" 	 name="alf_node_ref1_6"	class="alf_node_ref1_img" onclick="setURL(this.id);"  placeholder="ID PROOF IMAGE 2"		style="width:70%;display:inline-block;"/> </div>
+															<input type="button" style="width:28%;" value="Choose File" id="alf_node_ref1_img_6_dup" onclick="validateIdProofArray('ref1',this.id,this.event);"/>
+															<div class="img-input">
+																<img    id="alf_node_ref1_img_pop_6" class="file_img" src="" />		
+																<input  type="text" id="alf_node_ref1_6"  	name="alf_node_ref1_6"  	placeholder="ID IMAGE 2"		style="width:80%;"/>
+															</div>
+														</div>
+													</div>
+												</tbody>
+												<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+													<div class="sub-header"  data-toggle="collapse" data-target="#bank_information" class="accordion-toggle">
+														<div colspan="4">BANK INFORMATION</div>
+													</div>
+												</thead>
+												<tbody id="bank_information">
+													<div class="row-div">
+														<div class="colomn-div"><label id="id1_name_as_per_bank_records_label">Name as per Bank Record</label></br><input type="text" id="id1_name_as_per_bank_records"  name="id1_name_as_per_bank_records"  placeholder="NAME AS IN PASSBOOK" /><font class="mandatory">*</font></div>
+														<div class="colomn-div"><label id="id1_bank_name_label">Bank Name	 </label></br>
+															<select id="id1_bank_name" class="extra select form-control bank_name"  name=""  placeholder="MARITAL STATUS (DROPDOWN)"></select>
+															<font class="mandatory">*</font>
+														</div>
+														<div class="colomn-div"><label id="id1_bank_account_number_label" >Account Number</label></br><input type="text" id="id1_bank_account_number"     name="id1_bank_account_number"       placeholder="BANK ACCOUNT NO"   maxlength=20  /><font class="mandatory">*</font></div>
+														<div class="colomn-div"><label id="id1_bank_ifsc_code_label">Bank IFSC code</label></br><input type="text" id="id1_bank_ifsc_code"  	  name="id1_bank_ifsc_code"            placeholder="IFSC CODE"	maxlength=11     /><font class="mandatory">*</font></div>
+													</div>
+													<div class="row-div">
+														<div class="colomn-div">
+															<label id="member_bank_fk_alf_node_ref_label">Bank Pass Book Image 1</label></br>
+															<input  type="file" id="member_bank_fk_alf_node_ref_img"  1	name="member_bank_fk_alf_node_ref"	class="member_bank_fk_alf_node_ref_img"	placeholder="BANK PASSBOOK IMAGE 2"		style="width:70%;display:inline-block;"/> 
+															<div class="img-input">
+																<img   id="member_bank_fk_alf_node_ref_img_pop" class="file_img" src="" />
+																<input  type="text" id="member_bank_fk_alf_node_ref"   name="member_bank_fk_alf_node_ref"   placeholder="BANK PASSBOOK IMAGE 1"	style="width:80%;"/><font class="mandatory">*</font>
+															</div>
+														</div>
+														<div class="colomn-div">
+															<label id="member_bank_fk_alf_node_ref1_label">Bank Pass Book Image 2</label></br>
+															<input  type="file" id="member_bank_fk_alf_node_ref1_img"  	name="member_bank_fk_alf_node_ref1"	class="member_bank_fk_alf_node_ref1_img"	placeholder="BANK PASSBOOK IMAGE 2"		style="width:70%;display:inline-block;"/> 
+															<div class="img-input">
+																<img   id="member_bank_fk_alf_node_ref1_img_pop" class="file_img" src="" />
+																<input  type="text" id="member_bank_fk_alf_node_ref1"  name="member_bank_fk_alf_node_ref1"  placeholder="BANK PASSBOOK IMAGE 2"	style="width:80%;"/><font class="mandatory">*</font>
+															</div>						   
+														</div>
+													</div>
+												</tbody>
+											</table>
+											<div class="form-group text-center">
+												<div class="form-button">
+													<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 1)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+													   <i class="icon-entypo-forward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+														Next
+													</a>
+												</div>
+											</div>
+										</div><!-- for tab -->
+										<div id="pane2" class="tab-pane"><!-- Tab Business rigth pane-->
+											<h4>Business Details</h4>
+											<table width="100%">
+												<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+													<div class="sub-header" data-toggle="collapse" data-target="#BUSINESS_information" class="accordion-toggle">
+														<div colspan="4" > BUSINESS INFORMATION </div>
+													</div>
+												</thead>
+												<tbody id="BUSINESS_information">
+													<div class="row-div">
+														<div class="colomn-div"><label id="biz_nature_label" >Nature Of Business</label></br><input type="text" id="biz_nature"  maxlength=30	name="biz_nature"  	placeholder="NATURE OF BUSINESS"	value=""/><font class="mandatory">*</font></div>
+														<div class="colomn-div"><label id="biz_no_of_yrs_label" >No of Years in Business</label></br><input type="text" id="biz_no_of_yrs"  	name="biz_no_of_yrs"  	placeholder="NO OF YEAR IN BUSINESS"onkeypress='validate(event)' value=""/><font class="mandatory">*</font></div>
+														<div class="colomn-div"><label id="biz_location_label">Location of Business</label></br>
+															<select id="biz_location" class="extra select form-control biz_location" 	name="biz_location"  	placeholder="LOCATION OF BUSINESS"	value=""></select><font class="mandatory">*</font>
+														</div>
+														<div class="colomn-div" id="rent_div"><label id="rent_pay_month_label">Rent Paid Per Month</label></br><input type="text" id="rent_pay_month"  maxlength=7	name="rent_pay_month"  	placeholder="RENT PAID PER MONTH"	onkeypress='validate(event)' value=""/></div>
+													</div>
+													<div class="row-div" >
+														<div class="colomn-div"><label id="biz_door_no_label">Door No </label></br><input type="text" id="biz_door_no"  minlength=3 maxlength=75      name="biz_door_no"  	   placeholder="NO"		/><font class="mandatory">*</font></div>
+														<div class="colomn-div"><label id="biz_street_name_label">Street Name</label></br><input type="text" id="biz_street_name"  	 maxlength=75   name="biz_street_name"  	   placeholder="STREET/COLONY"	/><font class="mandatory">*</font></div>
+														<div class="colomn-div"><label id="biz_location_name_label">Location Name</label></br><input type="text" id="biz_location_name" maxlength=60 	    name="biz_location_name"  	   placeholder="AREA"		/><font class="mandatory">*</font></div>
+														<div class="colomn-div"><label id="biz_pincode_label">Pincode</label></br><input type="text" maxlength="6" id="biz_pincode"  			name="biz_pincode"    			   placeholder="PINCODE"	value="" onkeypress='validate(event)' onchange="pincodeChange('biz',this.id);"/><font class="mandatory">*</font></div>						    
+													</div>
+													<div class="row-div">
+														<!-- BIZ ->State -->						    
+														<div class="colomn-div"><label id="biz_state_label">State</label></br>
+															<select id="biz_state" class="extra select form-control current_state biz_state"   	name="biz_state"  	placeholder="biz_state"	onchange="businessStateChange();"></select> 
+															<font class="mandatory">*</font>
+														</div>
+														<!-- BIZ ->District -->						    
+														<div class="colomn-div"><label id="biz_district_label" >District</label></br>
+															<select id="biz_district" class="extra select form-control biz_district"   	name="biz_district"  	placeholder="biz_district" onchange="businessDistrictChange();"></select> 
+															
+														</div>
+														<!-- BIZ ->Taluk -->						    
+														<div class="colomn-div"><label id="biz_taluk_label">Taluk</label></br>
+															<select id="biz_taluk" class="extra select form-control biz_taluk"   	name="biz_taluk"  	placeholder="biz_taluk"	onchange="businessTalukChange();"></select> 
+															
+														</div>
+														<!-- BIZ ->City / Town -->						    						    
+														<div class="colomn-div"><label id="fk_biz_village_or_town_label">City / Town</label></br>
+															<select id="fk_biz_village_or_town" class="extra select form-control fk_biz_village_or_town"   	name="fk_biz_village_or_town"  	placeholder="fk_biz_village_or_town"	></select> 
+															
+														</div>						    
+													</div>
+													<div class="row-div">
+														<div class="colomn-div"><label id="biz_office_address_landline_number_label">Landline No</label></br><input type="text" id="biz_office_address_landline_number" 	name="biz_office_address_landline_number"  onkeypress='validate(event)' maxlength="12" placeholder="PHONE NO" onkeypress='validate(event)'	value=""/></div>
+														<div class="colomn-div"><label id="biz_office_address_mobile_number_label">Office No</label></br><input type="text" id="biz_office_address_mobile_number"   	name="biz_office_address_mobile_number"   onkeypress='validate(event)' maxlength="12"  placeholder="MOBILE NO"	 onkeypress='validate(event)' value=""/><font class="mandatory">*</font> </div>						
+													</div>
+													<div class="row-div">
+														<div class="colomn-div" id="shopImg1" style="padding-bottom: 10px;">
+															<label id="biz_address_fk_alf_node_ref_1_label" >Shop Image 1</label></br>
+															<div class="hidediv"><input  type="file" id="biz_address_fk_alf_node_ref_1_img" 	style="visibility:hidden;" name="biz_address_fk_alf_node_ref"	class="biz_address_fk_alf_node_ref"	placeholder="SHOP IMAGE 1" onclick='setURL(this.id)'	style="width:70%;display:inline-block;"/> </div>
+															<input  type="file" id="biz_address_fk_alf_node_ref_1_img_dup" onclick="validateShopImageArray('1',this.id,this.event);"/>
+															 
+															<div class="img-input">
+																<img   id="biz_address_fk_alf_node_ref_1_img_pop" class="file_img" src="" /> 
+																<input  type="text" id="biz_address_fk_alf_node_ref_1"  		name="biz_address_fk_alf_node_ref"	class="img_upload1"	placeholder="SHOP IMAGE 1"		style="width:85%;"/><font class="mandatory">*</font>
+															</div>
+														</div>
+														<div class="colomn-div" id="shopImg2" style="padding-bottom: 10px;">
+															<label id="biz_address_fk_alf_node_ref_2_label">Shop Image 2</label></br>
+															<div class="hidediv"><input  type="file" id="biz_address_fk_alf_node_ref_2_img" style="visibility:hidden;" 	name="biz_address_fk_alf_node_ref1"	class="biz_address_fk_alf_node_ref"	placeholder="SHOP IMAGE 2" 	onclick='setURL(this.id)' style="width:70%;display:inline-block;"/> </div>
+															<input  type="file" id="biz_address_fk_alf_node_ref_2_img_dup" onclick="validateShopImageArray('2',this.id,this.event);"/>
+															<div class="img-input">
+																<img   id="biz_address_fk_alf_node_ref_2_img_pop" class="file_img" src="" /> 
+																<input  type="text" id="biz_address_fk_alf_node_ref_2"  		name="biz_address_fk_alf_node_ref1"	class="img_upload2"	placeholder="SHOP IMAGE 2" 		style="width:80%;"/><font class="mandatory">*</font>
+															</div>						    
+														</div>
+														<div class="colomn-div" id="shopImg3" style="padding-bottom: 10px;">
+															<label id="biz_address_fk_alf_node_ref_3_label">Shop Image 3</label></br>
+															<div class="hidediv"><input  type="file" id="biz_address_fk_alf_node_ref_3_img" style="visibility:hidden;" 	name="biz_address_fk_alf_node_ref1"	class="biz_address_fk_alf_node_ref"	placeholder="SHOP IMAGE 3" onclick='setURL(this.id)'	style="width:70%;display:inline-block;"/> </div>
+															<input  type="file" id="biz_address_fk_alf_node_ref_3_img_dup" onclick="validateShopImageArray('3',this.id,this.event);"/>
+															<div class="img-input">
+																<img   id="biz_address_fk_alf_node_ref_3_img_pop" class="file_img" src="" /> 
+																<input  type="text" id="biz_address_fk_alf_node_ref_3"  		name="biz_address_fk_alf_node_ref1"	class="img_upload2"	placeholder="SHOP IMAGE 3" 		style="width:80%;"/>
+															</div>						    
+														</div>
+														<div class="colomn-div" id="shopImg4" style="padding-bottom: 10px;">
+															<label id="biz_address_fk_alf_node_ref_4_label">Shop Image 4</label></br>
+															<div class="hidediv"><input  type="file" id="biz_address_fk_alf_node_ref_4_img"  style="visibility:hidden;"	name="biz_address_fk_alf_node_ref1"	class="biz_address_fk_alf_node_ref"	placeholder="SHOP IMAGE 4" onclick='setURL(this.id)'	style="width:70%;display:inline-block;"/> </div>
+															<input  type="file" id="biz_address_fk_alf_node_ref_4_img_dup" onclick="validateShopImageArray('4',this.id,this.event);"/>
+															<div class="img-input">
+																<img   id="biz_address_fk_alf_node_ref_4_img_pop" class="file_img" src="" /> 
+																<input  type="text" id="biz_address_fk_alf_node_ref_4"  		name="biz_address_fk_alf_node_ref1"	class="img_upload2"	placeholder="SHOP IMAGE 4" 		style="width:80%;"/>
+															</div>						    
+														</div>
+													</div>
+												</tbody>
+												<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+													<div class="sub-header"  data-toggle="collapse" data-target="#REGULATORY_information" class="accordion-toggle">
+														<div colspan="4" > REGULATORY INFORMATION </div>
+													</div>
+												</thead>
+												<tbody id="REGULATORY_information">
+													<div class="row-div">
+														<div class="colomn-div">
+															<label id="biz_localbody_app_label"> License / Local Body Approval </label></br>
+															<input style="width:10%;" type="radio" id="biz_localbody_app"  name="biz_localbody_app" value="Available"   checked>	Yes	</input>
+															<input style="width:10%;" type="radio" id="biz_localbody_app"  name="biz_localbody_app" value="Unavailable" 	   >    No	</input><font class="mandatory">*</font>
+														</div>	
+														<div class="colomn-div"><label id="biz_issued_by_label" >Issued By</label></br><input type="text" id="biz_issued_by"  	name="biz_issued_by"  	placeholder="ISSUED BY"		value=""/></div>
+														<div class="colomn-div"><label id="biz_no_label">Document No</label></br><input type="text" id="biz_no"  		name="biz_no"  		placeholder="DOCUMENT NO"	value=""/></div>
+														<div class="colomn-div" id="license_div"><label id="biz_type_label">Document Type</label></br>
+															<select id="biz_type" class="extra select form-control biz_type" 	name="biz_type"  	placeholder="DOCUMENT TYPE"	value=""></select>
+														</div>
+													
+														
+													</div>
+													<div class="row-div">
+													<div class="colomn-div"><label id="biz_valid_upto_label">Validity Date</label></br><input type="text" id="biz_valid_upto"  	name="biz_valid_upto"  	placeholder=" YYYY-MM-DD"		value=""/></div>
+														<div class="colomn-div" style="padding-bottom: 10px;">
+															<label id="biz_id_alf_node_ref_label"> Business Document 1 </label></br>
+															<input  type="file" id="biz_id_alf_node_ref_img"  	name="biz_id_alf_node_ref"   placeholder="BUSINESS IDENTITY DOCUMENT IMAGE 1"	class="biz_id_alf_node_ref_img"	value="" style="width:70%;display:inline-block;"/> 
+															<div class="img-input">
+																<img id="biz_id_alf_node_ref_img_pop" class="file_img" src="" /> 
+																<input  type="text" id="biz_id_alf_node_ref"  		name="biz_id_alf_node_ref"   placeholder="BUSINESS IDENTITY DOCUMENT IMAGE 1"	class="img_upload3" 	style="width:80%;"	value=""/>
+															</div>						  
+														</div>
+														<div class="colomn-div" style="padding-bottom: 10px;">
+															<label id="biz_id_alf_node_ref1_label"> Business Document 2 </label></br>
+															<input  type="file" id="biz_id_alf_node_ref1_img"  	name="biz_id_alf_node_ref1"  placeholder="BUSINESS IDENTITY DOCUMENT IMAGE 2"	class="biz_id_alf_node_ref1_img"	value="" style="width:70%;display:inline-block;"/> 
+															<div class="img-input">
+																<img  id="biz_id_alf_node_ref1_img_pop" class="file_img" src="" /> 
+																<input  type="text" id="biz_id_alf_node_ref1"  		name="biz_id_alf_node_ref1"  placeholder="BUSINESS IDENTITY DOCUMENT IMAGE 2"	class="img_upload4" 	style="width:80%;"	value=""/>
+															</div>
+													   </div>
+													</div>
+													</tbody>
+													<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+														<div class="sub-header"  data-toggle="collapse" data-target="#SALES_information" class="accordion-toggle">
+															<div colspan="4" > SALES & EXPENSE INFORMATION </div>
+														</div>
+													</thead>
+													<tbody id="SALES_information">
+														<div class="row-div">
+															<div class="colomn-div"><label id="brand_sale_label">Brand Sales</label><input type="text" id="brand_sale"  	onkeypress='validate(event)' name="brand_sale"  	placeholder="BRANDED SALES"	onchange="summationOfSales(this.id)"	value=""/><font class="mandatory">*</font> </div>
+															<div class="colomn-div"><label id="nonbrand_sale_label" >Non Brand Sales</label><input type="text" id="nonbrand_sale"  onkeypress='validate(event)'	name="nonbrand_sale"  	placeholder="NON BRANDED SALES"	onchange="summationOfSales(this.id)"	value=""/><font class="mandatory">*</font> </div>
+															<div class="colomn-div"><label id="total_sale_label">Total Sales</label><input type="text" id="total_sale"  	name="total_sale"  	placeholder="TOTAL SALES"		value=""/> </div>
+															<div class="colomn-div"><label id="min_sale_day_label">Minimum Sales</label><input type="text" id="min_sale_day"  	onkeypress='validate(event)' name="min_sale_day"  	placeholder="MINIMUM SALES PER DAY"	value=""/> </div>
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"><label id="annual_household_income_label">Annual House Hold Income</label><input type="text" id="annual_household_income" onkeypress='validate(event)'  	name="annual_household_income" onchange="CalcSurplusAvail(this.id);" placeholder="ANNUAL HOUSEHOLD INCOME"	/> </div>
+															<div class="colomn-div"><label  id="annual_expenses_label">Annual Expenses</label><input type="text" id="annual_expenses"  		name="annual_expenses"  onkeypress='validate(event)'	placeholder="ANNUAL EXPENSES"	onchange="CalcSurplusAvail(this.id);"	/> </div>
+															<div class="colomn-div"><label  id="surplus_available_label">Surplus Available</label><input type="text" id="surplus_available"  		name="surplus_available"  	placeholder="SURPLUS AVAILABLE"		/> </div>
+														</div>
+													</tbody>
+													<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+														<div class="sub-header"  data-toggle="collapse" data-target="#STAFF_information" class="accordion-toggle">
+															<div colspan="4" > STAFF INFORMATION </div>
+														</div>
+													</thead>
+													<tbody id="STAFF_information">
+														<div class="row-div">
+															<div class="colomn-div"> <label id="fk_biz_staff_rel_type_id_label"> STAFF SELECTION     </label></div>
+															<div class="colomn-div"> <label id="biz_staff_work_hour_label"  > FULLTIME / PARTTIME </label> </div>
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"> <select disabled id="fk_biz_staff_rel_type_id_1" class="extra select form-control fk_biz_staff_rel_type"   	name="fk_biz_staff_rel_type_id_1"  	placeholder="SELF"	></select><font class="mandatory">*</font> </div>
+															<div class="colomn-div"> <select id="biz_staff_work_hour_1"      class="extra select form-control biz_staff_work_hour"	name="biz_staff_work_hour_1"  		placeholder="SELF"	></select><font class="mandatory">*</font> </div>
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"> <select disabled id="fk_biz_staff_rel_type_id_2" class="extra select form-control fk_biz_staff_rel_type"   	name="fk_biz_staff_rel_type_id_2"  	placeholder="SPOUSE"	></select> </div>
+															<div class="colomn-div"> <select id="biz_staff_work_hour_2"      class="extra select form-control biz_staff_work_hour"    	name="biz_staff_work_hour_2"  		placeholder="(DROPDOWN)"></select> </div>
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"> <select disabled id="fk_biz_staff_rel_type_id_3" class="extra select form-control fk_biz_staff_rel_type"   	name="fk_biz_staff_rel_type_id_3"  	placeholder="FATHER"	></select> </div>
+															<div class="colomn-div"> <select id="biz_staff_work_hour_3"      class="extra select form-control biz_staff_work_hour"    	name="biz_staff_work_hour_3"  		placeholder="(DROPDOWN)"></select> </div>
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"> <select disabled id="fk_biz_staff_rel_type_id_4" class="extra select form-control fk_biz_staff_rel_type"   	name="fk_biz_staff_rel_type_id_4"  	placeholder="MOTHER"	></select> </div>
+															<div class="colomn-div"> <select id="biz_staff_work_hour_4"      class="extra select form-control biz_staff_work_hour"    	name="biz_staff_work_hour_4"  		placeholder="(DROPDOWN)"></select> </div>
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"> <select disabled id="fk_biz_staff_rel_type_id_5" class="extra select form-control fk_biz_staff_rel_type"   	name="fk_biz_staff_rel_type_id_5"  	placeholder="SONS"	></select> </div>
+															<div class="colomn-div"> <select id="biz_staff_work_hour_5"      class="extra select form-control biz_staff_work_hour"    	name="biz_staff_work_hour_5"  		placeholder="(DROPDOWN)"></select> </div>
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"> <select disabled id="fk_biz_staff_rel_type_id_6" class="extra select form-control fk_biz_staff_rel_type"   	name="fk_biz_staff_rel_type_id_6" 	placeholder="DAUGHTER"	></select> </div>
+															<div class="colomn-div"> <select id="biz_staff_work_hour_6"      class="extra select form-control biz_staff_work_hour"    	name="biz_staff_work_hour_6"  		placeholder="(DROPDOWN)"></select> </div>
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"> <select disabled id="fk_biz_staff_rel_type_id_7" class="extra select form-control fk_biz_staff_rel_type"   	name="fk_biz_staff_rel_type_id_7"  	placeholder="OTHER RELATIVES"	></select> </div>
+															<div class="colomn-div"> <select id="biz_staff_work_hour_7"      class="extra select form-control biz_staff_work_hour"     	name="biz_staff_work_hour_7"  		placeholder="(DROPDOWN)"	></select> </div>
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"> <select disabled id="fk_biz_staff_rel_type_id_8" class="extra select form-control fk_biz_staff_rel_type"   	name="fk_biz_staff_rel_type_id_8"  	placeholder="NON RELATIVES"	></select> </div>
+															<div class="colomn-div"> <select id="biz_staff_work_hour_8"      class="extra select form-control biz_staff_work_hour"     	name="biz_staff_work_hour_8"  		placeholder="(DROPDOWN)"	></select> </div>
+														</div>
+													</tbody>
+												</table>
+												<div class="form-group text-center">
+													<div class="form-button">
+														<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 0)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+														   <i class="icon-entypo-backward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+															Previous
+														</a>
+														<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 2)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+														   <i class="icon-entypo-forward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+															Next
+														</a>
+													</div>
+												</div>
+				    						</div><!-- for tab -->
+											<div id="pane3" class="tab-pane"><!-- Tab Research rigth pane-->
+												<h4>Research Details</h4>
+												<table width="100%">
+													<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+														<div class="sub-header"  data-toggle="collapse" data-target="#FAMILY_information" class="accordion-toggle">
+															<div colspan="4" > FAMILY DETAILS </div>
+														</div>
+													</thead>
+													<tbody id="FAMILY_information">
+														<div class="row-div">
+															<div class="colomn-div">
+																<label id="marital_status_label">Marital Status</label>
+																<select id="marital_status" class="extra select form-control marital_status"  name="" onchange="maritalStatus_change();" placeholder="MARITAL STATUS (DROPDOWN)">
+																	<option>Select Marital Status</option>
+																</select><font class="mandatory">*</font>
+															</div>
+															<div class="colomn-div"> <label id="no_of_child_below17_label">No of Child Below 17</label> <input type="text" id="no_of_child_below17" maxlength=2  name="no_of_child_below17"  placeholder="NO OF CHILDREN BELOW 17 YEARS" onkeypress='validate(event);' /><font class="mandatory">*</font></div>
+															<div class="colomn-div"> <label id="no_of_child_above17_label">No of Child Above 17</label><input type="text" id="no_of_child_above17"  maxlength=2 name="no_of_child_above17"  placeholder="NO OF CHILDREN ABOVE 17 YEARS"	onkeypress='validate(event);' /><font class="mandatory">*</font></div>
+															<div class="colomn-div"> <label id="live_with_label">Live With</label>
+																<select id="live_with"  class="extra select form-control live_with"  name="live_with"  	      placeholder="LIVING WITH"				/><font class="mandatory">*</font>
+															</div>
+														</div>
+													</tbody>
+													<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+														<div class="sub-header"  data-toggle="collapse" data-target="#EDUCATION_information" class="accordion-toggle">
+															<div colspan="4" > EDUCATION & OCCUPATION </div>
+														</div>
+													</thead>
+													<tbody id="EDUCATION_information">
+														<div class="row-div">
+															<div class="colomn-div"><label id="fk_family_member_education_type_id_1_label">SELF</label></div>
+															<div class="colomn-div"><label id="fk_family_member_education_type_id_2_label">FATHER</label></div>
+															<div class="colomn-div"><label id="fk_family_member_education_type_id_3_label">MOTHER</label></div>
+															<div class="colomn-div"><label id="fk_family_member_education_type_id_4_label">FOR CHILD > 17 YEARS  </label></div>
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"> 
+																<select id="fk_family_member_education_type_id_1" class="extra select form-control education"  	name=""  placeholder="MARITAL STATUS (DROPDOWN)">
+																</select><font class="mandatory">*</font>
+															</div>
+															<div class="colomn-div"> 
+																<select id="fk_family_member_education_type_id_2" class="extra select form-control education"  	name=""  placeholder="MARITAL STATUS (DROPDOWN)">
+																</select>
+															</div>
+															<div class="colomn-div"> 
+																<select id="fk_family_member_education_type_id_3" class="extra select form-control education"  	name=""  placeholder="MARITAL STATUS (DROPDOWN)">
+																</select>
+															</div>
+															<div class="colomn-div"> 
+																<select id="fk_family_member_education_type_id_4" class="extra select form-control education"  	name=""  placeholder="MARITAL STATUS (DROPDOWN)">
+																</select>
+															</div>						    
+														</div>
+														<div class="row-div">
+															<div class="colomn-div"> 
+																<select id="family_member_employment_type_1" class="extra select form-control occupation"  	name=""  placeholder="SELF (DROPDOWN)">
+																</select><font class="mandatory">*</font>
+															</div>
+															<div class="colomn-div"> 
+																<select id="family_member_employment_type_2" class="extra select form-control occupation"  	name=""  placeholder="Father (DROPDOWN)">
+																</select>
+															</div>
+															<div class="colomn-div"> 
+																<select id="family_member_employment_type_3" class="extra select form-control occupation"  	name=""  placeholder="mother(DROPDOWN)">
+																</select>
+															</div>
+															<div class="colomn-div"> 
+																<select id="family_member_employment_type_4" class="extra select form-control occupation"  	name=""  placeholder="Child STATUS (DROPDOWN)">
+																</select>
+															</div>
+														</div>
+					   								</tbody>
+													<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+														<div class="sub-header"  data-toggle="collapse" data-target="#TRANSPORTATION_information" class="accordion-toggle">
+															<div colspan="4" > TRANSPORTATION , COMMUNICATION & OTHER ASSETS </div>
+															
+														</div>
+														
+													</thead>
+													<tbody id="TRANSPORTATION_information"><font class="mandatory" style="font-weight:bold;">* Select Atleast One</font>
+														<div id="transportation_information">
+														</div>
+														</tbody>
+														<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+															<div class="sub-header"  data-toggle="collapse" data-target="#NETWORK_information" class="accordion-toggle">
+																<div colspan="4" > NETWORK DETAILS </div>
+															</div>
+														</thead>
+														<tbody id="NETWORK_information">
+															<div class="row-div">
+																<div class="colomn-div"><label  type="text" id="network_details_question_label"  name=""  value=""	/> Questions </div>
+																<div class="colomn-div"><label  type="text" id="network_details_answer_label"  name=""  value=""	/> Answers </div>
+															</div>
+															<div class="row-div">
+																<div class="colomn-div"><input id="network_details_question_1" 	 	name="network_details_question_1"     readonly=readonly	value="HAVE FRIENDS LIVING IN"></input><font class="mandatory">*</font> </div>
+																<div class="colomn-div"><select id="network_details_answer_1" 	class="extra select form-control network_details_answer"  	name="network_details_answer_1"  	placeholder=""></select><font class="mandatory">*</font> </div>
+															</div>
+															<div class="row-div">
+																<div class="colomn-div"><input id="network_details_question_2" 	readonly=readonly     	name="network_details_question_2"     	value="HAVE FAMILY LIVING IN"></input> </div>
+																<div class="colomn-div"><select id="network_details_answer_2"  	class="extra select form-control network_details_answer"  	name="network_details_answer_2"  	placeholder=""></select> </div>
+															</div>
+															<div class="row-div">
+																<div class="colomn-div"><input id="network_details_question_3" 	  readonly=readonly   	name="network_details_question_3"     	value="HAVE TRAVELLED IN THE LAST ONE YEAR TO"></input> </div>
+																<div class="colomn-div"><select id="network_details_answer_3"  	class="extra select form-control network_details_answer"  	name="network_details_answer_3"  	placeholder=""></select> </div>
+															</div>
+															<div class="row-div">
+																<div class="colomn-div"><input id="network_details_question_4" 	readonly=readonly     	name="network_details_question_4"     	value="HAVE TRAVELLED IN ENTIRE LIFE TO"></input> </div>
+																<div class="colomn-div"><select id="network_details_answer_4"  	class="extra select form-control network_details_answer"  	name="network_details_answer_4"  	placeholder=""></select> </div>
+															</div>
+															<div class="row-div">
+																<div class="colomn-div"><input id="network_details_question_5" readonly=readonly	name="network_details_question_5"     	value="HAVE LIVED FOR MORE THEN ONE MONTH IN"></input> </div>
+																<div class="colomn-div"><select id="network_details_answer_5"  	class="extra select form-control network_details_answer"  	name="network_details_answer_5"  	placeholder=""></select> </div>
+															</div>
+														</tbody>
+													</table>
+													<div class="form-group text-center">
+														<div class="form-button">
+															<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 1)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+															   <i class="icon-entypo-backward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+																Previous
+															</a>
+															<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 3)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+															   <i class="icon-entypo-forward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+																Next
+															</a>
+														</div>
+													</div>
+				   								</div><!-- for tab -->
+				   								<div id="pane4" class="tab-pane" ><!-- for tab -->
+													<h4>Loan Details</h4>
+													<table width="100%">
+														<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+															<div class="sub-header"  data-toggle="collapse" data-target="#loan_information" class="accordion-toggle">
+																<div colspan="4">LOAN DETAILS</div>
+															</div>
+														</thead>
+														<tbody id="loan_information">
+															<div class="accordion"   class="row-div">
+																<div class="colomn-div"><label id="fk_purpose_id_label">Purpose of Loan</label>
+																	<select class="extra select form-control fk_purpose"  id="fk_purpose_id"  name="fk_purpose_id"  placeholder=""			></select> 
+																	<font class="mandatory">*</font>
+																</div>
+																<div class="colomn-div"><label id="fk_product_id_loan_label">Product</label>
+																	<select class="extra select form-control fk_product_id_loan"  id="fk_product_id_loan"  name="fk_product_id_loan"  placeholder=""			></select> 						    	
+																	<font class="mandatory">*</font>
+																</div>
+																<div class="colomn-div">
+																<label  id="application_loan_amount_label">Amount</label>
+																	<select class="extra select form-control application_loan_amount"  id="application_loan_amount"  name="application_loan_amount"  placeholder=""			>						    																	
+																			<option value="">Select Loan Amount</option>
+																		{% for data in loanAmountOptions %}
+    																		<option value="{{ data.loan_product_id }}">{{ data.loan_type_name }}</option>
+																		{% endfor %}
+																	</select> 
+																</div>
+																<div  class="colomn-div">
+																	<label id="ml_fk_alf_node_ref_label" >Loan Proof Image </label>
+																	<input  type="file" id="ml_fk_alf_node_ref_img"  	name="ml_fk_alf_node_ref_img"	class="ml_fk_alf_node_ref_img"	placeholder="ID PROOF IMAGE 1"	style="width:70%;display:inline-block;"/>
+																	<div class="img-input">
+																		<img    id="ml_fk_alf_node_ref_img_pop" class="file_img" src="" />	
+																		<input  type="text" id="ml_fk_alf_node_ref"   	name="ml_fk_alf_node_ref"	 placeholder="Loan Proof Image"		style="width:80%;"/>
+																	</div>	
+																</div>	
+															</div>
+														</tbody>
+													</table>
+													<div class="form-group text-center">
+														<div class="form-button">
+															<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 2)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+															   <i class="icon-entypo-backward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+																Previous
+															</a>
+															<a href="javascript:void(0)" onclick="submitForm();" class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+																<i class="icon-entypo-check" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+																Submit
+															</a>
+														</div>
+													</div>
+												</div><!-- for tab -->
+											</div><!-- for tab -->
+										</div>
+									</div>	
+								</div>	
+							</form>
+						</div>
+						<div class="popup"></div>
+				  	</div>
+			  	</div>
+		  	</div>
+		</div>
+		<div class="container">
+			<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog" style="height:100%;">
+					<div class="modal-content">
+				  		<div class="modal-header">
+							<h4 class="modal-title">Please Input the below Mandatory Fields</h4>
+				  		</div>
+				  		<div class="modal-body">
+							<p id="alertContentId" ></p>
+				  		</div>
+				  		<div class="modal-footer">
+							<button type="button" class="btn btn-default"  style="margin-right: 5%;font-weight:bold;" data-dismiss="modal">Close</button>
+				  		</div>
+					</div>
+			  	</div>
+			</div>
+		</div>
+		{% include "footer.html" %} 
+</body>
+</html>

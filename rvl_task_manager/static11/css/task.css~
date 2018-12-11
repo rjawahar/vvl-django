@@ -1,0 +1,279 @@
+body{
+	min-height:400px;		
+}
+.main{
+	margin: auto;
+	padding: 10px;
+	vertical-align:middle;
+}
+.task-div {
+	/*margin: auto;
+	border: 1px solid rgb(173, 33, 89);
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	/*padding: 23px;*/
+	width:98%;
+	display: inline;	
+	min-height: 40px;
+	vertical-align: middle;
+}
+ 
+@media only screen and (min-width: 391px) and (min-width: 414px){ 
+	.left-pane-task{
+		border: 0.51px solid #dddddd;
+		-webkit-border-top-left-radius: 5px;
+		-webkit-border-bottom-left-radius: 5px;
+		-moz-border-radius-topleft: 5px;
+		-moz-border-radius-bottomleft: 5px;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		width: 0%;/*20%;/*28*/
+		min-height: 360px;
+		display: inline-block;
+		border-bottom-width: 1px; 
+		max-height: 460.2px;
+		border-right: 1px solid #dddddd;
+		border-left: 1px solid #dddddd;
+	}
+	.right-pane-task{
+		/*border: 0.51px solid #dddddd;
+		/*padding-left:1%;
+		padding-right:1%;*/
+		/*border: 1px solid #dddddd;
+		/*margin-left: 1%;*/
+		-webkit-border-top-right-radius: 5px;
+		-webkit-border-bottom-right-radius: 5px;
+		-moz-border-radius-topright: 5px;
+		-moz-border-radius-bottomright: 5px;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+
+		/*width: 76%;/*54*/
+		min-height: 360px;
+		display: inline-block;
+		position: absolute;	
+	}
+}
+
+@media only screen and (max-width: 390px) and (min-width:0px){
+	.left-pane-task{
+		border: 0.51px solid #dddddd;
+		-webkit-border-top-left-radius: 5px;
+		-webkit-border-bottom-left-radius: 5px;
+		-moz-border-radius-topleft: 5px;
+		-moz-border-radius-bottomleft: 5px;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		width: 100%;/*20%;/*28*/
+		min-height: 360px;
+		display: inline-block;
+		border-bottom-width: 1px; 
+		max-height: 460.2px;
+		border-right: 1px solid #dddddd;
+		border-left: 1px solid #dddddd;
+	}
+	.right-pane-task{
+		/*border: 0.51px solid #dddddd;
+		/*padding-left:1%;
+		padding-right:1%;*/
+		/*border: 1px solid #dddddd;
+		/*margin-left: 1%;*/
+		-webkit-border-top-right-radius: 5px;
+		-webkit-border-bottom-right-radius: 5px;
+		-moz-border-radius-topright: 5px;
+		-moz-border-radius-bottomright: 5px;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		width: 100%;/*54*/
+		min-height: 360px;
+		display: inline-block;
+		position: absolute;	
+	}
+}
+
+
+.left-pane-my-task{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.left-pane-grp-task{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.main  a {
+	display:block;
+	background:#ebebeb;/*#f4f4f4;*/
+	color:#5E5F61;/*#959696;*/
+	padding-left:15px;
+	height:40px;
+	line-height:40px;
+	text-decoration:none;
+	border-bottom:thin solid #cecece;
+	font-family:Arial; 
+	font-size:13px;
+	font-weight:bold;
+
+}
+.main{
+	position: absolute;
+	top: 65px;
+	bottom: 32px;
+	right:0;
+	left:0;
+
+}
+
+th {
+	display:block-inline;
+	background-color: #f5f5f6;
+	color:#959696;
+	padding-left:15px;
+	height:40px;
+	line-height:40px;
+	text-decoration:none;
+	/*border-bottom:thin solid #cecece;*/
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	text-shadow:0px 1px 1px white;
+}
+
+td {
+	padding-left:15px;
+	height:40px;
+	line-height:40px;
+	text-decoration:none;
+	border-bottom:thin solid #cecece;
+	font-family:Arial;
+	font-size:11px;
+}
+
+.first {
+	border-top:thin solid #cecece;    
+}
+.navbar {
+	position: relative;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	/*padding-left: 280px;*/
+	width: 100%;
+	background-color:#981b1b;
+}
+.navbar-user-account{
+	float: right;
+	padding-top:10px;
+}
+.navbar-user-account a{
+	padding-right:50px;
+
+	color:white;
+}
+#accordion {
+	/*margin-top:10px;*/
+	/*border:thin solid #cecece;   */
+	border-top:none;
+	border-bottom:none;
+}
+#accordion div {
+	background:white;
+	display:none;
+	/*border-bottom:thin solid #cecece;*/
+	/*padding-left:15px;*/
+}
+.task-date span{
+	padding-left:10px;
+}
+
+.label-text.active{
+	color:	#981b1b;
+	background-color:rgba(219,219,221,0.35);/*#DBDBDD;/*#F8E0E0;*/
+}
+
+.btn-red {
+	color: #ffffff;
+	background-color: #d42020; 
+	border-color: #d42020; 
+}
+
+/**/
+.dropDownHook {
+	color:white;
+	padding:4px;
+	font:13px/1.231 sans-serif;
+	display:inline-block;
+	position:relative;
+	width:100%;
+	height:22px;
+	line-height:22px;
+	vertical-align:middle;
+}
+
+
+.dropDownHook span{
+    cursor:pointer;
+}
+.label-text{
+	padding-right: 15px;
+	padding-left:15px;
+	margin-bottom:0px;
+	padding-bottom:5px;
+	padding-top:5px;
+	width:100%;
+}
+.label-text.active a{
+	color:#981B1B;
+	background-color:white;
+}
+
+
+/***/
+
+	/*footer*/
+	#footer {
+	    position: absolute;
+	    width: 100%;
+		clear: both;
+	    bottom: 0;
+		padding: 0;
+	    margin: 0;
+	    /* ATTENTION! The following elements below 
+	    can be set to whatever your heart desires */
+	    height: 30px; /* REMEMBER height = padding-bottom */
+	    background: #981b1b;
+	    color:white;	
+	}
+
+	/***/
+
+		background: -webkit-linear-gradient(#880606, #C11A1A);
+		background: -o-linear-gradient(#880606, #C11A1A);
+		background: -moz-linear-gradient(#880606, #C11A1A);
+		background: linear-gradient(#880606, #C11A1A);
+
+
+/* FOr ENTYPO ICONS*/
+.entypo-users:before{content:"\002C";}
+
+
+
+
+.ui-datepicker-calendar td {
+    padding-left: 15px;
+    height: 29.9px;
+    line-height: 29.9px;
+    text-decoration: none;
+    border-bottom: thin solid #cecece;
+    font-family: Arial;
+    font-size: 11px;
+}
+
+.ui-datepicker th {
+    padding: 0.10em 0.1em;
+    text-align: center;
+    font-weight: bold;
+    border: 0;
+}

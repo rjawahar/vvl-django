@@ -1,0 +1,32 @@
+{
+ "type": "record",
+ "name": "CibilMemberDetails",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+    {
+     "name": "cibilDetailsArray",
+	  "type": {
+	    "type": "array",
+	    "items": {
+	      "name": "CibilMemberDetail",
+	      "type": "record",
+     	      "namespace": "com.mf.loan.process.model",
+	 "fields": [
+	 {"name": "cibil_id", "type": ["long","null"]},
+     {"name": "cibil_member_id", "type": "long"},
+     {"name": "cibil_loan_id", "type": "long"},
+	 {"name": "cibil_date", "type": ["string", "null"]},
+     {"name": "cibil_request_data", "type": "string"},
+     {"name": "cibil_response_data", "type": "string"},
+     {"name": "cibil_status", "type": ["string", "null"]},
+     {"name": "cibil_status_code", "type": ["string", "null"]},
+     {"name": "cibil_resubmit", "type": ["string", "null"]},
+     {"name": "cibil_resubmit_time", "type": ["string", "null"]},
+     {"name": "cibil_member_name", "type": ["string", "null"]},
+     {"name": "cibil_error", "type": ["string", "null"]}
+	 	    ]
+	       }
+           }
+       }
+   ]
+}

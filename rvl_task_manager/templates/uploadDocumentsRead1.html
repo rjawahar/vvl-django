@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+<link rel="stylesheet" href="/static/css/custom2.css">		
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">		
+		<!-- custom css for loan officer process -->
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script>		<!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+
+<!--MASTER DATA -->
+<script type="text/javascript" src="/static/form/masterData.js"></script> 
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+
+
+<style>
+
+@font-face{
+    font-family:'FontAwesome';
+    src:url('../fonts/fontawesome-webfont.eotv=4.4.0');
+    src:url('../fonts/fontawesome-webfont.eot?#iefix&v=4.4.0') format('embedded-opentype'), 
+        url('../fonts/fontawesome-webfont.woff2?v=4.4.0') format('woff2'), 
+        url('../fonts/fontawesome-webfont.woff?v=4.4.0') format('woff'), 
+        url('../fonts/fontawesome-webfont.ttf?v=4.4.0') format('truetype'), 
+        url('../fonts/fontawesome-webfont.svg?v=4.4.0#fontawesomeregular') format('svg');
+    font-weight:normal;
+    font-style:normal;
+}
+
+@media only screen and (min-width:0px){
+	font{
+
+		padding-left:15px;
+	}
+	.colomn-div label{
+		font-size:13px;
+		display	: inline-block;
+		width: 35%;
+		/*width	: 30%;
+		/*text-align:right;*/
+		text-align: left;
+		padding-left: 15%;
+	}
+	.colomn-div{
+	   	width: 88%;
+	    	height: 40px;
+	}
+	.img-input input{
+		width	: 43%;
+		margin-left:43.5%;
+	}
+	.center-pane{
+		width:50%;
+		margin: 3% auto;
+		display:block;
+		border:2px solid sienna;
+		border-radius:10px;
+	}
+	.h3-heading h3{
+		padding-top:20px;
+		color:white;
+		font-weight:bolder;
+		margin-top:initial;
+	}
+	.right-pane-task{
+		width:100%;
+		margin: 10 auto;
+	}
+
+}
+@media only screen and (min-width:0px) and (max-width:600px){
+	
+	.right-pane-task{
+		width:95%;
+
+	}
+	.center-pane{
+		width:90%;
+		line-height: normal;
+	}
+	.img-input input{
+			
+		margin-left:44.5%;
+	}
+
+}
+</style>
+
+</head>
+<body>
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+		{% include "header_common.html" %} 
+	</div>
+
+	{% csrf_token %}
+	<!-- Main Content -->
+    	<div class="main">	
+	    <div class="task-div">	
+		<div class="main-task">
+		   <div  class="right-pane-task" id="right-pane-task" style="width:100%;margin: 10 auto;">
+			<div class="right-pane-task-detail detail-max" id="right-pane-task-detail" style="background-color: rgba(218, 216, 216, 0.2);">
+			<span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;"><i class="entypo-chat"></i> Comments</span>
+     		        	<div class="center-pane" > 
+		       			<!--Div HEader-->
+					<div class="h3-heading" >
+						<h3 >	Uploaded Documents	</h3>
+						<h4 	id="loan_id">		Loan ID : 	<span id="loan_Id">	</span> ,  	 Member Id : 	<span id="member_Id">	</span> 	& User ID: 	<span id="user_Id">	</span>	 </h4>
+					</div>
+					<!--INput Values-->
+					<div class="member_class" style="padding-top:8px;">
+					    	<div class="colomn-div">	<label>		LOS			</label>	<font>  : </font>
+							<font		 id="doc_name_1" 		name="doc_name_1" 		placeholder="DOC URL">	</font>
+							<img    	 id="doc_url_1_img_pop" 	class="file_img" 		src="" />	
+							<a    id="doc_url_1_anchor" 	class="file_img"  ><i class="fa fa-file-text" aria-hidden="true"></i></a>	
+					    	</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		LOS 1			</label>	<font>  : </font>
+							<font 		id="doc_name_2" 		name="doc_name_2"   		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_2_img_pop"		class="file_img" 		src="" />	
+							<a    id="doc_url_2_anchor" 	class="file_img"  ><i class="fa fa-file-text" aria-hidden="true"></i></a>	
+					    	</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		Loan Agreement		</label>	<font>  : </font>
+							<font 		id="doc_name_3" 		name="doc_name_3"   		placeholder="DOC URL">		</font>
+					       		<img    	id="doc_url_3_img_pop" 		class="file_img" 		src="" />	
+							<a    id="doc_url_3_anchor" 	class="file_img"  ><i class="fa fa-file-text" aria-hidden="true"></i></a>	
+					    	</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		Loan Agreement 1	</label>	<font>  : </font>
+							<font 		id="doc_name_4" 		name="doc_name_4"   		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_4_img_pop" 		class="file_img" 		src="" />	
+							<a    id="doc_url_4_anchor" 	class="file_img"  ><i class="fa fa-file-text" aria-hidden="true"></i></a>	
+					   	</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		Promissory Note		</label>	<font>  : </font>
+							<font		id="doc_name_5" 		name="doc_name_5"   		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_5_img_pop" 		class="file_img" 		src="" />	
+							<a    id="doc_url_5_anchor" 	class="file_img"  ><i class="fa fa-file-text" aria-hidden="true"></i></a>	
+					   	 </div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		Promissory Note 1	</label>	<font>  : </font>
+							<font 		id="doc_name_6" 		name="doc_name_6"   		placeholder="DOC URL">		</font>
+							<img  		id="doc_url_6_img_pop" 		class="file_img" 		src="" />	
+							<a    id="doc_url_6_anchor" 	class="file_img"  ><i class="fa fa-file-text" aria-hidden="true"></i></a>	
+					    	</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		NACH Form		</label>	<font>  : </font>
+							<font 		id="doc_name_7"			name="doc_name_7"  		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_7_img_pop" 		class="file_img" 		src="" />	
+							<a    id="doc_url_7_anchor" 	class="file_img"  ><i class="fa fa-file-text" aria-hidden="true"></i></a>	
+					    	</div>
+					</div>
+					<div class="member_class" >
+				  		 <div class="colomn-div">	<label>		NACH Form 1		</label>	<font>  : </font>
+							<font 		id="doc_name_8" 		name="doc_name_8"  		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_8_img_pop" 		class="file_img" 		src="" />	
+							<a    id="doc_url_8_anchor" 	class="file_img"  ><i class="fa fa-file-text" aria-hidden="true"></i></a>	
+				    		 </div>
+					</div>
+					<div class="member_class" >
+				   		<div class="colomn-div">	<label>		PDC			</label>	<font>  : </font>
+							<font 		id="doc_name_9" 		name="doc_name_9"   		placeholder="DOC URL">		</font>
+							<img   		id="doc_url_9_img_pop" 		class="file_img" 		src="" />	
+							<a    id="doc_url_9_anchor" 	class="file_img"  ><i class="fa fa-file-text" aria-hidden="true"></i></a>	
+				    		</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		PDC 1			</label>	<font>  : </font>
+							<font 		id="doc_name_10"		name="doc_name_10"   		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_10_img_pop" 	class="file_img" 		src="" />	
+							<a    id="doc_url_10_anchor" 	class="file_img"  ><i class="fa fa-file-text" aria-hidden="true"></i></a>								
+					    	</div>
+					</div>
+				</div>
+				<div class="popup">	</div>
+				<!--Submit Button DIv-->
+				<div class="form-group text-center">
+				       	<textarea style="width:90%;height:20%;background-color:white;font-size: 11px;" id="comments"    placeholder="Comments"></textarea><font class="mandatory">*</font>
+ 				    	<div class="form-button">
+						<a 	href="javascript:void(0)" 	onclick='' 	class="btn btn-red btn-icon icon-left" 		style="height:30px;padding-left:40px;">
+					  	<i 	class="icon-entypo-cancel"	 style="width:30px;height: 28px;color: white;padding:6px;">	</i>
+					   	Close
+						</a>
+						<a 	href="javascript:void(0)" 	onclick='submitForm("Rework");' 	class="btn btn-red btn-icon icon-left" 		style="height:30px;padding-left:40px;">
+					  	<i 	class="icon-entypo-cancel"	 style="width:30px;height: 28px;color: white;padding:6px;">	</i>
+					   	Rework
+						</a>
+						<a 	href="javascript:void(0)" 	onclick='submitForm("Approved");' 	class="btn btn-red btn-icon icon-left" 		style="height:30px;padding-left:40px;">
+					  	<i 	class="icon-entypo-cancel"	 style="width:30px;height: 28px;color: white;padding:6px;">	</i>
+					   	Approve
+						</a>
+					</div>								
+				</div>
+		  	</div>
+		       <div class="right-pane-task-comment-list comment-min " id="right-pane-task-comment-list">	
+					<div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;" data-toggle="collapse" data-target="#comment-list-pane">
+					    <div class="sub-header" >
+					      <div colspan="4"> Comments <i class="entypo-chat"></i></div>
+					    </div>
+					</div>
+					<div  class="comment-list-pane" id="comment-list-pane"></div>
+			</div>
+	        	</div>
+		    </div>
+	    </div>
+        </div>
+
+	{% include "footer.html" %} 
+</body>
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script>
+<script type="text/javascript"> 
+
+    var data1     = "{{ memberDetails 	| escapejs }}";
+    var member_id = "{{ memberId	| escapejs }}";
+    var loan_id	  = "{{ loanId 		| escapejs }}";	
+    var user_id	  = "{{ user 		| escapejs }}";
+    var task_id   = "{{ taskId 		| escapejs }}";
+    var processid = "{{processId	| safe	   }}";
+    
+    json_data  =  JSON.parse(data1);
+    
+    	/*For Comments*/
+	var html='<label class="comment-user" >No Comments</label>';
+	if(json_data.mlcompositeArray){
+		var objData = json_data.mlcompositeArray[0];
+		if(objData['mlValidationArray'].length>0){
+	    	    html=''; 		
+		    for(var i=0;i<objData['mlValidationArray'].length; i++){
+		    	var usernme = objData['mlValidationArray'][i]['validation_fk_last_modified_by'];
+		    	var remarks = objData['mlValidationArray'][i]['remarks'];	
+		    	var validation_last_modified_date = objData['mlValidationArray'][i]['validation_last_modified_date'];	
+
+			html +='<div id="comment-pane" class="comment-pane">'
+				    +'<div class="comments-list-pane">'
+					+'<label class="comment-user" ><i class="entypo-user"></i>'+usernme+'</label> <font class="comment-date"> '+validation_last_modified_date+' </font>'
+					+'<div class="comment-comment">'+remarks+'</div>'
+				    +'</div>'
+				+'</div>';	    
+		    }	
+		}
+	}
+	document.getElementById('comment-list-pane').innerHTML = html;
+    
+    
+ /*For Tab Pane*/
+$(document).ready(function() {
+
+    $('.comment-toggle').on('click', function () {
+	$('#right-pane-task-detail').toggleClass('detail-max detail-min');
+	$('#right-pane-task-comment-list').toggleClass('comment-min comment-max');
+    });
+
+    $(".tabs-menu a").click(function(event) {
+        event.preventDefault();
+        $(this).parent().addClass("current");
+        $(this).parent().siblings().removeClass("current");
+        var tab = $(this).attr("href");
+        $(".tab-content").not(tab).css("display", "none");
+        $(tab).fadeIn();
+    });
+});
+
+    var imageArr = [".jpeg", ".jpg", ".exif", ".tiff", ".gif", ".bmp", ".Png"]	;
+     	
+    if(json_data.documentsArray){
+	if(json_data.documentsArray[0]){
+	    for(var i=0;i<10;i++){	
+	        var obj=json_data.documentsArray[i];
+	        console.log(obj);
+		for(key in obj){	
+			
+		    if(key == "doc_name")
+			if(document.getElementById(key+"_"+(i+1)+""))
+			    document.getElementById(key+"_"+(i+1)+"").innerHTML    =   obj[key];
+			if(key == "doc_url"){
+			    if(( $.inArray(obj['doc_type'], imageArr)) != -1){
+			        if(document.getElementById(key+"_"+(i+1)+'_img_pop')){
+    			            $('#'+key+"_"+(i+1)+'_img_pop').attr("src",	obj[key]);
+    			            $('#'+key+"_"+(i+1)+'_anchor').css("display","none");   
+    			        }
+		            }else if(obj['doc_url'] != 'Document not attached' ){
+		            	if(obj['doc_type'] == ".pdf"){	
+		            	     $('#'+key+"_"+(i+1)+'_anchor').html('<i class="fa fa-file-pdf-o" aria-hidden="true"></i>');
+	            	        }
+		            	if(obj['doc_type'] == "xlsx"){	
+		            	     $('#'+key+"_"+(i+1)+'_anchor').html('<i class="fa fa-file-excel-o" aria-hidden="true"></i>');
+	            	        }
+		            	if(obj['doc_type'] == "docx" || obj['doc_type'] == ".doc" ){	
+		            	     $('#'+key+"_"+(i+1)+'_anchor').html('<i class="fa fa-file-text" aria-hidden="true"></i>');
+	            	        }	            	        
+	            	        	            	        
+    			            $('#'+key+"_"+(i+1)+'_anchor').attr("href",	obj[key]);
+    			            $('#'+key+"_"+(i+1)+'_anchor').css("color",	'#981b1b');
+			            $('.fa').css("font-size",	'25px');
+			            $('.fa').css("margin-left",	'-14px');
+			            //$('#'+key+"_"+(i+1)+'_anchor').css("background",	'white');    			            		            
+    			            $('#'+key+"_"+(i+1)+'_img_pop').css("display","none");   
+		            }else{
+    			            $('#'+key+"_"+(i+1)+'_img_pop').css("display","none"); 
+    			            $('#'+key+"_"+(i+1)+'_anchor').css("display","none");    			            		            
+		            
+		            }    
+		        }    
+		}	
+	    }		
+	}
+    }
+    imagePopUp();
+
+    function submitForm(d){
+        
+	        var processupdate = {"variables": { 
+			        "Upload_Doc_Status" : { "value" : d	}
+		            	}  
+		            };
+		data = {
+		        "process" : processupdate,
+		        "taskid"  : task_id      
+		}           
+		
+		
+		var remarks = '';
+		if(document.getElementById('comments')){
+			 remarks = document.getElementById('comments').value;
+		}
+	
+		var d 		= new Date(); // for now
+		var currentTime	= (d.getHours()+":"+d.getMinutes()).toString();
+	
+		var currentDateValue  = (new Date());
+		currentDateValue = JSON.stringify(currentDateValue);
+		currentDateValue = currentDateValue.replace(/"/g,'');
+		currentDateValue = currentDateValue.split('T')[0];
+
+		var remarksData =    { 
+					"validation_member_id" 		: parseInt(member_id),
+					"validation_loan_id" 		: parseInt(loan_id),
+					"validation_type" 		: parseInt(1),
+					"validation_level"		: parseInt(1),
+					"validation_status" 		: parseInt(3),
+					"remarks" 			: remarks, 
+					"process_id" 			: processid,
+					"task_id" 			: task_id,
+					"validation_fk_last_modified_by": user_id,
+					"validation_last_modified_date"	: ""+currentDateValue +" at "+ currentTime+"",
+					"validation_fk_sci_client_id"	: parseInt(1)
+				     };
+
+		var dataObj = {};
+		dataObj['processid'] 	= processid;
+		dataObj['taskremarks']  = remarksData;
+		dataObj['loanid'] 	= loan_id;
+		dataObj['taskid'] 	= task_id;
+		dataObj['userid'] 	= user_id;
+		dataObj['process'] 	= processupdate;
+		dataObj['remarksData'] 	= remarksData;	 
+		            
+            	urls = '/updateTask';
+
+	        $.ajax({
+		        url: urls,
+		        type: 'post',
+		        dataType: 'json',
+		        success: function(data){
+			        if(data.message == "Successful"){
+				        console.log(data);
+				        window.location='/tasks/';
+			        }else{
+				        alert("Failed due to some Issue . Please try after sometime or contact your Administrator");
+			        }
+		        },
+		        data: JSON.stringify(dataObj)
+	        });
+        }
+        
+        
+
+</script>
+</html>

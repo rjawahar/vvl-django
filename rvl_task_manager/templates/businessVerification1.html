@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+   <link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+   <link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+
+   <!-- Madura css -->
+   <link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+   <link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+   <link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+   <!--<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">-->
+   <link rel="stylesheet" href="/static/css/jalert.css">
+   <link rel="stylesheet" href="/static/css/BVR_form.css">
+   <style>
+	
+   </style>
+   <!-- Scripts -->
+   <script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script><!-- Main Library js-->
+   <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script><!-- Main Library js-->
+   <script type="text/javascript" src="/static/js/bootstrap.js"></script><!-- Bootstrap js-->
+   <script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+   <script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+
+   <!-- Data -->
+   <script type="text/javascript" src="/static/form/data.js"></script> 
+   
+   <!-- master Data -->
+   <script type="text/javascript" src="/static/form/masterData.js"></script> 
+   <script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+
+   <script type="text/javascript">  
+   	/*Common Variables*/
+	var screenHeight 	 =  $(window).height();
+	var memberdetails 	 = '{{ memberDetails	| safe}}';
+	var member_id		 = "{{ memberId | escapejs }}";
+	var loan_id		 = "{{ loanId 	| escapejs }}";	
+	var user_id		 = "{{ user 	| escapejs }}";
+	var task_id		 = "{{ taskId 	| escapejs }}";
+	var data 		 =  memberdetails;
+
+	var d 		= new Date(); // for now
+	var timeIn 	= (d.getHours()+":"+d.getMinutes()).toString();
+
+	if(memberdetails){
+    	    data = JSON.parse(memberdetails);
+	}	
+	var masterLocationData 	 = '';
+	var districtAndTalukData = [];
+
+	/*Display the input data from bvr form in a grid*/
+	window.onload = function() {
+
+	if(data.mlcompositeArray){
+	    if(data.mlcompositeArray[0]){
+
+		var key_Business = ['biz_nature','biz_no_of_yrs','biz_location','rent_pay_month','biz_door_no','biz_street_name','biz_location_name','biz_state','biz_district','biz_pincode','biz_taluk','biz_office_address_landline_number','biz_office_address_mobile_number','loanid', 'memberid','firstname'];
+		var key = Object.keys(data.mlcompositeArray[0]);
+		for(var i = 0; i<key.length;i++){
+			for(var j = 0; j<key_Business.length;j++){			
+				if(key[i] == key_Business[j]){
+					if(document.getElementById(''+key[i]+'')){
+						document.getElementById(''+key[i]+'').innerHTML = data.mlcompositeArray[0][key[i]];	
+					}
+				}
+			}			
+            	}			
+	}
+	
+	/*For  Loading Master State, District, Taluk and Village*/
+	var keyFields = Object.keys(data.mlcompositeArray[0]);
+			  
+	var biz_state_id, 
+	    biz_district_id, 
+	    biz_taluk_id, 
+	    biz_village_id, 
+	    biz_pincode_id;
+
+	if(keyFields.length > 0){
+		
+		biz_state_id        = data.mlcompositeArray[0]['biz_state'];
+		biz_district_id     = data.mlcompositeArray[0]['biz_district'];		
+		biz_taluk_id        = data.mlcompositeArray[0]['biz_taluk'];				
+		biz_village_id      = data.mlcompositeArray[0]['fk_biz_village_or_town'];								
+		biz_pincode_id      = data.mlcompositeArray[0]['biz_pincode'];										
+	}
+
+	/*Getting State Name from id Which is already in the master Data*/
+	var AddressArray = ['biz'];
+	for(var i=0; i<AddressArray.length; i++ ){
+		document.getElementById(''+AddressArray[i]+'_state').innerHTML = state[eval(''+AddressArray[i]+'_state_id')];
+    	}
+    	
+    	/*Ajax Call to for District, Taluk and Village of Current and Business Address */
+	if(biz_state_id){
+
+		/*Business */	
+
+		/*District and Taluk Of  Business Address */
+		var url = "/masterLocation/";
+		$.ajax({
+		    url		:  url	,
+		    type	: 'post',
+		    dataType	: 'json',
+		    success	: function (masterLocationData) {
+		        /* Load Taluk Data of Business Address*/
+			if( masterLocationData ){
+		
+		    	    data 		= masterLocationData;	
+			    talukndx  		= crossfilter(data);			//--> set Taluk Values into cross filter
+		    	    all 		= talukndx.groupAll();
+			    
+			    talukDim  = talukndx.dimension(function (d) {		//--> Create Dimension for a taluk
+			    	return  d.taluk_code;
+			    });		
+			    
+			    filteredTalukData = talukDim.filter(current_taluk_id).top(Infinity);    	    	
+			    if(document.getElementById('biz_district')){  	
+			        document.getElementById('biz_district').innerHTML 	= filteredTalukData[0].district_name;
+			    }
+			    if(document.getElementById('biz_taluk')){  	
+    			        document.getElementById('biz_taluk').innerHTML 	= filteredTalukData[0].taluk_name;
+    			    }
+			    
+			    /*Load Village Data of Business Address*/
+			    var url = "/villageDetails/";
+
+			    $.ajax({
+				url	:  url	,
+				type	: 'post',
+				dataType: 'json',
+				success	: function (villageData) {
+				    if( villageData ){
+				    
+				    	data 	= villageData;	
+				    	villageNDX 	= crossfilter(villageData);	
+					villageDim 	= villageNDX.dimension(function (d) {		//--> Create Dimension for a taluk
+					    	return  d.village_code;
+					});
+
+					filteredVillageData = villageDim.filter(current_village_id).top(Infinity);
+					if(filteredVillageData){
+					    if(filteredVillageData[0]){
+					    	if(document.getElementById('fk_biz_village_or_town')){  	
+					    	    document.getElementById('fk_biz_village_or_town').innerHTML = filteredVillageData[0].village_name;
+					    	}     
+					    }	
+			    		}
+				    }		
+				},
+				data: "madura-coreservice/rest/api/readmasterloc/mlocdetail/"+filteredTalukData[0].taluk_code+"/t"
+			    });
+			}		
+		    },
+		    data: "madura-coreservice/rest/api/readmasterloc/mlocdetail/"+biz_state_id+"/s"
+		});
+
+		var arr	= {};
+		var businessData = {
+			'businessVerificationArray': [{
+				"biz_verification_id" : 2244,
+				"member_id" : 5552,
+				"loan_id" : 10034,
+				"date" : "22-01-2020",
+				"branch_name" : "mmfl_Tambaram",
+				"time_in" : "time_in",
+				"time_out" : "time_out",
+				"user_id" : 334,
+		
+				"biz_name_of_the_applicant" : "vickram",
+				"biz_name_of_the_firm" : "neew",
+				"biz_name_of_the_proprietor" : "santhosh",
+				"biz_ownership_of_the_premises" : "am",
+				"biz_rentorlease_amount" : 12,
+				"biz_nature_of_business" : "standard",
+				"biz_location_of_the_store" : "near mount everest",
+				"biz_landmark" : "himalayas",
+				"biz_numberof_years_in_this_location" : 12,
+				"biz_size_of_the_shop" : 21,
+				"biz_products_sold" : 4,
+				"biz_stock_level" : 3,
+				"biz_value_of_stock" : 2,
+				"biz_business_turnover_per_day" : 4,
+						
+				"contacted_name_of_the_person_spoken_to" : "contacted_name_of_the_person_spoken_to",
+				"contacted_relationship_to_the_owner" : "contacted_relationship_to_the_owner",
+								
+						
+				"empwork_number_of_employees" : 5,
+				"empwork_number_of_employees_seen" : 6,
+				"empwork_total_employee_salary_per_month" : 2,
+				"empwork_number_of_working_hours" : 6,
+				"empwork_peak_hour_timing" : 7,
+				"empwork_peak_hour_per_day" :1,
+						
+						
+				"bill_value_of_bills_collected" : 6,
+				"bill_period_from" : 9,
+				"bill_period_to" : 0,
+				"bill_number_of_days" : 1,
+						
+				"vfc_business_proof_verified" : "vfc_business_proof_verified", 
+				"vfc_name_board_seen" : "vfc_name_board_seen",
+						
+				 "businessAssetArray":[{
+							"bizast_weighing_scale": "bizast_weighing_scale",
+							"bizast_photocopier": "bizast_photocopier",
+							"bizast_freezer": "bizast_freezer",
+							"bizast_laminating_machine": "bizast_laminating_machine",
+							"bizast_pco": "bizast_pco",
+							"bizast_any_other_asset": "bizast_any_other_asset",
+							}],
+				"familyDetailsArray":[{
+							"family_person": "family_person",
+							"sex": "sex",
+							"education": "education", 
+							"income": 12.4,
+							"remarks": "remarks",							
+							}],
+						
+				"income_agriland" : 45,
+				"income_extend" : 45,
+				"income_crop" : 45,
+				"income_annual_profit" : 45,
+				"income_annual_rentals" : 45,
+				"income_annual_number_of_premises" : 45,
+				"income_annual_rent_received_per_month" : 45,
+
+				"otherBusinessArray":[{
+							"other_name_of_the_firm": "other_name_of_the_firm",
+							"other_firm_type": "other_firm_type",
+							"other_firm_profit": 339,
+							"other_firm_products_sold": 23,
+							}],
+							
+				"otherLoansArray":[{
+							"other_loan_type": "other_loan_type",
+							"other_loan_company": "other_loan_company",
+							"other_loan_emi": 23,
+							"other_loan_tenure": 33,
+							"other_loan_month_balance": 44,
+							"other_loan_remarks": "other_loan_remarks",
+							"enduser_of_the_loan": "enduser_of_the_loan",
+							"Value_of_sale_during_pd": "Value_of_sale_during_pd",
+							}],
+
+				"distributorReferenceArray":[{
+								"distributor_name": "distributor_name",
+								"distributor_address": "distributor_address",
+								"distributor_phoneno": 44,
+								"name_of_the_person_spoken_to": "name_of_the_person_spoken_to",
+								"distributor_supplied_products": "distributor_supplied_products",
+								"relationship_in_years": 99,
+								"distributor_supplies_mon_avg": 22,
+								"distributor_type_of_sale": "distributor_type_of_sale",
+								"distributor_credit_period_in_days": 44,
+								"customer_behaviour": "cusomer",
+								"shop_photo_with_the_applicant":""
+							}]
+						
+		}]};
+			
+		var obj = businessData.businessVerificationArray[0];
+		for(var key in obj){           								// Looping through the Json object  
+		       	arr[key]=obj[key];
+			if(document.getElementById(key)){						// Checking whether the element exists in DOM 
+				document.getElementById(key).value=obj[key];  				// Assigning the value to the element	
+			}
+			if(arr[key] != null && typeof(arr[key])==='object'){				// Checking whether the value of key is object  
+				var obj1=arr[key];
+				var keys=Object.keys(obj1);
+				console.log("keys");
+				console.log(keys);
+				for(var i=0;i<keys.length;i++){						//Looping till the length of inner array of objects in JSON   
+					var obj2=obj1[i];
+					console.log("obj2");
+					console.log(obj2);
+					for(var key1 in obj2){						// Looping through each and every array of object  
+						console.log("key1");
+						console.log(key1);
+						console.log(document.getElementById(key1));
+						console.log(obj2[key1]);						
+						if(document.getElementById(key1)){		// Checking whether the element exists in DOM 
+							document.getElementById(key1).value=obj2[key1];	// Assigning the value to the element	
+						}
+					}
+				}
+			}
+		}
+	}
+
+	$(document).ready(function() {
+	    $(".tabs-menu a").click(function(event) {
+		event.preventDefault();
+		$(this).parent().addClass("current");
+		$(this).parent().siblings().removeClass("current");
+		
+		var tab = $(this).attr("href");
+		$(".tab-content").not(tab).css("display", "none");
+		$(tab).fadeIn();
+	    });
+
+	    $("#dob").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,//this option for allowing user to select month
+	    		  changeYear: true });	
+	    $("#biz_valid_upto").datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true,//this option for allowing user to select month
+	    		  changeYear: true });	      
+	});
+
+	$(function() {
+		$("#tabs").tabs();
+	});
+	
+	
+	function pinChangeStDtTlVl(){
+	        /*State*/
+	        statePinDim 	= pincodeNDX.dimension(function (d) {		//--> Create Dimension for a State
+				  	return  d.state_name+'*'+d.state_code;
+				    });		        
+		/*District*/		    
+	        districtPinDim 	= pincodeNDX.dimension(function (d) {		//--> Create Dimension for a District
+				  	return  d.district_name+'*'+d.district_code;
+				    });	
+		/*Taluk*/		    
+	        talukPinDim 	= pincodeNDX.dimension(function (d) {		//--> Create Dimension for a Taluk
+				  	return  d.taluk_name+'*'+d.taluk_code;
+				    });		        
+		/*Village*/		    
+		villagePinDim 	= pincodeNDX.dimension(function (d) {		//--> Create Dimension for a Village
+				  	return  d.village_name+'*'+d.village_code;
+				    });		        
+	        
+	        /*State*/
+	        console.log(statePinDim.group().top(Infinity));
+	        /*District*/
+	        console.log(districtPinDim.group().top(Infinity));		        
+	        /*Taluk*/
+	        console.log(talukPinDim.group().top(Infinity));		        
+	        /*Village*/		        		
+	        console.log(villagePinDim.group().top(Infinity));	
+	        
+       	    }	
+	}
+
+	
+}
+</script>
+   
+</head>
+<body >
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+		{% include "header1.html" %} 
+	</div>
+	
+	<!-- Main Content -->
+	<div id="sample"></div>
+    	<div class="main">
+	<div class="main-pane-info-outer">
+	<div id="tabs">
+	    <ul id="form-tab">
+		<li style="align:center;"><h4 style="color:#981b1b;">	<strong>Residence Verification</strong></h4></li>
+		<li style="float:right;list-style-type:none;" >
+	    	<span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:10px;"><i class="entypo-chat"></i>Comments</a></span>
+		</li>
+		
+	    </ul>
+    	</div>
+	<div class="main-pane-info">
+	    <div class = "head-main-pane" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+		<div class="sub-header"  data-toggle="collapse" data-target="#basic_information" class="accordion-toggle">
+	    	<div colspan="4"> Applicant Resident Information </div>
+		</div>
+	    </div>
+		<div class = "body-main-pane" id="mmfl">
+			<div  class="row-div-main-pane">
+			    <div class="colomn-div-main-pane" >
+				<label>Member ID</label><font class="font_colon">:</font>
+				<font id="memberid" 	name="memberid"	    placeholder="Member ID"></font><font class="mandatory">*</font>
+			    </div>
+			    <div class="colomn-div-main-pane" >
+				<label>Loan ID	</label><font class="font_colon">:</font>
+				<font id="loanid" 	name="loanid"	    placeholder="Loan ID"></font><font class="mandatory">*</font>
+			    </div>
+			    <div class="colomn-div-main-pane" >
+				<label>Applicant Name 	</label><font class="font_colon">:</font>
+				<font id="firstname" 	name="firstname"	    placeholder="Applicant Name "></font><font class="mandatory">*</font>
+			    </div>			
+			    <div class="colomn-div-main-pane" >
+				<label>Nature Of Business	</label>
+				<font class="font_colon">:</font>
+				<font 	id="biz_nature" 	name="biz_nature"	 placeholder="APPLICATION ID"></font>
+				<font class="mandatory">*</font>
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>No of Years in Business			</label>
+				<font class="font_colon">:</font>
+				<font 	id="biz_no_of_yrs"	name="biz_no_of_yrs" 	 placeholder="MEMBER ID"></font>
+				<font class="mandatory">*</font>
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>Location of Business			</label>
+				<font class="font_colon">:</font>
+				<font   id="biz_location" 	name="biz_location"	 placeholder="LOAN ID"></font>
+				<font class="mandatory">*</font>
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>	Rent Paid Per Month	</label>
+				<font class="font_colon">:</font>
+				<font 	id="rent_pay_month"	name="rent_pay_month"	 placeholder="DDMMYYYY"></font> 
+				<font class="mandatory">*</font> 
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>Door No 			</label>
+				<font class="font_colon">:</font>
+				<font 	id="biz_door_no" 	name="biz_door_no"	 placeholder="MMFL BR NAME"></font>
+				<font class="mandatory">*</font>
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>Street Name 			</label>
+				<font class="font_colon">:</font>
+				<font	id="biz_street_name"   	name="biz_street_name"	 placeholder="TIME IN" ></font>
+				<font class="mandatory">*</font>
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>Location Name				</label>
+				<font class="font_colon">:</font>
+				<font	id="biz_location_name"  name="biz_location_name" placeholder="TIME OUT" ></font>
+				<font class="mandatory">*</font> </div>
+			    <div class="colomn-div-main-pane">
+				<label>Pincode				</label>
+				<font class="font_colon">:</font>
+				<font	id="biz_pincode"  	name="biz_pincode"	 placeholder="USER ID" /></font> 
+				<font class="mandatory">*</font> 
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>State				</label>
+				<font class="font_colon">:</font>
+				<font	id="biz_state"  	name="biz_state" 	 placeholder="USER ID" /></font> 
+				<font class="mandatory">*</font> 
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>District				</label>
+				<font class="font_colon">:</font>
+				<font	id="biz_district"  	name="biz_district" 	 placeholder="USER ID" /></font> 
+				<font class="mandatory">*</font> 
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>Taluk				</label>
+				<font class="font_colon">:</font>
+				<font	id="biz_taluk"  	name="biz_taluk" 	 placeholder="USER ID" /></font> 
+				<font class="mandatory">*</font> 
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>Landline No				</label>
+				<font class="font_colon">:</font>
+				<font	id="biz_office_address_landline_number"   name="biz_office_address_landline_number" 	placeholder="USER ID" /></font> 
+				<font class="mandatory">*</font> 
+			    </div>
+			    <div class="colomn-div-main-pane">
+				<label>Office No				</label>
+				<font class="font_colon">:</font>
+				<font	id="biz_office_address_mobile_number"  	name="biz_office_address_mobile_number" 	placeholder="USER ID" /></font> 
+				<font class="mandatory">*</font> 
+			    </div>
+	
+			</div>
+		    </div>
+
+		</div>	
+	    </div>	
+	    <div class="task-div">		
+		<form name="bvrReportInformation" id="form" action="." ><!-- Forms -->
+		{% csrf_token %}
+		<div class="right-pane-task-detail" id="right-pane-task-detail">
+		    <div class="Business-Verification-details" >
+			<div class="tab-content span5"><!-- for tab -->
+			    <div id="pane1" class="tab-pane active" ><!-- for tab -->
+				<!--<h4>Basic Details</h4>-->
+				<div width="100%">
+				    <!--div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#basic_information" class="accordion-toggle">
+					    <div colspan="4"> MMFL </div>
+					</div>
+				    </div>
+				    <div class = "body" id="mmfl">
+					<div  class="row-div">
+					    <div class="colomn-div" >
+						<label>Business Verification Id		</label></br>
+						<input type="text" 	id="biz_verification_id" 		name="biz_verification_id"    			placeholder="APPLICATION ID"/>
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Member Id			</label></br>
+						<input type="text" 	id="member_id" 				name="member_id" 				placeholder="MEMBER ID"/>
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Loan Id				</label></br>
+						<input type="text"      id="loan_id" 				name="loan_id" 					placeholder="LOAN ID"/>
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Date( YYYY-MM-DD )		</label></br>
+						<input type="text" 	id="date" 				name="date"   					placeholder="DDMMYYYY"/>
+						<font class="mandatory">*</font> 
+					    </div>
+					    <div class="colomn-div">
+						<label>MMFL Branch Name			</label></br>
+						<input type="text" 	id="branch_name" 			name="branch_name"  				placeholder="MMFL BR NAME"/>
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Time In				</label></br>
+						<input type="text" 	id="time_in"    			name="time_in"   				placeholder="TIME IN" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Time Out				</label></br>
+						<input type="text" 	id="time_out"  		 		name="time_out" 				placeholder="TIME OUT" />
+						<font class="mandatory">*</font> </div>
+					    <div class="colomn-div">
+						<label>User Id				</label></br>
+						<input type="text" 	id="user_id"  				name="user_id" 					placeholder="USER ID" />
+						<font class="mandatory">*</font> 
+					    </div>
+					</div>
+					
+				    </div-->
+				    <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#proof_information" class="accordion-toggle">
+					    <div colspan="4"> BUSINESS DETAILS </div>
+					</div>
+				    </div>
+				    <div class = "body" id="business_details">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>Name of the applicant		</label></br>	
+						<input type="text"      id="biz_name_of_the_applicant"  	name="biz_name_of_the_applicant"  		placeholder="APPLICATION NAME ID" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Name of the firm			</label></br>	
+						<input type="text" 	id="biz_name_of_the_firm" 		name="biz_name_of_the_firm"  			placeholder="FIRM NAME" />
+						<font class="mandatory">*</font> 
+					    </div>
+					    <div class="colomn-div">
+						<label>Name of the properitor		</label></br>	
+						<input type="text" id="biz_name_of_the_proprietor" 		name="biz_name_of_the_proprietor"		placeholder="PROPERITOR NAME" />
+						<font class="mandatory">*</font> 
+					    </div>
+					    <div  class="colomn-div" id="select_box">
+						<label>Ownership of the permises	</label></br>
+						<select 	   id="biz_ownership_of_the_premises"   	name="biz_ownership_of_the_premises" 		placeholder="OWNERSHIP OF PERMISES" class="extra select form-control current_state"  onchange="currentDistrictChange();">
+						    <!--option value="1">efewf		       </option>
+						    <option value="2" selected="selected">test2</option-->
+						</select>
+						<font class="mandatory">*</font> 
+					    </div>
+					    <div class="colomn-div">
+						<label>Rent/lease amount		</label></br>
+						<input type="text" id="biz_rentorlease_amount"  		name="biz_rentorlease_amount" 			placeholder="LEASE AMOUNT" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div  class="colomn-div"  id="select_box_nb">
+						<label>Nature of the Business		</label></br>
+					    	<select 	   id="biz_nature_of_business"  		name="biz_nature_of_business" 			placeholder="NATURE OF THE BUSINESS"  	onchange="currentStateChange();" 	class="extra select form-control current_state">
+						    <!--option value="1">efewf		       </option>
+						    <option value="2" selected="selected">test2</option-->
+						</select>
+						<font class="mandatory">*</font>
+					    </div>
+					    <div  class="colomn-div"  id="select_box_ls">
+						<label>Location of the store		</label></br>
+					   	<select 	   id="biz_location_of_the_store"  		name="biz_location_of_the_store"  		placeholder="STORE LOCATION" 	       	onchange="currentDistrictChange();"	class="extra select form-control current_state">
+						    <!--option value="1">efewf		       </option>
+						    <option value="2" selected="selected">test2</option-->
+						</select> 
+						<font class="mandatory">*</font> 
+					    </div>						 
+					    <div class="colomn-div">
+						<label>Landmark				</label></br>
+						<input type="text" id="biz_landmark" 				name="biz_landmark" 				placeholder="LANDMARK" />			
+					    </div>
+					    <div class="colomn-div">
+						<label>No.of years in this location	</label></br> 
+						<input type="text" id="biz_numberof_years_in_this_location"  	name="biz_numberof_years_in_this_location"  	placeholder="NUM OF YEARS" /> 
+						<font class="mandatory">*</font> 
+					    </div>		
+					    <div class="colomn-div">
+						<label>Size of the shop			</label></br>
+						<input type="text" id="biz_size_of_the_shop"  			name="biz_size_of_the_shop" 			placeholder="SHOP SIZE" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Products sold			</label></br>
+						<input type="text" id="biz_products_sold"  			name="biz_products_sold"  		 	placeholder="PRODUCTS SOLD" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Stock Level			</label></br>
+						<input type="text" id="biz_stock_level"  			name="biz_stock_level"  		 	placeholder="STOCK LEVEL" />
+						<font class="mandatory">*</font>
+					    </div>
+					     <div class="colomn-div">
+						<label>Value of the Stock		</label></br>
+						<input type="text" id="biz_value_of_stock" 	 		name="biz_value_of_stock"  		 	placeholder="STOCK VALUE" />
+						<font class="mandatory">*</font>
+					    </div>
+					     <div class="colomn-div">
+						<label>Business turnover per day	</label></br>
+						<input type="text" id="biz_business_turnover_per_day"   	name="biz_business_turnover_per_day"  	 	placeholder="TURN OVER" />							
+					    </div>
+				    </div>
+				    <div class="clear-fix"></div>
+				    <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+					    <div colspan="4">CONTACTED PERSON</div>
+					</div>
+				    </div>
+				    <div class = "body" id="contact_person">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>Name of the person spoken to	</label></br>
+						<input type="text" id="contacted_name_of_the_person_spoken_to"  name="contacted_name_of_the_person_spoken_to"  placeholder="SPOKEN PERSON" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Relationship to the owner	</label></br> 
+						<input type="text" id="contacted_relationship_to_the_owner"  	name="contacted_relationship_to_the_owner"     placeholder="OWNER RELATIONSHIP" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <!--<div class="colomn-div"><label>Time In</label></br><input type="text" id="contacted_time_in"    name="contacted_time_in"  placeholder="TIME IN"  /><font class="mandatory">*</font></div>
+					    <div class="colomn-div"><label>Time Out</label></br><input type="text" id="contacted_time_out"  name="contacted_time_out"  placeholder="TIME OUT" /><font class="mandatory">*</font></div>-->
+					</div>						
+				    </div>
+				    <div class="clear-fix"></div>
+				    <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#Employees_and_working_ hours " class="accordion-toggle">
+					    <div colspan="4">EMPLOYEES AND WORKING HOURS</div>
+					</div>
+				    </div>
+				    <div class = "body" id="Employees_work_hours">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>No.of employees			</label></br>
+						<input type="text" id="empwork_number_of_employees"  		name="empwork_number_of_employees"  		placeholder="NO.OF EMPLOYESS" />
+					    </div>
+					    <div class="colomn-div">
+						<label>No. of employees seen		</label></br> 
+						<input type="text" id="empwork_number_of_employees_seen"  	name="empwork_number_of_employees_seen"  	placeholder="NO.OF EMPLOYEES SEEN" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Total Employee salary per month	</label></br>
+						<input type="text" id="empwork_total_employee_salary_per_month" name="empwork_total_employee_salary_per_month"  placeholder="TOTAL SALARY"  />
+					    </div>
+					    <div class="colomn-div">
+						<label>No. of working hours		</label></br>
+						<input type="text" id="empwork_number_of_working_hours"  	name="empwork_number_of_working_hours"  	placeholder="NUM OF WORKING HOURS" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Peak hour timing			</label></br>
+						<input type="text" id="empwork_peak_hour_timing"  		name="empwork_peak_hour_timing"  		placeholder="PEAK HOUR TIMING" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Peak hour per day		</label></br>
+						<input type="text" id="empwork_peak_hour_per_day"  		name="empwork_peak_hour_per_day"  		placeholder="PEAK HOUR PER DAY" />
+					    </div>
+					</div>						
+				    </div>
+				    <div class="clear-fix"></div>
+				    <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#Employees_and_working_ hours " class="accordion-toggle">
+					    <div colspan="4">BILL DETAILS</div>
+					</div>
+				    </div>
+				    <div class = "body" id="Bill_details">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>Value of bills collected		</label></br>
+						<input type="text" id="bill_value_of_bills_collected"  		name="bill_value_of_bills_collected"  		placeholder="VALUES OF BILLS COLLECTED" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Bill period from			</label></br> 
+						<input type="text" id="bill_period_from"  			name="bill_period_from"  			placeholder="BILL PERIOD FROM" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Bill period to			</label></br>
+						<input type="text" id="bill_period_to"    			name="bill_period_to"  				placeholder="BILL PERIOD TO"  />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>No. of days			</label></br>
+						<input type="text" id="bill_number_of_days"  			name="bill_number_of_days"  			placeholder="NUM OF DAYS" />
+						<font class="mandatory">*</font>
+						</div>
+					    </div>						
+				    </div>
+				    <div class="clear-fix"></div>
+				    <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+					    <div colspan="4">VERIFICATION</div>
+					</div>
+				    </div>
+				    <div class = "body" id="Verification">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>Business proof Verified		</label></br>
+						<input type="text" id="vfc_business_proof_verified"  		name="vfc_business_proof_verifiedd"  		placeholder="BUSINESS PROOF VERIFIED" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Name board seen			</label></br> 
+						<input type="text" id="vfc_name_board_seen" 			name="vfc_name_board_seen"  			placeholder="NAME BOARD SEEN" />
+						<font class="mandatory">*</font>
+					    </div>
+					</div>						
+				    </div>
+				    <div class="clear-fix"></div>
+				     <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+					    <div colspan="4">BUSINESS ASSET</div>
+					</div>
+				    </div>
+				    <div class = "body" id="Business_Asset">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>Weighing scale			</label></br>
+						<input type="text" id="bizast_weighing_scale"  			name="bizast_weighing_scale"  			placeholder="WEIGHING SCALE" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Photocopier			</label></br> 
+						<input type="text" id="bizast_photocopier"  			name="bizast_photocopier"  			placeholder="PHOTOCOPIER" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Freezer				</label></br>
+						<input type="text" id="bizast_freezer"    			name="bizast_freezer"  				placeholder="FREEZER"  />
+					    </div>
+					    <div class="colomn-div">
+						<label>Laminating machine		</label></br>
+						<input type="text" id="bizast_laminating_machine"    		name="bizast_laminating_machine"  		placeholder="FREEZER"  />
+					    </div>				
+					    <div class="colomn-div">
+						<label>PCO				</label></br>
+						<input type="text" id="bizast_pco"  				name="bizast_pco"  				placeholder="PCO" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Any other Asset			</label></br>
+						<input type="text" id="bizast_any_other_asset"  		name="bizast_any_other_asset"  			placeholder="ANY OTHER ASSET" />
+					    </div>						    
+					</div>						
+				    </div>
+				    <div class="clear-fix"></div>
+				    <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+					    <div colspan="4">FAMILY DETAILS</div>
+					</div>
+				    </div>
+				    <div class = "body" id="Family details ">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>Person				</label></br>
+						<input type="text" id="family_person"  				name="family_person"  				placeholder="PERSON" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Sex				</label></br> 
+						<input type="text" id="sex"  					name=sex"  					placeholder="SEX" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Education			</label></br>
+						<input type="text" id="education"    				name="education"  				placeholder="EDUCATION"  />
+					    </div>
+					    <div class="colomn-div">
+						<label>Income				</label></br>
+						<input type="text" id="income"  				name="income"  					placeholder="INCOME" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Remarks				</label></br>
+						<input type="text" id="remarks"  				name="remarks"  				placeholder="REMARKS" />
+					    </div>						    
+					</div>						
+				    </div>
+				    <div class="clear-fix"></div>
+				    <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+					    <div colspan="4">OTHER SOURCE OF INCOME</div>
+					</div>
+				    </div>
+				    <div class = "body" id="Other_source_of_Income ">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>Agri Land			</label></br>
+						<input type="text" id="income_agriland"  			name="income_agriland"  			placeholder="AGRI LAND" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Extent				</label></br> 
+						<input type="text" id="income_extend"  				name="income_extend"  				placeholder="EXTENT" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Crop				</label></br>
+						<input type="text" id="income_crop"    				name="income_crop" 				placeholder="CROP"  />
+					    </div>
+					    <div class="colomn-div">
+						<label>Annual profit			</label></br>
+						<input type="text" id="income_annual_profit"  			name="income_annual_profit"  			placeholder="ANNUAL PROFIT" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Rental's				</label></br>
+						<input type="text" id="income_annual_rentals"  			name="income_annual_rentals"  			placeholder="RENTAL'S" />
+					    </div>
+					    <div class="colomn-div">
+						<label>No. of premises			</label></br>
+						<input type="text" id="income_annual_number_of_premises"  	name="income_annual_number_of_premises"  	placeholder="PREMISES" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Rent received per month		</label></br>
+						<input type="text" id="income_annual_rent_received_per_month"  	name="income_annual_rent_received_per_month"  	placeholder="RENT" />
+					    </div>						    						    						    						    
+					</div>						
+				    </div>
+				    <div class="clear-fix"></div>
+				    <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+					    <div colspan="4">OTHER BUSINESS</div>
+					</div>
+				    </div>
+				    <div class = "body" id="Other_Business">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>Name of firm			</label></br>
+						<input type="text" id="other_name_of_the_firm"  		name="other_name_of_the_firm"  			placeholder="NAME OF FIRM" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Type				</label></br> 
+						<input type="text" id="other_firm_type"  			name="other_firm_type"  			placeholder="TyPE" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Profit				</label></br>
+						<input type="text" id="other_firm_profit"    			name="other_firm_profit"  			placeholder="PROFIT"  />
+					    </div>
+					    <div class="colomn-div">
+						<label>Products sold			</label></br>
+						<input type="text" id="other_firm_products_sold"  		name="other_firm_products_sold"  		placeholder="PRODUCT SOLD" />
+					    </div>						    
+					</div>						
+				    </div>
+				    <div class="clear-fix"></div>
+				     <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+					    <div colspan="4">OTHER LOANS</div>
+					</div>
+				    </div>
+				    <div class = "body" id="Other_loans ">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>Type of loan			</label></br>
+						<input type="text" id="other_loan_type"  			name="other_loan_type"  			placeholder="lOAN TYPE" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Company				</label></br> 
+						<input type="text" id="other_loan_company"  			name="other_loan_company"  			placeholder="COMPANY" />
+					    </div>
+					    <div class="colomn-div">
+						<label>EMI				</label></br>
+						<input type="text" id="other_loan_emi"    			name="other_loan_emi"  				placeholder="EMI"  />
+					    </div>
+					    <div class="colomn-div">
+						<label>Tenure				</label></br>
+						<input type="text" id="other_loan_tenure"  			name="other_loan_tenure"  			placeholder="TENURE" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Balance month			</label></br>
+						<input type="text" id="other_loan_month_balance"  		name="other_loan_month_balance"  		placeholder="BALANCE MONTH" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Remarks				</label></br>
+						<input type="text" id="other_loan_remarks"  			name="other_loan_remarks"  			placeholder="REMARKS" />
+					    </div>
+					    <div class="colomn-div">
+						<label>End use of the loan		</label></br>
+						<input type="text" id="enduser_of_the_loan"  			name="enduser_of_the_loan"  			placeholder="END USE OF THE LOAN" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Value of sale during PD		</label></br>
+						<input type="text" id="Value_of_sale_during_pd"  		name="Value_of_sale_during_pd"  		placeholder="VALUE OF SALE DURING PD" />
+					    </div>						    						    						    						    						    						    						    						    
+					</div>						
+				    </div>
+				    <div class="clear-fix"></div>
+				    <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+					<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+					    <div colspan="4">DISTRIBUTOR REFERENCE CHECK</div>
+					</div>
+				    </div>
+				    <div class = "body" id="Distributor_reference_check">
+					<div class="row-div">
+					    <div class="colomn-div">
+						<label>Distributor Name			</label></br>
+						<input type="text" id="distributor_name" 			name="distributor_name"  			placeholder="DISTRIBUTOR NAME" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Address of the distributor	</label></br> 
+						<input type="text" id="distributor_address"  			name="distributor_address"  			placeholder="DISTRIBUTOR ADDRESS" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Phone No.			</label></br>
+						<input type="text" id="distributor_phoneno"    			name=distributor_phoneno"  			placeholder="PHONE NO"  />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Name of the person spoken to	</label></br>
+						<input type="text" id="name_of_the_person_spoken_to"  		name="name_of_the_person_spoken_to"  		placeholder="SPOKEN PERSON" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Products supplied		</label></br>
+						<input type="text" id="distributor_supplied_products" 		name="distributor_supplied_products"  		placeholder="PRODUCT SUPPLIED" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Relationship in years		</label></br>
+						<input type="text" id="relationship_in_years" 			 name="relationship_in_years"  			placeholder="RELATIONSHIP" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Avg. monthly supplies		</label></br>
+						<input type="text" id="distributor_supplies_mon_avg" 		name="distributor_supplies_mon_avg" 		placeholder="AVG. MONTHLY SUPPLIES" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Type of sale			</label></br>
+						<input type="text" id="distributor_type_of_sale"  		name="distributor_type_of_sale"  		placeholder="DISTRIBUTOR TYPE OF SALE" />
+					    </div>
+					    <div class="colomn-div">
+						<label>Credit period in days		</label></br>
+						<input type="text" id="distributor_credit_period_in_days"  	name="distributor_credit_period_in_days"  	placeholder="CREDIT PERIOD IN DAYS" />
+						<font class="mandatory">*</font>
+					    </div>
+					    <div class="colomn-div">
+						<label>Customer behaviour		</label></br>
+						<input type="text" id="customer_behaviour"  			name="customer_behaviour"  			placeholder="CUSTOMER BEHAVIOUR" />
+					    </div>						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    						    
+					</div>						
+				    </div>
+				    <div class="clear-fix"></div>
+					<div id="shop_photo">			    				
+						<label>SHOP PHOTO WITH THE APPLICANT</label></br>
+						<input  type="file" id="shop_photo_with_the_applicant"  1 		name="shop_photo_with_the_applicant" 		class="shopphoto" placeholder="SHOP PHOTO WITH THE APPLICANT" 	style="width:70%;display:inline-block;"/> 
+						<div class="img-input">
+							<img   id="shopPhotoPop" class="file_img" src="" />
+							<input  type="text" id="shop_photo_img"  name="shop_photo_img"  placeholder="SHOP PHOTO WITH THE APPLICANT IMG" style="width:80%;"/><font class="mandatory">*</font>
+				       		</div>	
+					</div>			    									    
+				    </div>
+				    <div class="clear-fix"></div>
+				    <div class="form-group text-center">
+				        <div class="form-button">
+					        <a href="javascript:void(0)" onclick=''	 		class="btn btn-red btn-icon icon-left" 	style="height:30px;padding-left:40px;">
+					   	    <i class="icon-entypo-cancel"  style="width:30px;height: 28px;color: white;padding:6px;">	</i>
+					    	    Cancel
+						</a>						
+						<a href="javascript:void(0)" onclick="submitBvrForm();" class="btn btn-red btn-icon icon-left"  style="height:30px;padding-left:40px;">
+					   	     <i class="icon-entypo-check" style="width:30px;height: 28px;color: white;padding:6px; float:left;"></i>
+					   	     Submit
+						</a>
+				   	</div>				
+				</div>
+			    </div>						
+		        </div>
+		    </div>	
+		</div>
+	    </div>	
+	</form>  
+
+	<div class="popup"></div>
+	{% include "footer.html" %} 
+</body>
+<script type="text/javascript" src="/static/form/business_verification_form.js"></script> 
+
+</html>
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+  <form action="http://chows3.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
+  <input type="input"  name="key" value="user/tests3/${filename}" /><br />
+    <input type="hidden" name="acl" value="public-read" />
+    <input type="hidden" name="success_action_redirect" value="http://google.com" />
+    Content-Type: 
+    <input type="input"  name="Content-Type" value="image/jpeg" /><br />
+    <!--input type="hidden" name="x-amz-meta-uuid" value="14365123651274" /--> 
+    <input type="hidden" name="x-amz-server-side-encryption" value="AES256" /> 
+    <input type="text"   name="X-Amz-Credential" value="AKIAIHQM7OPOPQMVKPVA/20161031/ap-south-1/s3/aws4_request" />
+    <input type="text"   name="X-Amz-Algorithm" value="AWS4-HMAC-SHA256" />
+    <input type="text"   name="X-Amz-Date" value="20161031T000000Z" />
+
+    Tags for File: 
+    <input type="input"  name="x-amz-meta-tag" value="" /><br />
+    <input type="hidden" name="Policy" value='eyAiZXhwaXJhdGlvbiI6ICIyMDE2LTEwLTMxVDEyOjAwOjAwLjAwMFoiLA0KICAiY29uZGl0aW9ucyI6IFsNCiAgICB7ImJ1Y2tldCI6ICJjaG93czN9LA0KICAgIFsic3RhcnRzLXdpdGgiLCAiJGtleSIsICJ1c2VyL3Rlc3RzMy8iXSwNCiAgICB7ImFjbCI6ICJwdWJsaWMtcmVhZCJ9LA0KICAgIHsic3VjY2Vzc19hY3Rpb25fcmVkaXJlY3QiOiAid3d3Lmdvb2dsZS5jb20ifSwNCiAgICBbInN0YXJ0cy13aXRoIiwgIiRDb250ZW50LVR5cGUiLCAiaW1hZ2UvanBlZyJdLA0KICAgDQogICAgeyJ4LWFtei1zZXJ2ZXItc2lkZS1lbmNyeXB0aW9uIjogIkFFUzI1NiJ9LA0KICAgIFsic3RhcnRzLXdpdGgiLCAiJHgtYW16LW1ldGEtdGFnIiwgIiJdLA0KDQogICAgeyJ4LWFtei1jcmVkZW50aWFsIjogIkFLSUFJSFFNN09QT1BRTVZLUFZBLzIwMTYxMDMxL2FwLXNvdXRoLTEvczMvYXdzNF9yZXF1ZXN0In0sDQogICAgeyJ4LWFtei1hbGdvcml0aG0iOiAiQVdTNC1ITUFDLVNIQTI1NiJ9LA0KICAgIHsieC1hbXotZGF0ZSI6ICIyMDE2MTAzMVQwMDAwMDBaIiB9DQogIF0NCn0=' />
+    <input type="hidden" name="X-Amz-Signature" value="8024a04846789074e5a40732dfe9c930fe6ce36c60ee3ef782939fc61f792d69" />
+    File: 
+    <input type="file"   name="file" /> <br />
+    <!-- The elements after this will be ignored -->
+    <input type="submit" name="submit" value="Upload to Amazon S3" />
+  </form>
+  </body>
+  <script type="text/javascript" src="/static/js/hmac-sha256.js"></script>
+  <script type="text/javascript" src="/static/js/enc-base64-min.js"></script>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+
+
+  <script>
+  window.onload = function(){
+  var signature_value = get_signature_key("/RA7tyW+XUUVC0a8gZXkEsv1c1AYMbDCjTTbKIQ3",20161031,'ap-south-1','iam');
+  function get_signature_key(secret, date, region, service)
+	{
+		var kDate = CryptoJS.HmacSHA256(date, "AWS4" + secret)
+		var kRegion = CryptoJS.HmacSHA256(region, kDate)
+		var kService = CryptoJS.HmacSHA256(service, kRegion)
+		var kSigning = CryptoJS.HmacSHA256("aws4_request", kService)
+		kSigning = kSigning.toString(CryptoJS.enc.Hex);
+		console.log(kSigning);
+		return kSigning;
+	}
+  }
+  </script>
+</html>

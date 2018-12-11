@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+<link rel="stylesheet" href="/static/css/custom2.css">				<!-- custom css for loan officer process -->
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script>		<!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+
+<!--MASTER DATA -->
+<script type="text/javascript" src="/static/form/masterData.js"></script> 
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+
+
+<style>
+@media only screen and (min-width:0px){
+	font{
+
+		padding-left:15px;
+	}
+	.colomn-div label{
+		font-size:13px;
+		display	: inline-block;
+		width: 35%;
+		/*width	: 30%;
+		/*text-align:right;*/
+		text-align: left;
+		padding-left: 15%;
+	}
+	.colomn-div{
+	   	width: 88%;
+	    	height: 40px;
+	}
+	.img-input input{
+		width	: 43%;
+		margin-left:43.5%;
+	}
+	.center-pane{
+		width:50%;
+		margin: 3% auto;
+		display:block;
+		border:2px solid sienna;
+		border-radius:10px;
+	}
+	.h3-heading h3{
+		padding-top:20px;
+		color:white;
+		font-weight:bolder;
+		margin-top:initial;
+	}
+	.right-pane-task{
+		width:100%;
+		margin: 10 auto;
+	}
+
+}
+@media only screen and (min-width:0px) and (max-width:600px){
+	
+	.right-pane-task{
+		width:95%;
+
+	}
+	.center-pane{
+		width:90%;
+		line-height: normal;
+	}
+	.img-input input{
+			
+		margin-left:44.5%;
+	}
+
+}
+</style>
+
+</head>
+<body>
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+		{% include "header_common.html" %} 
+	</div>
+
+	{% csrf_token %}
+	<!-- Main Content -->
+    	<div class="main">	
+	    <div class="task-div">	
+		<div class="main-task">
+		   <div  class="right-pane-task" id="right-pane-task" style="width:100%;margin: 10 auto;">
+			<div class="right-pane-task-detail detail-max" id="right-pane-task-detail" style="background-color: rgba(218, 216, 216, 0.2);">
+     		        	<div class="center-pane" > 
+		       			<!--Div HEader-->
+					<div class="h3-heading" >
+						<h3 >	Uploaded Documents	</h3>
+						<h4 	id="loan_id">		Loan ID : 	<span id="loan_Id">	</span> ,  	 Member Id : 	<span id="member_Id">	</span> 	& User ID: 	<span id="user_Id">	</span>	 </h4>
+					</div>
+					<!--INput Values-->
+					<div class="member_class" style="padding-top:8px;">
+					    	<div class="colomn-div">	<label>		LOS			</label>	<font>  : </font>
+							<font		 id="doc_name_1" 		name="doc_name_1" 		placeholder="DOC URL">	</font>
+							<img    	 id="doc_url_1_img_pop" 	class="file_img" 		src="" />	
+					    	</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		LOS 1			</label>	<font>  : </font>
+							<font 		id="doc_name_2" 		name="doc_name_2"   		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_2_img_pop"		class="file_img" 		src="" />	
+					    	</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		Loan Agreement		</label>	<font>  : </font>
+							<font 		id="doc_name_3" 		name="doc_name_3"   		placeholder="DOC URL">		</font>
+					       		<img    	id="doc_url_3_img_pop" 		class="file_img" 		src="" />	
+					    	</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		Loan Agreement 1	</label>	<font>  : </font>
+							<font 		id="doc_name_4" 		name="doc_name_4"   		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_4_img_pop" 		class="file_img" 		src="" />	
+					   	</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		Promissory Note		</label>	<font>  : </font>
+							<font		id="doc_name_5" 		name="doc_name_5"   		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_5_img_pop" 		class="file_img" 		src="" />	
+					   	 </div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		Promissory Note 1	</label>	<font>  : </font>
+							<font 		id="doc_name_6" 		name="doc_name_6"   		placeholder="DOC URL">		</font>
+							<img  		id="doc_url_6_img_pop" 		class="file_img" 		src="" />	
+					    	</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		NACH Form		</label>	<font>  : </font>
+							<font 		id="doc_name_7"			name="doc_name_7"  		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_7_img_pop" 		class="file_img" 		src="" />	
+					    	</div>
+					</div>
+					<div class="member_class" >
+				  		 <div class="colomn-div">	<label>		NACH Form 1		</label>	<font>  : </font>
+							<font 		id="doc_name_8" 		name="doc_name_8"  		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_8_img_pop" 		class="file_img" 		src="" />	
+				    		 </div>
+					</div>
+					<div class="member_class" >
+				   		<div class="colomn-div">	<label>		PDC			</label>	<font>  : </font>
+							<font 		id="doc_name_9" 		name="doc_name_9"   		placeholder="DOC URL">		</font>
+							<img   		id="doc_url_9_img_pop" 		class="file_img" 		src="" />	
+				    		</div>
+					</div>
+					<div class="member_class" >
+					    	<div class="colomn-div">	<label>		PDC 1			</label>	<font>  : </font>
+							<font 		id="doc_name_10"		name="doc_name_10"   		placeholder="DOC URL">		</font>
+							<img    	id="doc_url_10_img_pop" 	class="file_img" 		src="" />	
+					    	</div>
+					</div>
+				</div>
+				<div class="popup">	</div>
+				<!--Submit Button DIv-->
+				<div class="form-group text-center">
+				    	<div class="form-button">
+						<a 	href="javascript:void(0)" 	onclick='' 	class="btn btn-red btn-icon icon-left" 		style="height:30px;padding-left:40px;">
+					  	<i 	class="icon-entypo-cancel"	 style="width:30px;height: 28px;color: white;padding:6px;">	</i>
+					   	Close
+						</a>
+					</div>
+				</div>
+		  	</div>
+		    </div>
+	        </div>
+	    </div>
+        </div>
+
+	{% include "footer.html" %} 
+</body>
+<script type="text/javascript">  
+	var data1  =  "{{ memberDetails | safe }}";
+	console.log(data1)
+	/*json_data  =  JSON.parse(data1);
+	
+	if(json_data.documentsArray)
+	{
+		if(json_data.documentsArray[0])
+		{
+			var obj=json_data.documentsArray[0];
+			for(key in obj)
+			{	
+				for(var i=0;i<10;i++)
+				{	if(key == "doc_name")
+						if(document.getElementById(key+"_"+(i+1)+""))
+							document.getElementById(key+"_"+(i+1)+"").innerHTML   =   obj[key];
+					if(key == "doc_url")
+						if(document.getElementById(key+"_"+(i+1)+'_img_pop'))
+    							$('#'+key+"_"+(i+1)+'_img_pop').attr("src",	obj[key]);
+					
+				}	
+			}		
+			
+		}
+
+	}
+	imagePopUp();*/
+		
+
+</script>
+</html>

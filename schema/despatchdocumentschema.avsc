@@ -1,0 +1,56 @@
+{
+ "type": "record",
+ "name": "DCPhysicals",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+    {
+     "name": "dcphysicalArray",
+	  "type": {
+	    "type": "array",
+	    "items": {
+	      "name": "DCPhysical",
+	      "type": "record",
+     	      "namespace": "com.mf.loan.process.model",
+	 "fields": [
+	     {"name": "phydoccheid", "type": ["long","null"]},
+	     {"name": "fk_member_id", "type": "long"},
+	     {"name": "fk_loan_id", "type": "long"},
+	     {"name": "doc_courier_name", "type": ["string","null"], "default": "null"},
+		 {"name": "doc_courier_tracking_id", "type": ["string","null"], "default": "null"},
+	     {"name": "doc_courier_receipt_number", "type": ["string","null"], "default": "null"},
+	     {"name": "doc_courier_handover_date", "type": ["string","null"], "default": "null"},
+		 {"name": "last_modified_by", "type": "string"},
+	     {"name": "place", "type": ["string","null"], "default": "null"},
+		 {"name": "last_modified_date", "type": ["string", "null"]},
+	     {"name": "member_doc_dispatch_details_json", "type": [{"type": "map", "values": "string"},"null"]},
+
+	     {
+     	     "name": "phyDocValidationArray",
+          	   "type": [{
+             	      "type": "array",
+              	      "items": {
+                         "name": "PhyDocValidation",
+                         "type": "record",
+                         "namespace": "com.mf.loan.process.model",	
+                   "fields" : [
+			     {"name": "validation_id", "type": ["long","null"]},
+			     {"name": "validation_member_id", "type": ["long","null"], "aliases": ["fk_member_id"]},
+			     {"name": "validation_loan_id", "type": ["long","null"], "aliases": ["fk_loan_id"]},
+			     {"name": "remarks", "type":["string","null"], "default": "null"},
+			     {"name": "process_id", "type":["string","null"], "default": "null"},
+			     {"name": "task_id", "type":["string","null"], "default": "null"},
+			     {"name": "validation_status", "type": ["long","null"]},
+			     {"name": "validation_last_modified_date", "type": ["string","null"], "default": "null"},
+			     {"name": "validation_fk_last_modified_by", "type": ["string","null"]},
+			     {"name": "validation_fk_sci_client_id", "type": ["long","null"]},
+			     {"name": "physical_doc_validation_json", "type": [{"type": "map", "values": "string"},"null"]}
+		              ]
+	                      }
+	                  },"null"]
+     	     }	     
+	 	    ]
+	       }
+           }
+       }
+   ]
+}

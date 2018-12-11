@@ -1,0 +1,21 @@
+
+#django==1.8.6
+#psycopg2
+#Image
+#avro==1.7.6
+#poster
+
+
+django==1.8.16
+psycopg2
+Image
+avro==1.7.6
+poster
+requests
+django-cors-headers
+# Run fake initial migration for migration from 1.7 to 1.8 in django:
+# python manage.py migrate --fake-initial
+
+
+# Run fake initial migration for migration from 1.7 to 1.8 in django:
+# python manage.py migrate --fake-initial

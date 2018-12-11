@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<!--<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">-->
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+<link rel="stylesheet" href="/static/css/BVR_form.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script><!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script>
+
+
+<!-- master Data -->
+<script type="text/javascript" src="/static/form/masterData.js"></script> 
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+
+ 
+<script>
+	var data 	= '{{memberDetails	| safe	   }}';
+	var member_id	= "{{ memberId 		| escapejs }}";
+	var loan_id	= "{{ loanId 		| escapejs }}";	
+	var user_id	= "{{ user 		| escapejs }}";
+	var task_id	= "{{ taskId 		| escapejs }}";
+	var processid 	= "{{processId		| safe	   }}";
+	var alf_token	= "{{ alf_token		| escapejs }}";
+
+
+	$(document).ready(function() {
+		if($(window).width() >= 601){
+			/*$('.comment-toggle').on('click', function () {
+		   		 $('#right-pane-task-detail').toggleClass('detail-max detail-min');
+				 $('#right-pane-task-comment-list').toggleClass('comment-min comment-max');
+			});*/
+			$('.comment-toggle').on('click', function () {
+				//$('#right-pane-task-detail').toggleClass('detail-max detail-min');
+				//$('#right-pane-task-comment-list').toggleClass('comment-min comment-max');
+		
+				var tastDetails = document.getElementById("right-pane-task-detail").className;
+				var docDetails = document.getElementById("right-pane-task-document-list").className;
+				var commDetails = document.getElementById("right-pane-task-comment-list").className;
+
+				if(tastDetails == "right-pane-task-detail detail-max" 
+					&& docDetails == "right-pane-task-document-list comment-min" 
+					&& commDetails == "right-pane-task-comment-list comment-min"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-max";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";
+				}else if(tastDetails == "right-pane-task-detail detail-min" 
+					&& docDetails == "right-pane-task-document-list comment-min" 
+					&& commDetails == "right-pane-task-comment-list comment-max"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-max";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";			
+				}else{
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-max";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";			
+				}
+			});
+			$('.document-toggle').on('click', function () {
+		   		 //$('#right-pane-task-detail').toggleClass('detail-max detail-min');
+				 //$('#right-pane-task-document-list').toggleClass('comment-min comment-max');
+
+				 var tastDetails = document.getElementById("right-pane-task-detail").className;
+				 var docDetails = document.getElementById("right-pane-task-document-list").className;
+	 			 var commDetails = document.getElementById("right-pane-task-comment-list").className;
+				 if(tastDetails == "right-pane-task-detail detail-max"
+					&& docDetails == "right-pane-task-document-list comment-min"
+					&& commDetails == "right-pane-task-comment-list comment-min"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-max";				
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+			
+				 }else if(tastDetails == "right-pane-task-detail detail-min"
+					&& docDetails == "right-pane-task-document-list comment-max"
+					&& commDetails == "right-pane-task-comment-list comment-min"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-max";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";			
+				}else{
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-max";
+				}
+			});
+		}
+		if ($(window).width() <= 600) {
+            $('.comment-toggle').on('click', function() {
+                $('#commentsModal').css('display', 'block');
+            });
+            $('.close').on('click', function() {
+                $('#commentsModal').css('display', 'none');
+            });
+
+            commentsPopUp(json_data);
+
+            $('.document-toggle').on('click', function() {
+                $('#documentsModal').css('display', 'block');
+            });
+            $('.close').on('click', function() {
+                $('#documentsModal').css('display', 'none');
+            });
+            window.onclick = function(event) {
+                if (event.target == document.getElementById('documentsModal')) {
+                    $('#documentsModal').css('display', 'none');
+                }
+                if (event.target == document.getElementById('commentsModal')) {
+                    $('#commentsModal').css('display', 'none');
+                }
+            }
+            documentsPopUp(json_data);
+
+        }
+		
+		var screenHeight  = $(window).height();
+		var screenwidth   = $(window).width();
+		if(screenHeight){
+			var height       =  screenHeight*(0.9);
+			var slipHeight   =  height/3;
+			$('body').height((height*(0.80)));
+			$('.task-div').height((height*(0.80)));
+			$('.main-task').height((height*(0.80)));
+			$('#right-pane-task').height((height));
+			$('#right-pane-task-detail').height((height*(0.85)));
+			$('#right-pane-task-comment-list').height((height*(0.895)));
+			$('#right-pane-task-document-list').height((height*(0.895)));
+			document.getElementById('right-pane-task-detail').style.overflowY  =  'auto';
+		}
+		imagePopUp();
+	});
+	
+	
+	$(function() {
+		$("#tabs").tabs();
+	});
+	
+	var allData = (JSON.parse(data));
+	var json_data= allData;
+	function paintData(){
+		arr = {};
+		var dataName =  Object.keys(allData);
+		for(var memberDataIndex in dataName){
+			var dateNameObj = (dataName[memberDataIndex]);
+			var obj 	= allData[dateNameObj][0];
+			for(var key in obj){           												// Looping through the Json object  
+				arr[key]=obj[key];
+				if(document.getElementById("applicant_name") && obj["firstname"])
+					document.getElementById("applicant_name").innerHTML = obj["firstname"]+" "+ obj["lastname"];
+				if(key == "no_of_child_below17"){
+				 	var no_of_children = parseInt(obj['no_of_child_below17'])+parseInt(obj['no_of_child_above17']);
+				 	document.getElementById('no_of_children').innerHTML=no_of_children;
+				}
+				if(key == "current_door_no"){
+				document.getElementById('current_address').innerHTML=obj['current_door_no']+' , '+obj['current_street_name']+' , '+obj['current_location_name'];
+				document.getElementById('business_address').innerHTML=obj['biz_door_no']+' , '+obj['biz_street_name']+' , '+obj['biz_location_name']+' , '+obj['biz_pincode'];
+				}
+				if(key == "residence_photo_with_atleast_one_family_member"  && document.getElementById('res-photo-pop'))
+					$('#res-photo-pop').attr("src",	obj[key]);	
+				if(document.getElementById(key)){
+					document.getElementById(key).innerHTML=obj[key];  					// Assigning the value to the element	
+				}
+				if(arr[key] != null && typeof(arr[key])==='object'){					// Checking whether the value of key is object  
+					var obj1=arr[key];
+					var keys=Object.keys(obj1);
+					for(var i=0;i<keys.length;i++){										//Looping till the length of inner array of objects in JSON   
+						var obj2=obj1[i];	
+						for(var key1 in obj2){											// Looping through each and every array of object  
+							if(key1 == "shop_photo_with_the_applicant"  && document.getElementById('shop-photo-img'))
+								$('#shop-photo-img').attr("src", obj2[key1]);
+							if(document.getElementById(key1+"_"+(i+1)+"")){				// Checking whether the element exists in DOM 
+								document.getElementById(key1+"_"+(i+1)+"").innerHTML  =  obj2[key1];	// Assigning the value to the element	
+							}
+							if(document.getElementById(key1)){							// Checking whether the element exists in DOM 
+								document.getElementById(key1).innerHTML=obj2[key1];	// Assigning the value to the element	
+							}
+						}
+					}
+				}
+			}
+		}
+		var doc_array = {};
+		var imgFiles = {
+		    'member_bank_fk_alf_node_ref': "Bank Pass Book Image 1",
+		    'member_bank_fk_alf_node_ref1': "Bank Pass Book Image 2",
+		    'biz_id_alf_node_ref': "Business Identity Doc 1",
+		    'biz_id_alf_node_ref1': "Business Identity Doc 2",
+		    'current_address_fk_alf_node_ref': "Address Proof 2",
+		    'current_document_url': "Address Proof 1"
+		};
+		var idProofArray = [];
+		var alfNodeArray=[];
+		var html = '<label class=doc-user" >No documents</label>';
+		
+		// document html content
+		if(json_data.updocArray || json_data.mlcompositeArray){
+			html='';  
+			/*if(json_data.updocArray){
+				if(json_data.updocArray[0]){
+					for(var i=0 ; i<json_data.updocArray.length; i++){	
+						var document_Name = json_data.updocArray[i].doc_status;
+						var document_url = json_data.updocArray[i].doc_url;
+						html +='<div id="document-pane" class="document-pane">'
+							+'<div class="document-list-pane">'
+							+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+document_Name+'</label>'
+							+'<a href="'+document_url+'?alf_ticket='+alf_token+'" style="border:1px solid #ffffff;display: inline-block;" target="_blank" class="file_img"> <i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;margin-left:50px;"></i></a>'
+							+'</div><br>'
+							+'</div>';
+					}
+				}
+			}*/
+			if (json_data.mlcompositeArray[0].documentsArray) {
+			    if (json_data.mlcompositeArray[0].documentsArray){//json_data.documentsArray[0]) {
+			        for (var i = 0; i < json_data.mlcompositeArray[0].documentsArray.length; i++) {
+			            var document_Name = json_data.mlcompositeArray[0].documentsArray[i].doc_status;
+			            var document_url = json_data.mlcompositeArray[0].documentsArray[i].doc_url;
+			            html += '<div id="document-pane" class="document-pane">' + '<div class="document-list-pane">' + '<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">' + " " + document_Name + '</label>' + '<a href="' + document_url + '?alf_ticket=' + alf_token + '" class="file_img"> <i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;"></i></a>' + '</div>' + '</div>';
+			        }
+			    }
+			}
+
+			if (json_data.mlcompositeArray) {
+			    if (json_data.mlcompositeArray[0]) {
+			        var objData = json_data.mlcompositeArray[0];
+			        var keys = Object.keys(json_data.mlcompositeArray[0]);
+			        var imgFiles_keys = Object.keys(imgFiles);
+			        for (var i = 0; i < keys.length; i++) {
+			            for (var j = 0; j < imgFiles_keys.length; j++) {
+			                if (keys[i] == imgFiles_keys[j])
+			                    doc_array[imgFiles[imgFiles_keys[j]]] = json_data.mlcompositeArray[0][keys[i]];
+			            }
+						if(keys[i]=="alfNodeArray"){
+							for(var k=0;k<json_data.mlcompositeArray[0]["alfNodeArray"].length;k++){
+								if(json_data.mlcompositeArray[0]["alfNodeArray"][k]){
+									var id_obj = {};
+									id_obj["Shop Image "+(k+1)] =json_data.mlcompositeArray[0]["alfNodeArray"][k]['alf_node_ref'];
+									alfNodeArray.push(id_obj);
+									doc_array["alfNodeArray"] = alfNodeArray;
+								}
+							}
+						}		
+			            if (keys[i] == "idProofArray")
+			                for (var k = 0; k < json_data.mlcompositeArray[0]["idProofArray"].length; k++) {
+			                    if (json_data.mlcompositeArray[0]["idProofArray"][k]) {
+			                        var id_obj = {};
+			                        id_obj[masterIdProofArrayDic[json_data.mlcompositeArray[0]["idProofArray"][k]['fk_id_proof_type_id']] + ' ( I ) ' + ""] = json_data.mlcompositeArray[0]["idProofArray"][k]['alf_node_ref'];;
+			                        id_obj[masterIdProofArrayDic[json_data.mlcompositeArray[0]["idProofArray"][k]['fk_id_proof_type_id']] + ' ( II ) ' + ""] = json_data.mlcompositeArray[0]["idProofArray"][k]['alf_node_ref1'];;
+			                        idProofArray.push(id_obj);
+			                        doc_array["idProofArray"] = idProofArray;
+			                    }
+			                }
+			        }
+			    }
+			   for(var key in doc_array){
+					if(key != 'idProofArray' && key != 'alfNodeArray')
+						html +='<div id="document-pane" class="document-pane">'
+							+'<div class="document_list_pane">'
+							+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+key+'</label>'
+							+'<a href="'+doc_array[key]+'?alf_ticket='+alf_token+'" class="file_img" target="_blank"><i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;"></i></a>'
+							+'</div>'
+							+'</div>';	
+				}
+				if(doc_array['idProofArray']){
+					for(var i=0;i<doc_array['idProofArray'].length;i++){
+						var id_Arr = doc_array['idProofArray'][i];
+						for(var key in id_Arr)
+							html +='<div id="document-pane" class="document-pane">'
+							+'<div class="document-list-pane">'
+							+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+capitalise(key)+'</label>'
+							+'<a href="'+id_Arr[key]+'?alf_ticket='+alf_token+'" class="file_img" target="_blank"><i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;"></i></a>'
+							+'</div>'
+							+'</div>';	
+					}
+				}
+				if(doc_array['alfNodeArray']){
+					for(var i=0;i<doc_array['alfNodeArray'].length;i++){
+						var id_Arr = doc_array['alfNodeArray'][i];
+						for(var key in id_Arr)
+							html +='<div id="document-pane" class="document-pane">'
+							+'<div class="document-list-pane">'
+							+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+key+'</label>'
+							+'<a href="'+id_Arr[key]+'?alf_ticket='+alf_token+'" class="file_img" target="_blank"><i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;"></i></a>'
+							+'</div>'
+							+'</div>';	
+					}
+				}
+			}
+		}
+    document.getElementById('document-list-pane').innerHTML = html;
+
+    function capitalise(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+		/*For Comments*/
+		var html='<label class="comment-user" >No Comments</label>';
+		if(allData.mlcompositeArray){
+			var objData = allData.mlcompositeArray[0];
+			if(objData['mlValidationArray'].length>0){
+		    	html=''; 		
+			    for(var i=0;i<objData['mlValidationArray'].length; i++){
+			    	var usernme = objData['mlValidationArray'][i]['validation_fk_last_modified_by'];
+			    	var remarks = objData['mlValidationArray'][i]['remarks'];	
+			    	var validation_last_modified_date = objData['mlValidationArray'][i]['validation_last_modified_date'];	
+
+					html +='<div id="comment-pane" class="comment-pane">'
+							+'<div class="comments-list-pane">'
+							+'<label class="comment-user" ><i class="entypo-user"></i>'+usernme+'</label> <font class="comment-date"> '+validation_last_modified_date+' </font>'
+							+'<div class="comment-comment">'+remarks+'</div>'
+							+'</div>'
+							+'</div>';	    
+			    }	
+			}
+		}
+		document.getElementById('comment-list-pane').innerHTML = html;	
+	}
+	setTimeout(paintData, 500);
+
+	function submitProcessForm(selectedBizVal){
+		var processupdate = {"variables": { 
+					"Business_Verification_Status" : { "value" : ""+selectedBizVal+""	}
+							
+				    	}  
+				    };
+		var dataObj = {};
+	
+		var remarks = '';
+		if(document.getElementById('comments')){
+			 remarks = document.getElementById('comments').value;
+		}
+		if(remarks.length == 0){
+			alert("Please input Comments!!!");
+			return false;
+		}
+	
+		var currentDateValue  = (new Date());
+		currentDateValue = JSON.stringify(currentDateValue);
+		currentDateValue = currentDateValue.replace(/"/g,'');		
+
+		dataObj['process'] 	= processupdate;
+		dataObj['memberid'] 	= member_id;
+		dataObj['loanid'] 	= loan_id;
+		dataObj['taskid'] 	= task_id;
+		dataObj['userid'] 	= user_id;
+
+		var remarksData =    { 
+					"validation_member_id" 		: parseInt(member_id),
+					"validation_loan_id" 		: parseInt(loan_id),
+					"validation_type" 		: parseInt(1),
+					"validation_level"		: parseInt(1),
+					"validation_status" 		: parseInt(3),
+					"remarks" 			: remarks, 
+					"process_id" 			: processid,
+					"task_id" 			: task_id,
+					"validation_fk_last_modified_by": user_id,
+					"validation_last_modified_date"	: currentDateValue,
+					"validation_fk_sci_client_id"	: parseInt(1)
+				     };
+
+		dataObj['processid'] 	= processid;
+		dataObj['taskremarks']  = remarksData;
+		dataObj['remarksData']  = remarksData;	
+
+
+		urls = '/updateVerificationtaskprocess/1';
+		urls = '/updateTask';
+		var theImg = '<div class="loading"><img style="width:350px;height:250px;" src="/static/images/buffer-loading.gif">'
+			+'<div style="padding-top:1%;" ><label style="padding-top:1%;">LOADING ...</label>'
+			+'</div>'
+			+'</div>';
+			$(".popup").empty().append(theImg).fadeIn();	
+
+		$.ajax({
+			url: urls,
+			type: 'post',
+			dataType: 'json',
+			success: function(data){
+				if(data.message == "Successful"){
+					$(".popup").fadeOut();
+					window.location='/tasks/';
+				}else{
+					alert("Failed due to some Issue . Please try after sometime or contact your Administrator");
+				}
+			},
+			data: JSON.stringify(dataObj)
+		});
+	}
+
+
+</script>
+</head>
+<body >
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+	  {% include "header.html" %} 
+	</div>
+	<div class="main">
+		<div class="task-div">
+		    <div class="main-task">
+				<div id="tabs">
+				    <ul id="form-tab">
+					   	<li><a href="#pane1">Business Verification Report</a></li>				    
+				      	<li style="float:right;list-style-type:none;">
+							<span class="document-toggle" style="float:right;display:inline-block;padding-bottom:10px;cursor:pointer;"><i class="entypo-attach"></i>Documents</span>
+						</li>
+						<li style="float:right;">
+							<span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;cursor:pointer;"><i class="entypo-chat"></i> Comments</span>
+						</li>
+				     </ul>
+				</div>
+				<div id="commentsModal" class="modal">
+			      	<div class="modal-content">
+			          <span class="close">x</span>
+			          <p> <strong><i class="entypo-chat">COMMENTS	</i></strong>
+			          </p>
+			          <div class="modal-body" id="commentsTab">
+			          </div>
+			      </div>
+			  	</div>
+			  	<div id="documentsModal" class="modal">
+			      	<div class="modal-content">
+			          	<span class="close">x</span>
+			          	<p> <strong><i class="entypo-attach">DOCUMENTS ATTACHED</i></strong>
+			          	</p>
+			          	<div class="modal-body" id="documentsTab">
+			          	</div>
+			      	</div>
+				</div>
+				<div  class="right-pane-task" id="right-pane-task">
+				<!--right-pane-task-detail start-->
+					<div class="right-pane-task-detail detail-max" id="right-pane-task-detail" style="background-color: white;">
+						<div class="Business-Verification-details" >
+							<div class="tab-content span5">
+							  	<div width="100%">
+									<div class="main-pane-info-outer">
+									  	<div class="main-pane-info">
+											<div class = "head-main-pane" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+												<div class="sub-header"  data-toggle="collapse" data-target="#basic_information" class="accordion-toggle">
+													<div colspan="4"> Business Information </div>
+									  			</div>
+											</div><br>
+											<div class = "body-main-pane" id="mmfl">
+											  	<div  class="row-div-main-pane">
+													<div class="colomn-div-bussiness" >
+														 <label >Member ID			</label>
+														 <font class="font_colon">:</font>
+														 <font id="memberid" name="memberid"  placeholder="Member ID"></font>
+													 </div>
+													 <div class="colomn-div-bussiness" >
+														 <label >Loan ID			</label>
+														 <font class="font_colon">:</font>
+														 <font id="loanid" name="loanid"  placeholder="Loan ID"></font>
+													 </div>
+													 <div class="colomn-div-bussiness" >
+														 <label>Applicant Name			</label>
+														 <font class="font_colon">:</font>
+														 <font id="applicant_name" 	name="applicant_name"	    placeholder="Applicant Name "></font>
+													 </div>
+													 <div class="colomn-div-bussiness" >
+														 <label>Resident Address			</label>
+														 <font class="font_colon">:</font>
+														 <div class="colomn-div" style="width:40%;padding-left:initial;"><font id="current_address" 	name="current_address"	    placeholder="RESIDENT ADDRESS"></font></div>
+													 </div><br>
+													 <div class="colomn-div-bussiness" >
+														<label>	Living with	</label>	<font class="font_colon">:</font>
+														<font id="live_with" 	name="live_with"	placeholder="Living with"></font>
+													</div>
+													<div class="colomn-div-bussiness" >
+														<label>	Mobile Number		</label>	<font class="font_colon">:</font>
+														<font id="mobile_number"  name="mobile_number"	 placeholder="Mobile Number"></font>
+													</div>
+													<div class="colomn-div-bussiness" >
+														<label>	Number of Children	</label><font class="font_colon">:</font>
+														<font id="no_of_children" name="no_of_children"	    placeholder="Number of Children"></font>
+													</div>
+										
+													  <div class="colomn-div-bussiness">
+													 	<label >Business Address 	</label>
+														 <font class="font_colon">:</font>
+														 <div class="colomn-div" style="width:40%;padding-left:initial;"><font 	id="business_address" 				name="business_address"  			></font></div>
+													 </div><br><br>
+										
+													 <div class="colomn-div-bussiness">
+														 <label>Office No				</label>
+														 <font class="font_colon">:</font>
+														 <font	id="biz_office_address_mobile_number"  		name="biz_office_address_mobile_number" 				placeholder="MOBILE NUMBER" /></font> 
+													 </div>
+													 <div class="colomn-div-bussiness" >
+														 <label >Nature Of Business			</label>
+														 <font class="font_colon">:</font>
+														 <font 	id="biz_nature" 				name="biz_nature"    							placeholder="APPLICATION ID"></font>
+													 </div>
+													 <div class="colomn-div-bussiness">
+														 <label >No of Years in Business			</label>
+														 <font class="font_colon">:</font>
+														 <font 	id="biz_no_of_yrs" 				name="biz_no_of_yrs" 							placeholder="MEMBER ID"></font>
+													 </div>
+													 <div class="colomn-div-bussiness">
+														 <label >Location of Business			</label>
+														 <font class="font_colon">:</font>
+														 <font   id="biz_location" 				name="biz_location" 							placeholder="LOAN ID"></font>
+													 </div>
+													 <div class="colomn-div-bussiness">
+														 <label >	Rent Paid Per Month		</label>
+														 <font class="font_colon">:</font>
+														 <font 	id="rent_pay_month" 				name="rent_pay_month"   						placeholder="DDMMYYYY"></font> 
+													 </div>											
+											  </div>
+														  <!--Close of business-info-outer-->
+												 </div>
+									  </div>
+								  </div>
+								  <!--For next grid-->						
+								  <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+									  <div class="sub-header"  data-toggle="collapse" data-target="#proof_information" class="accordion-toggle">
+										 <div colspan="4"> BUSINESS DETAILS </div>
+									  </div>
+								  </div>
+									<div class = "body" id="business_details">
+									  	<div class="row-div">
+											<div class="colomn-div">
+											  	<label>Name of the applicant</label>
+											  	<font class="font_colon">:</font>
+											  	<font id="biz_name_of_the_applicant"></font>
+											  	<font class="mandatory">*</font>
+											</div>
+											<div class="colomn-div">
+											  	<label>Name of the firm</label>
+											  	<font class="font_colon">:</font>
+											  	<font id="biz_name_of_the_firm" ></font>
+											  	<font class="mandatory">*</font> 
+											</div>
+											<div class="colomn-div">
+											  	<label>Name of the properitor</label>
+											  	<font class="font_colon">:</font>
+											  	<font id="biz_name_of_the_proprietor"></font>
+											  	<font class="mandatory">*</font>
+											</div>
+											<div  class="colomn-div">
+											  	<label>Ownership of the permises</label>
+											 	<font class="font_colon">:</font>
+											  	<font id="biz_ownership_of_the_premises"></font>
+											</div>
+											<div class="colomn-div">
+											  	<label>Rent/lease amount</label>
+											  	<font class="font_colon">:</font>
+											  	<font id="biz_rentorlease_amount"></font> 
+											  	<font class="mandatory">*</font>
+											</div>
+											<div  class="colomn-div">
+											  	<label>Nature of the Business</label>
+											 	<font class="font_colon">:</font>
+											  	<font id="biz_nature_of_business"></font>
+											</div>
+											<div  class="colomn-div">
+											  	<label>Location of the store</label>
+											  	<font class="font_colon">:</font>
+											  	<font id="biz_location_of_the_store"></font>
+											</div>
+											<div class="colomn-div">
+											  	<label>Landmark</label>
+											  	<font class="font_colon">:</font>
+											  	<font id="biz_landmark" ></font>
+											</div>
+											<div class="colomn-div">
+											  	<label>No.of years in this location</label>
+											  	<font class="font_colon">:</font>
+											  	<font id="biz_numberof_years_in_this_location"></font> 
+											  	<font class="mandatory">*</font>
+											</div>
+											<div class="colomn-div">
+											  	<label>Size of the shop</label>
+											  	<font class="font_colon">:</font><font id="biz_size_of_the_shop"></font>
+											  	<font class="mandatory">*</font>
+											</div>
+											<div class="colomn-div">
+											  	<label>Products sold</label>
+											  	<font class="font_colon">:</font>
+											  	<font id="biz_products_sold" ></font><font class="mandatory">*</font>
+											</div>
+											<div class="colomn-div">
+											  	<label>Stock Level</label>
+											  	<font class="font_colon">:</font>
+											  	<font  id="biz_stock_level"></font>
+											  	<font class="mandatory">*</font>
+											</div>
+											<div class="colomn-div">
+											  	<label>Value of the Stock</label>
+											  	<font class="font_colon">:</font>
+											  	<font id="biz_value_of_stock"></font>
+											  	<font class="mandatory">*</font>
+											</div>
+											<div class="colomn-div">
+											  	<label>Business turnover per day</label>
+											  	<font class="font_colon">:</font>
+											  	<font id="biz_business_turnover_per_day" ></font> 
+											</div>
+										</div>
+										<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+											<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+											    <div colspan="4">CONTACTED PERSON</div>
+											</div>
+										</div>
+										<div class = "body" id="contact_person">
+											<div class="row-div">
+											    <div class="colomn-div">
+													<label>Name of the person spoken to</label>
+													<font class="font_colon">:</font>
+													<font id="contacted_name_of_the_person_spoken_to"></font>
+													<font class="mandatory">*</font>
+											  	</div>
+												<div class="colomn-div">
+													<label>Relationship to the owner</label>
+													<font class="font_colon">:</font>
+													<font id="contacted_relationship_to_the_owner"></font>
+													<font class="mandatory">*</font>
+												</div>
+											</div>
+										</div>
+		         						<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+											<div class="sub-header"  data-toggle="collapse" data-target="#Employees_and_working_ hours " class="accordion-toggle">
+											  	<div colspan="4">EMPLOYEES AND WORKING HOURS</div>
+											</div>
+										</div>
+										<div class = "body" id="Employees_work_hours">
+											<div class="row-div">
+											    <div class="colomn-div">	
+													<label>No.of employees</label>
+													<font class="font_colon">:</font>
+													<font  id="empwork_number_of_employees"></font>
+												</div>
+											  	<div class="colomn-div">
+													<label>No. of employees seen</label>
+													<font class="font_colon">:</font>
+													<font  id="empwork_number_of_employees_seen" ></font>
+											    </div>
+											  	<div class="colomn-div">
+													<label>Total Employee salary per month</label>
+													<font class="font_colon">:</font>
+													<font  id="empwork_total_employee_salary_per_month" ></font>
+											  	</div>
+											  	<div class="colomn-div">
+													<label>No. of working hours</label>
+													<font class="font_colon">:</font>
+													<font id="empwork_number_of_working_hours" ></font >
+											   	</div>
+											 	 <div class="colomn-div">
+													<label>Peak hour timing</label>
+													<font class="font_colon">:</font>
+													<font  id="empwork_peak_hour_timing" ></font >
+											  	</div>
+											 	<div class="colomn-div">
+													<label>Peak hour per day</label>
+													<font class="font_colon">:</font>
+													<font  id="empwork_peak_hour_per_day"  ></font >
+											  	</div>
+											</div>
+										</div>
+										<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+											<div class="sub-header"  data-toggle="collapse" data-target="#Employees_and_working_ hours " class="accordion-toggle">
+											  	<div colspan="4">BILL DETAILS</div>
+											</div>
+										</div>
+										<div class = "body" id="Bill_details">
+											<div class="row-div">
+											    <div class="colomn-div">
+													<label>Value of bills collected</label>
+													<font class="font_colon">:</font>
+													<font  id="bill_value_of_bills_collected"  ></font >
+													<font class="mandatory">*</font>
+											    </div>
+											  	<div class="colomn-div">
+													<label>Bill period from</label>
+													<font class="font_colon">:</font>
+													<font id="bill_period_from" ></font >
+													<font class="mandatory">*</font>
+											  	</div>
+											  	<div class="colomn-div">
+													<label>Bill period to</label>
+													<font class="font_colon">:</font>
+													<font id="bill_period_to"></font >
+													<font class="mandatory">*</font>
+											  	</div>
+											  	<div class="colomn-div">
+													<label>No. of days</label>
+													<font class="font_colon">:</font>
+													<font id="bill_number_of_days" ></font >
+													<font class="mandatory">*</font>
+											  	</div>
+											</div>
+		          						</div>
+									  <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										  <div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+											  <div colspan="4">VERIFICATION</div>
+										  </div>
+					  				  </div>
+									  <div class = "body" id="Verification">
+										  <div class="row-div">
+										  	  <div class="colomn-div">
+												  <label>Business proof Verified</label>
+												  <font class="font_colon">:</font>
+												  <font  id="vfc_business_proof_verified"></font>
+												  <font class="mandatory">*</font>
+										  	  </div>
+										  	  <div class="colomn-div">
+												  <label>Name board seen</label>
+												  <font class="font_colon">:</font>
+												  <font  id="vfc_name_board_seen" ></font>
+												  <font class="mandatory">*</font>
+										  	  </div>
+										  </div>
+		          					  </div>
+									  <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										  <div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+										  	  <div colspan="4">BUSINESS ASSET</div>
+										  </div>
+									  </div>
+									  <div class = "body" id="Business_Asset">
+										  <div class="row-div">
+										  	  <div class="colomn-div">
+												  <label>Weighing scale</label>
+												  <font class="font_colon">:</font>
+												  <font id="bizast_weighing_scale" ></font >
+										      </div>
+											  <div class="colomn-div">
+												  <label>Photocopier</label>
+												  <font class="font_colon">:</font>
+												  <font  id="bizast_photocopier"></font>
+											  </div>
+											  <div class="colomn-div">
+												  <label>Freezer</label>
+												  <font class="font_colon">:</font>
+												  <font  id="bizast_freezer"></font>
+											  </div>
+											  <div class="colomn-div">
+												  <label>Laminating machine</label>
+												  <font class="font_colon">:</font>
+												  <font  id="bizast_laminating_machine"></font>
+											  </div>
+											  <div class="colomn-div">
+												  <label>PCO</label>
+												  <font class="font_colon">:</font>
+												  <font id="bizast_pco"></font>
+											  </div>
+											  <div class="colomn-div">
+												  <label>Any other Asset</label>
+												  <font class="font_colon">:</font>
+												  <font  id="bizast_any_other_asset"></font>
+											  </div>
+		           						 </div>
+		          					</div>
+									<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+										    <div colspan="4">FAMILY DETAILS</div>
+										</div>
+									</div>
+									<div class = "body" id="Family details ">
+										<div class="row-div">
+									        <div class="colomn-div">
+												<label>Person</label>
+												<font class="font_colon">:</font>
+												<font id="family_person"></font>
+										    </div>
+										    <div class="colomn-div">
+												<label>Sex</label>
+												<font class="font_colon">:</font>
+												<font  id="sex" ></font >
+										  	</div>
+										  	<div class="colomn-div">
+												<label>Education</label>
+												<font class="font_colon">:</font><font id="education" ></font>
+										  	</div>
+										 	<div class="colomn-div">
+												<label>Income</label>
+												<font class="font_colon">:</font>
+												<font id="income" ></font>
+										  	</div>
+										    <div class="colomn-div">
+												<label>Remarks</label>
+												<font class="font_colon">:</font>
+												<font id="remarks"></font>
+										  	</div>
+										</div>
+									</div>
+									<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+										  	<div colspan="4">OTHER SOURCE OF INCOME</div>
+										</div>
+									</div>
+									<div class = "body" id="Other_source_of_Income ">
+										<div class="row-div">
+										    <div class="colomn-div">
+												<label>Agri Land</label>
+												<font class="font_colon">:</font>
+												<font id="income_agriland"></font >
+										  	</div>
+										 	<div class="colomn-div">
+												<label>Extent</label>
+												<font class="font_colon">:</font>
+												<font id="income_extend"  name="income_extend"  placeholder="EXTENT" ></font>
+										  	</div>
+										  	<div class="colomn-div">
+												<label>Crop</label>
+												<font class="font_colon">:</font>
+												<font id="income_crop" ></font >
+										    </div>
+										    <div class="colomn-div">
+												<label>Annual profit</label>
+												<font class="font_colon">:</font>
+												<font id="income_annual_profit" ></font >
+										    </div>
+										 	<div class="colomn-div">
+												<label>Rental's</label>
+												<font class="font_colon">:</font>
+												<font id="income_annual_rentals" ></font>
+										  	</div>
+										 	<div class="colomn-div">
+												<label>No. of premises</label>
+												<font class="font_colon">:</font>
+												<font id="income_annual_number_of_premises"></font>
+										  	</div>
+										  	<div class="colomn-div">
+												<label>Rent received per month</label>
+												<font class="font_colon">:</font>
+												<font id="income_annual_rent_received_per_month" ></font>
+										  	</div>
+		            					</div>
+				                    </div>
+									<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+										    <div colspan="4">OTHER BUSINESS</div>
+										</div>
+									</div>
+									<div class = "body" id="Other_Business">
+										<div class="row-div">
+									        <div class="colomn-div">
+												<label>Name of firm</label>
+												<font class="font_colon">:</font>
+												<font id="other_name_of_the_firm"></font>
+										    </div>
+										    <div class="colomn-div">
+												<label>Type</label>
+												<font class="font_colon">:</font>
+												<font id="other_firm_type"></font>
+										    </div>
+										  	<div class="colomn-div">
+												<label>Profit</label>
+												<font class="font_colon">:</font>
+												<font id="other_firm_profit"></font>
+										  	</div>
+										  	<div class="colomn-div">
+												<label>Products sold</label>
+												<font class="font_colon">:</font>
+												<font id="other_firm_products_sold"></font>
+										  	</div>
+										</div>
+		          					</div>
+								    <div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+									    	<div colspan="4">OTHER LOANS</div>
+										</div>
+								  	</div>
+									<div class = "body" id="Other_loans ">
+										<div class="row-div">
+										    <div class="colomn-div">
+												<label>Type of loan</label>
+												<font class="font_colon">:</font>
+												<font id="other_loan_type" ></font>
+									  		</div>
+											<div class="colomn-div">
+												<label>Company</label>
+												<font class="font_colon">:</font>
+												<font id="other_loan_company" ></font>
+											</div>
+											<div class="colomn-div">
+												<label>EMI</label>
+												<font class="font_colon">:</font>
+												<font id="other_loan_emi" ></font>
+											</div>
+											<div class="colomn-div">
+												<label>Tenure</label>
+												<font class="font_colon">:</font>
+												<font id="other_loan_tenure"></font>
+											</div>
+											<div class="colomn-div">
+												<label>Balance month</label>
+												<font class="font_colon">:</font>
+												<font id="other_loan_month_balance"></font>
+											</div>
+											<div class="colomn-div">
+												<label>Remarks</label>
+												<font class="font_colon">:</font>
+												<font id="other_loan_remarks" ></font>
+											</div>
+											<div class="colomn-div">
+												<label>End use of the loan</label>
+												<font class="font_colon">:</font>
+												<font id="enduser_of_the_loan"></font>
+											</div>
+											<div class="colomn-div">
+												<label>Value of sale during PD</label>
+												<font class="font_colon">:</font>
+												<font id="Value_of_sale_during_pd"></font>
+											</div>
+										</div>
+									</div>
+									<div class = "head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted_person" class="accordion-toggle">
+										  	<div colspan="4">DISTRIBUTOR REFERENCE CHECK</div>
+										</div>
+									</div>
+									<div class = "body" id="Distributor_reference_check">
+										<div class="row-div">
+										    <div class="colomn-div">
+												<label>Distributor Name</label>
+												<font class="font_colon">:</font>
+												<font id="distributor_name"></font>
+												<font class="mandatory">*</font>
+										    </div>
+										  	<div class="colomn-div">
+												<label>Address of the disbributor</label>
+												<font class="font_colon">:</font>
+												<font id="distributor_address" ></font>
+												<font class="mandatory">*</font>
+										 	</div>
+											 <div class="colomn-div">
+												<label>Phone No.</label>
+												<font class="font_colon">:</font>
+												<font id="distributor_phoneno"></font>
+												<font class="mandatory">*</font>
+											</div>
+										    <div class="colomn-div">
+												<label>Name of the person spoken to</label>
+												<font class="font_colon">:</font>
+												<font id="name_of_the_person_spoken_to" ></font>
+												<font class="mandatory">*</font>
+										  	</div>
+										  	<div class="colomn-div">
+												<label>Products supplied</label>
+												<font class="font_colon">:</font>
+												<font id="distributor_supplied_products"  name="distributor_supplied_products"  placeholder="PRODUCT SUPPLIED" ></font>
+												<font class="mandatory">*</font>
+											</div>
+										  	<div class="colomn-div">
+												<label>Relationship in years</label>
+												<font class="font_colon">:</font>
+												<font id="relationship_in_years"  name="relationship_in_years"  placeholder="RELATIONSHIP" ></font>
+											</div>
+										  	<div class="colomn-div">
+												<label>Avg. monthly supplies</label>
+												<font class="font_colon">:</font>
+												<font type="text" id="distributor_supplies_mon_avg"  name="distributor_supplies_mon_avg"  placeholder="AVG. MONTHLY SUPPLIES" ></font>
+										  	</div>
+										    <div class="colomn-div">
+												<label>Type of sale</label>
+												<font class="font_colon">:</font>
+												<font id="distributor_type_of_sale"  name="distributor_type_of_sale"  placeholder="DISTRIBUTOR TYPE OF SALE" ></font>
+											</div>
+										    <div class="colomn-div">
+												<label>Credit period in days</label>
+												<font class="font_colon">:</font>
+												<font id="distributor_credit_period_in_days"  name="distributor_credit_period_in_days"  placeholder="CREDIT PERIOD IN DAYS" ></font>
+												<font class="mandatory">*</font>
+										  	</div>
+										  	<div class="colomn-div">
+												<label>Customer behaviour</label>
+												<font class="font_colon">:</font>
+												<font id="customer_behaviour"  name="customer_behaviour"  placeholder="CUSTOMER BEHAVIOUR" ></font>
+											</div>
+										</div>
+									</div>
+									<div class="colomn-div">
+										<label>Shop photo with the Applicant</label><font class="font_colon">:</font>
+										<img    id="shop-photo-img" class="file_img" src="" />
+										<!--font id="shop_photo_with_the_applicant" ></font-->
+									</div>
+								</div>
+							</div>
+						</div><!--pane1 close-->
+						</div><!--Business pane-->	
+						<!-- tab span 5 -->
+					  		
+						</div><!--Right Pane task -->	        <!-- Business verifitcation details -->
+						<!--Comments -->
+						<div class="right-pane-task-document-list comment-min" id="right-pane-task-document-list" style="width:initial;border: 1px solid #981b1b;overflow-Y:scroll;background-color: #f4f4f4;">	
+							<div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;" data-toggle="collapse" data-target="#comment-list-pane">
+								<div class="sub-header" >
+								  	<div colspan="4"><font style="font-size:15px;"> Documents Attached <i class="entypo-attach"></i></font></div>
+								</div>
+							</div>
+						<div  class="document-list-pane" id="document-list-pane" style="background-color:#f4f4f4;"></div>
+						</div>
+						<div class="right-pane-task-comment-list comment-min" id="right-pane-task-comment-list" style="width:initial;overflow-Y:scroll;">	
+							<div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom:1px solid whitesmoke;"  data-target="#comment-list-pane">
+								<div class="sub-header" >
+									<div colspan="4"><font style="font-size:15px;"> Comments <i class="entypo-chat"></i></font></div>
+								</div>
+							</div>
+							<div id="comment-list-pane" class="comment-list-pane" ></div>
+						</div><!--Comments end here-->	
+						<div class="form-group text-center">
+							    <div class="">
+									<div class="colomn-div-footer" id="colomn-div-footer" ><br>
+										<textarea style="width:90%;height:20%;background-color:white;font-size: 11px;" id="comments"    placeholder="Comments"></textarea>
+								  		<font class="mandatory">*</font>
+								  		<div style="padding-top:1%;">
+											<a href="javascript:void(0)" onclick='window.location="/tasks/"' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;margin-bottom: 5px;margin-top: 5px;">
+											<i class="icon-entypo-cancel" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+											Cancel
+											</a>
+											<a href="javascript:void(0)" onclick='submitProcessForm("ReworkCompleted");' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;margin-bottom: 5px;margin-top: 5px;">
+											<i class="icon-entypo-check" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+											Rework Completed
+											</a>					
+										</div>
+									</div>
+								</div>
+							</div> <!--Form group for button -->
+					</div><!--Right task Pane-->	
+	    		</div><!--Main- task -->	
+	  		</div><!--Task Div-->	
+		</div><!--main tab-->	
+		<div class="popup"></div>	
+		{% include "footer.html" %} 
+</body>
+</html>

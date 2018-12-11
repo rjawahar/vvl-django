@@ -1,0 +1,16 @@
+# taskManagerUwsgi.ini file
+[uwsgi]
+plugin = python
+socket = 
+0.0.0.0:9000
+chdir = /opt/task_manager/
+pidfile = /opt/task_manager/taskManager-master.pid
+module = wsgi
+# wsgi-file = wsgi.py
+# protocol = http
+# master   = true
+processes = 4
+threads = 2
+logto = /var/log/uwsgi.log
+vacuum = true
+# stats = 127.0.0.1:9191

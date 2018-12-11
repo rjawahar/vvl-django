@@ -1,0 +1,33 @@
+{
+ "type": "record",
+ "name": "ChequeDetails",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+    {
+     "name": "chequedetailArray",
+	  "type": {
+	    "type": "array",
+	    "items": {
+	      "name": "ChequeDetail",
+	      "type": "record",
+     	      "namespace": "com.mf.loan.process.model",
+	 "fields": [
+	     {"name": "chequeid", "type": ["long","null"]},
+	     {"name": "fk_member_id", "type": "long"},
+	     {"name": "fk_loan_id", "type": "long"},
+	     {"name": "fk_loan_account_number", "type": "string"},
+	     {"name": "chq_number", "type": "long"},
+	     {"name": "chq_issue_bank_name", "type": "string"},
+	     {"name": "loan_sanctioned_amount", "type": "double"},
+	     {"name": "chq_issued_on_date", "type": "string"},
+	     {"name": "last_modified_date", "type": "string"},
+	     {"name": "last_modified_by", "type": "long"},
+	     {"name": "fk_alf_node_ref", "type":["string","null"], "default": "null"},
+	     {"name": "fk_alf_file_name", "type":["string","null"], "default": "null"},
+	     {"name": "member_cheque_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+	 	    ]
+	       }
+           }
+       }
+   ]
+}

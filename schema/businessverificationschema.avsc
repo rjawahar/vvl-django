@@ -1,0 +1,185 @@
+{
+	"type": "record",
+	"name": "BusinessVerifications",
+	"namespace": "com.mf.loan.process.model",
+	"fields": [
+		{
+			"name": "businessVerificationArray",
+			"type": {
+				"type": "array",
+				"items": {
+					"name": "BusinessVerification",
+					"type": "record",
+					"namespace": "com.mf.loan.process.model",
+					"fields": [
+						{"name" : "biz_verification_id", "type": ["long", "null"]},
+						{"name": "member_id", "type": "long"},
+						{"name" : "loan_id", "type": "long"},
+						{"name" : "date", "type": "string"},
+						{"name" : "branch_name", "type": ["string", "null"]},
+						{"name" : "time_in", "type": "string"},
+						{"name" : "time_out", "type": "string"},
+						{"name" : "user_id", "type": "string"},
+
+						{"name" : "biz_name_of_the_applicant", "type": "string"},
+						{"name" : "biz_name_of_the_firm", "type": "string"},
+						{"name" : "biz_name_of_the_proprietor", "type": "string"},
+						{"name" : "biz_ownership_of_the_premises", "type": "string"},
+						{"name" : "biz_rentorlease_amount", "type": "double"},
+						{"name" : "biz_nature_of_business", "type": "string"},
+						{"name" : "biz_location_of_the_store", "type": "string" },
+						{"name" : "biz_landmark", "type": "string"},
+						{"name" : "biz_numberof_years_in_this_location", "type": "long"},
+						{"name" : "biz_size_of_the_shop", "type": "long"},
+						{"name" : "biz_products_sold", "type": "long"},
+						{"name" : "biz_stock_level", "type": "long"},
+						{"name" : "biz_value_of_stock", "type": "long"},
+						{"name" : "biz_business_turnover_per_day", "type": "long"},
+						
+						{"name" : "contacted_name_of_the_person_spoken_to", "type": "string"},
+						{"name" : "contacted_relationship_to_the_owner", "type": "string"},
+						
+						{"name" : "empwork_number_of_employees", "type": ["long","null"]},
+						{"name" : "empwork_number_of_employees_seen", "type": ["long", "null"]},
+						{"name" : "empwork_total_employee_salary_per_month", "type": ["double", "null"]},
+						{"name" : "empwork_number_of_working_hours", "type": ["long", "null"]},
+						{"name" : "empwork_peak_hour_timing", "type": ["long", "null"]},
+						{"name" : "empwork_peak_hour_per_day", "type": ["long", "null"]},
+						
+						{"name" : "bill_value_of_bills_collected", "type": "double"},
+						{"name" : "bill_period_from", "type": "long"},
+						{"name" : "bill_period_to", "type": "long"},
+						{"name" : "bill_number_of_days", "type": "long"},
+						
+						{"name" : "vfc_business_proof_verified", "type": "string"},
+						{"name" : "vfc_name_board_seen", "type": "string"},
+						
+						
+						{
+							"name": "businessAssetArray",
+							"type": [{
+								"type": "array",
+								"items": {
+									"name": "BusinessAsset",
+									"type": "record",
+									"namespace": "com.mf.loan.process.model",
+									"fields": [
+										{"name": "bizast_weighing_scale", "type": ["string", "null"], "default": "null"},
+										{"name": "bizast_photocopier", "type": ["string", "null"], "default": "null"},
+										{"name": "bizast_freezer", "type": ["string", "null"], "default": "null"},
+										{"name": "bizast_laminating_machine", "type": ["string", "null"], "default": "null"},
+										{"name": "bizast_pco", "type": ["string", "null"], "default": "null"},
+										{"name": "bizast_any_other_asset", "type": ["string", "null"], "default": "null"},
+										{"name": "business_asset_json", "type": [{"type": "map", "values": "string"},"null"]}
+									]
+								}
+							}, "null"]
+						},
+						
+						{
+							"name": "familyDetailsArray",
+							"type": [{
+								"type": "array",
+								"items": {
+									"name": "FamilyDetails",
+									"type": "record",
+									"namespace": "com.mf.loan.process.model",
+									"fields": [
+										{"name": "family_person", "type": ["string","null"],"default": "null"},
+										{"name": "sex", "type": ["string","null"],"default": "null"},
+										{"name": "education", "type": ["string","null"],"default": "null"},
+										{"name": "income", "type": ["double","null"]},
+										{"name": "remarks", "type": ["string","null"],"default": "null"},
+										{"name": "family_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+									]
+								}
+							}, "null"]
+						},
+						
+						{"name" : "income_agriland", "type": ["double","null"]},
+						{"name" : "income_extend", "type": ["double","null"]},
+						{"name" : "income_crop", "type": ["double","null"]},
+						{"name" : "income_annual_profit", "type": ["double","null"]},
+						{"name" : "income_annual_rentals", "type": ["double","null"]},
+						{"name" : "income_annual_number_of_premises", "type": ["double","null"]},
+						{"name" : "income_annual_rent_received_per_month", "type": ["double","null"]},
+						{"name": "biz_remarks", "type": ["string", "null"]},
+						{"name": "status_of_business_check", "type": "string"},
+						{"name": "income_details_json", "type": [{"type": "map", "values": "string"},"null"]},
+
+						{
+							"name": "otherBusinessArray",
+							"type": [{
+								"type": "array",
+								"items": {
+									"name": "OtherBusiness",
+									"type": "record",
+									"namespace": "com.mf.loan.process.model",
+									"fields": [
+										{"name": "other_name_of_the_firm", "type": ["string","null"], "default": "null"},
+										{"name": "other_firm_type", "type": ["string","null"], "default": "null"},
+										{"name": "other_firm_profit", "type": ["double","null"]},
+										{"name": "other_firm_products_sold", "type": ["long","null"]},
+										{"name": "other_business_json", "type": [{"type": "map", "values": "string"},"null"]}
+									]
+								}
+							}, "null"]
+						},
+						
+						{
+							"name": "otherLoansArray",
+							"type": [{
+								"type": "array",
+								"items": {
+									"name": "OtherLoans",
+									"type": "record",
+									"namespace": "com.mf.loan.process.model",
+									"fields": [
+										{"name": "other_loan_type", "type": ["string", "null"], "default": "null"},
+										{"name": "other_loan_company", "type": ["string", "null"], "default": "null"},
+										{"name": "other_loan_emi", "type": ["double", "null"]},
+										{"name": "other_loan_tenure", "type": ["long", "null"]},
+										{"name": "other_loan_month_balance", "type": ["double", "null"]},
+										{"name": "other_loan_remarks", "type": ["string", "null"], "default": "null"},
+										{"name": "enduser_of_the_loan", "type": "string"},
+										{"name": "Value_of_sale_during_pd", "type": "string"},
+										{"name": "other_loan_json", "type": [{"type": "map", "values": "string"},"null"]}
+									]
+								}
+							}, "null"]
+						},
+						
+						{
+							"name": "distributorReferenceArray",
+							"type": [{
+								"type": "array",
+								"items": {
+									"name": "DistributorReference",
+									"type": "record",
+									"namespace": "com.mf.loan.process.model",
+									"fields": [
+										{"name": "distributor_name", "type": ["string", "null"]},
+										{"name": "distributor_address", "type": ["string", "null"]},
+										{"name": "distributor_phoneno", "type": ["long", "null"]},
+										{"name": "name_of_the_person_spoken_to", "type": ["string", "null"]},
+										{"name": "distributor_supplied_products", "type": ["string", "null"]},
+										{"name": "relationship_in_years", "type": ["long", "null"]},
+										{"name": "distributor_supplies_mon_avg", "type": ["long", "null"]},
+										{"name": "distributor_type_of_sale", "type": ["string", "null"]},
+										{"name": "distributor_credit_period_in_days", "type": ["long", "null"]},
+										{"name": "customer_behaviour", "type": ["string", "null"]},
+										{"name": "applicant_with_shop_photo1", "type": ["string","null"], "default": "null"},
+										{"name": "applicant_with_shop_photo2", "type": ["string","null"], "default": "null"},
+										{"name": "applicant_with_shop_photo3", "type": ["string","null"], "default": "null"},
+										{"name": "distributor_reference_json", "type": [{"type": "map", "values": "string"},"null"]}
+									]
+								}
+							}, "null"]
+						}
+						
+					]
+				}
+			}
+		}
+	]
+}

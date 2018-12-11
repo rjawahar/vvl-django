@@ -1,0 +1,33 @@
+{
+ "type": "record",
+ "name": "UploadDocs",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+    {
+     "name": "updocArray",
+	  "type": {
+	    "type": "array",
+	    "items": {
+	      "name": "UploadDoc",
+	      "type": "record",
+     	      "namespace": "com.mf.loan.process.model",
+	 "fields": [
+	     {"name": "doc_id", "type": ["long","null"]},
+		{"name": "doc_member_id", "type": "long"},
+		{"name": "doc_loan_id", "type": "long"},
+		{"name": "doc_url", "type": "string"},
+		{"name": "doc_name", "type": "string"},
+		{"name": "doc_type", "type": "string"},
+		{"name": "doc_status", "type": "string"},
+		{"name": "doc_remarks", "type": "string"},
+		{"name": "doc_fk_last_modified_by", "type": "string"},
+		{"name": "doc_last_modified_date", "type": ["string", "null"]},
+		{"name": "doc_fk_sci_client_id", "type": "long"},
+		{"name": "doc_loan_doc_type", "type": ["string", "null"]},
+		{"name": "documents_json", "type": [{"type": "map", "values": "string"},"null"]}
+	 	    ]
+	       }
+           }
+       }
+   ]
+}

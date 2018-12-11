@@ -1,0 +1,66 @@
+
+ 'form.js')
+    JS_MD5_FORM 		= "." + str( md5sum(JS_FILE_PATH_FORM) )
+    
+    JS_FILE_PATH_READ_FORM 	= os.path.join(os.path.join(STATIC_ROOT, 'form'), 'readForm.js')
+    JS_MD5_READ_FORM 		= "." + str( md5sum(JS_FILE_PATH_READ_FORM) )
+    
+    JS_FILE_PATH_MASTER 	= os.path.join(os.path.join(STATIC_ROOT, 'form'), 'master.js')
+    JS_MD5_MASTER 		= "." + str( md5sum(JS_FILE_PATH_MASTER) )
+    
+    JS_FILE_PATH_MASTER_DATA 	= os.path.join(os.path.join(STATIC_ROOT, 'form'), 'masterData.js')
+    JS_MD5_MASTER_DATA 		= "." + str( md5sum(JS_FILE_PATH_MASTER_DATA) )  
+    
+    JS_FILE_PATH_MASTER_DATA_LD = os.path.join(os.path.join(STATIC_ROOT, 'form'), 'masterDataLoad.js')
+    JS_MD5_MASTER_DATA_LOAD 	= "." + str( md5sum(JS_FILE_PATH_MASTER_DATA_LD) )            
+    
+    JS_FILE_PATH_BIZ_FORM 	= os.path.join(os.path.join(STATIC_ROOT, 'form'), 'business_verification_form.js')
+    JS_MD5_BIZ_FORM 		= "." + str( md5sum(JS_FILE_PATH_BIZ_FORM) )
+    
+    JS_FILE_PATH_RESI_FORM 	= os.path.join(os.path.join(STATIC_ROOT, 'form'), 'resident_verification_form.js')
+    JS_MD5_RESI_FORM 		= "." + str( md5sum(JS_FILE_PATH_RESI_FORM) )       
+
+
+
+# alias for /static/form/form.js
+location ~ ^/static/form/form\.(.*)\.js$ {
+   alias /home/analyzer/task-manager/task-manager-app/static/form/form.js;
+   expires 30d;
+}
+
+# alias for /static/form/readForm.js
+location ~ ^/static/form/readForm\.(.*)\.js$ {
+   alias /home/analyzer/task-manager/task-manager-app/static/form/readForm.js;
+   expires 30d;
+}
+
+# alias for /static/form/master.js
+location ~ ^/static/form/master\.(.*)\.js$ {
+   alias /home/analyzer/task-manager/task-manager-app/static/form/master.js;
+   expires 30d;
+}
+
+# alias for /static/form/masterData.js
+location ~ ^/static/form/masterData\.(.*)\.js$ {
+   alias /home/analyzer/task-manager/task-manager-app/static/form/masterData.js;
+   expires 30d;
+}
+
+# alias for /static/form/masterDataLoad.js
+location ~ ^/static/form/masterDataLoad\.(.*)\.js$ {
+   alias /home/analyzer/task-manager/task-manager-app/static/form/masterDataLoad.js;
+   expires 30d;
+}
+
+# alias for /static/form/business_verification_form.js
+location ~ ^/static/form/business_verification_form\.(.*)\.js$ {
+   alias /home/analyzer/task-manager/task-manager-app/static/form/business_verification_form.js;
+   expires 30d;
+}
+
+# alias for /static/form/resident_verification_form.js
+location ~ ^/static/form/resident_verification_form\.(.*)\.js$ {
+   alias /home/analyzer/task-manager/task-manager-app/static/form/resident_verification_form.js;
+   expires 30d;
+}
+

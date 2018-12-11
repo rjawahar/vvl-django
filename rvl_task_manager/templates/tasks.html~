@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/component.css" />
+<script src="/static/js/modernizr.custom.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery-confirm.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link type="text/css" href="/static/css/css/task.css" rel="stylesheet" />
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script>		<!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>	<!-- Bootstrap min js-->
+<script type="text/javascript" src="https://rawgithub.com/riggerthegeek/jConfirm/master/jquery.jconfirm-1.0.js"></script> 
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+<script type="text/javascript" src="/static/js/jquery-confirm.js"></script>
+
+<script type="text/javascript">  
+
+var screenHeight 	= $(window).height();
+var taskData 		= {};
+var grpTaskNameDetailsNo= {};
+var grpTaskNameDetails 	= {};
+var myTaskNameDetailsNo = {};
+var myTaskNameDetails 	= {};
+var tokenId		= '';
+
+window.onload = function(){
+
+	$('.comment-toggle').on('click', function () {
+		$('#right-pane-task-detail').toggleClass('detail-max detail-min');
+		$('#right-pane-task-comment-list').toggleClass('comment-min comment-max');
+	});
+	
+	var data_obj = {"processVariables":[],"taskVariables":[],"caseInstanceVariables":[],"firstResult":0,"maxResults":15,"sorting":[{"sortBy":"created","sortOrder":"desc"}],"active":true};
+
+	$.ajax({
+	    url: '/taskList/',
+	    dataType: 'json',
+	    success: function (data) {
+		taskData = data; 
+		leftPaneTaskList_Load();
+	    }
+	});
+	
+}   
+
+
+	jQuery(document).ready(function($) {
+       $('.close').on('click', function (){
+				  $('#Modal').css('display','none');
+	    });
+		window.onclick = function(event) {
+			if (event.target == document.getElementById('Modal' )) {
+				$('#Modal').css('display','none');
+			}
+		}
+	});
+
+
+</script>
+</head>
+
+<body>
+	<!-- New Top Bar --->
+	<div class="page-container horizontal-menu sidebar-collapsed">
+		<header class="navbar navbar-fixed-top">
+			<!-- set fixed position by adding class "navbar-fixed-top" -->
+			<div class="navbar-inner">
+				<!-- logo -->
+				<div class="navbar-brand">
+					<a href="/"> <img src="/static/images/mbe_logo.png" alt="" style="width:88px;height:20px;"> </a>
+				</div>
+				<!-- main menu -->
+				<ul class="navbar-nav">
+					<li class="dashboard root-level active">
+						<a href="/tasks/"><img src="/static/images/Task-White.png" alt="" style="max-width:18px;max-height:18px;">&nbsp;<span>Tasks</span></a>
+					</li>
+					<li class="pg root-level ">
+						<a href="/vvlForms/"><i class="entypo-users"></i><span>VVL Form</span></a>
+					</li>
+					<!-- Search Bar -->
+				</ul>
+				<!-- notifications and other links -->
+				<ul class="nav navbar-right pull-right">
+					<!-- dropdowns -->
+					<li class="dropdown globe">
+						<a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> <i class="entypo-globe"></i>  </a>
+						<!-- dropdown menu (messages) -->
+						<ul class="dropdown-menu">
+							<li class="top">
+								<p class="small">
+									You have <strong>0</strong> new notifications.
+								</p>
+							</li>
+							<li>
+								<ul class="dropdown-menu-list scroller" tabindex="5003" style="overflow: hidden; outline: none;">
+								</ul>
+							</li>
+							<li class="external">
+								<a href="/notifications/">View all notifications</a>
+							</li>
+							<div id="ascrail2003" class="nicescroll-rails" style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;">
+								<div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+							</div>
+							<div id="ascrail2003-hr" class="nicescroll-rails" style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+								<div style="position: relative; top: 0px; height: 5px; width: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+							</div>
+							<div id="ascrail2000" class="nicescroll-rails" style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;"><div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; border: 1px solid rgb(204, 204, 204); border-radius: 1px; background-color: rgb(212, 212, 212); background-clip: padding-box;"></div></div><div id="ascrail2000-hr" class="nicescroll-rails" style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+								<div style="position: relative; top: 0px; height: 5px; width: 0px; border: 1px solid rgb(204, 204, 204); border-radius: 1px; background-color: rgb(212, 212, 212); background-clip: padding-box;"></div>
+							</div>
+						</ul>
+					</li>
+					<!-- raw links -->
+					<li class="dropdown">
+						<a href="#"> <i class="entypo-user"></i>  {{user}}  </a>
+					</li>
+					<li class="dropdown">
+						<!-- add class "pull-right" if you want to place this from right -->
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="entypo-cog"></i> </a>
+						<ul class="dropdown-menu">
+							<li>
+								<p>
+									<span class="line"> <strong> {{user}} </strong> </span><br>
+									<span class="line desc small"> None </span>
+								</p>
+							</li>
+							<li>
+								<a href="/settings/"> Settings </a>
+							</li>
+							<li>
+								<a href="/logout/"> Log Out </a>
+								
+							</li>
+						</ul>
+					</li>
+					<!-- mobile only -->
+					<li class="visible-xs">
+
+						<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+						<div class="horizontal-mobile-menu visible-xs">
+							<a href="#" class="with-animation"><!-- add class "with-animation" to support animation --> <i class="entypo-menu"></i> </a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</header>
+	</div>
+	<!-- Main Content -->
+	<div class="main">	
+   	 	<div class="task-div">	
+			<div class="main-task">
+				<div  class="left-pane-task" id="left-pane-task" >
+					<div id="accordion">
+					    <a href="#left-pane-my-task" style="color:#981b1b;" class="first">My Tasks</a>
+		    			<div id="left-pane-my-task" class="left-pane-my-task">
+							left-pane-grp-task this is some info.
+		    			</div>
+		    			<a href="#left-pane-grp-task" style="color:#981b1b;" class="second">Group Tasks</a>
+						<div id="left-pane-grp-task" class="left-pane-grp-task">
+						 	left-pane-grp-task this is some more info.
+						</div>
+						<a href="#left-pane-my-loan" style="color:#981b1b;" class="third"><i class="fa fa-dashboard" ></i>&nbspMy Loans</a>
+						<label onclick="window.location.href='/FilterLoansByUser/'" class="label-text"><i class="fa fa-filter"></i>&nbsp&nbsp Filter Loans</label>
+						<label onclick="window.location.href='/getApprovedListByUser/'" class="label-text"><i class="fa fa-check-circle"></i>&nbsp&nbsp Approved Loans</label>
+						<label onclick="window.location.href='/getRejectedList/'" class="label-text"><i class="fa fa-times-circle"></i>&nbsp&nbsp Rejected Loans</label>
+						<label onclick="window.location.href='/tatReportByUser/'" class="label-text"><i class="fa fa-hourglass"></i>&nbsp&nbsp In Progress</label>
+						<br>
+					</div>
+	    		</div>
+	    		
+	   			<div  class="right-pane-task" id="right-pane-task">	<br>
+					<div class="right-pane-task-detail detail-max" id="right-pane-task-detail"></div>	
+						<div id="right-pane-task-submit-button-id"></div>
+	    					<div id="Modal" class="modal">
+								<div class="modal-content">
+		 							<span class="close">x</span>
+			  						<p style="font-size:15px;">	<strong><i class="entypo-back-in-time">PROCESS HISTORY</i></strong></p>
+									<div class="modal-body" id="historyModal">
+									</div>
+								</div>
+							</div>
+						</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+	{% include "footer.html" %} 
+</body>
+<script type="text/javascript" src="/static/task/task.js"></script> 
+<script type="text/javascript" src="/static/form/masterData.js"></script> 
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+<script type="text/javascript" src="/static/form/commonFunctions.js"></script> 
+</html>

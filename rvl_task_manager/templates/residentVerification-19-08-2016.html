@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+<link rel="stylesheet" href="/static/css/BVR_form.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script><!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script><!-- Main LibrarLy js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script><!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+
+<!-- Data -->
+<script type="text/javascript" src="/static/form/data.js"></script> 
+
+<!-- master Data -->
+<script type="text/javascript" src="/static/form/masterData.js"></script> 
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+<script type="text/javascript" src="/static/form/form.js"></script> 
+</head>
+<body>
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+		{% include "header.html" %} 
+	</div>
+	<!-- Main Content -->
+    <div class="main">
+		<form name="residenceInformation" id="form" action="." ><!-- Forms -->
+			{% csrf_token %}
+	        <div class="task-div">	
+	       		<div class="main-task">
+					<div id="tabs">
+						<ul id="form-tab">
+							<li style="align:center;"><h4   style="color:#981b1b;">	<strong>	Residence Verification	</strong></h4></li>
+							<li style="float:right;list-style-type:none;">
+								<span class="document-toggle" style="float:right;display:inline-block;padding-bottom:10px;cursor:pointer;"><i class="entypo-attach"></i>Documents</span>
+							</li>
+							<li style="float:right;">
+								<span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;cursor:pointer;"><i class="entypo-chat"></i> Comments</span>
+							</li>
+						 </ul>
+					</div>
+					<div id="commentsModal" class="modal">
+						<div class="modal-content">
+						  	<span class="close">x</span>
+							<p>	<strong><i class="entypo-chat">COMMENTS	</i></strong></p>
+							<div class="modal-body" id="commentsTab">
+							</div>
+						</div>
+					</div>
+					<div id="documentsModal" class="modal">
+						<div class="modal-content">
+						  	<span class="close">x</span>
+							<p>	<strong><i class="entypo-attach">DOCUMENTS ATTACHED</i></strong></p>
+							<div class="modal-body" id="documentsTab" >
+							</div>
+						</div>
+					</div>
+					<div  class="right-pane-task" id="right-pane-task">
+			 			<div class="right-pane-task-detail detail-max" id="right-pane-task-detail">
+							<div class="basic_details_div center"  style="background-color: white;">
+								<div class="basic_details_inner_div">
+									<div class="basic_details_header" align="center">	<h3 style="color:white; padding: 6px;">	<strong>	Residence Verification Details	</strong>	</h3>	</div></br>
+										<div class="row-div" >
+											<label>	Member ID</label>		<font class="font_colon">:</font>
+											<font id="memberid" name="memberid"  placeholder="Member ID"></font>
+										</div>
+										<div class="row-div" >
+											<label>	Loan ID</label>		<font class="font_colon">:</font>
+											<font id="loanid"   name="loanid"    placeholder="Loan ID"></font>
+										</div>
+								   		<div class="row-div" >
+											<label>	Applicant Name 	</label><font class="font_colon">:</font>
+											<font id="applicant_name" 	name="applicant_name"	    placeholder="Applicant Name "></font>
+										</div>
+								   		<div class="row-div" >
+											<label>	Living with	</label>	<font class="font_colon">:</font>
+											<font id="live_with" 	name="live_with"	placeholder="Living with"></font>
+										</div>
+										<div class="row-div" >
+											<label>	Mobile Number		</label>	<font class="font_colon">:</font>
+											<font id="mobile_number"  name="mobile_number"	 placeholder="Mobile Number"></font>
+										</div>
+										<div class="row-div" >
+											<label>	Number of Children	</label><font class="font_colon">:</font>
+											<font id="no_of_children" name="no_of_children"	    placeholder="Number of Children"></font>
+										</div>
+										<div class="row-div">
+											<label>	Current Address </label><font class="font_colon">:</font>
+											<div class="colomn-div" style="width:40%;padding-left:initial;">
+											<font id="current_address" 	name="current_address"	    placeholder="Current Address"></font></div>
+										</div>				    				    
+										<div class="row-div">
+											<label>	Pincode	 </label><font class="font_colon">:</font>
+											<font id="current_pincode"	name="current_pincode"  placeholder="USER ID" /></font>
+								   	 	</div>
+										<div class="row-div">
+											<label>	State	</label><font class="font_colon">:</font>
+											<font id="current_state"  name="current_state"      placeholder="USER ID" /></font>
+										</div>
+										<div class="row-div">
+											<label>	District	</label><font class="font_colon">:</font>
+											<font id="current_district"	name="current_district" placeholder="USER ID" /></font>
+										</div>
+										<div class="row-div">
+											<label>	Taluk	</label><font class="font_colon">:</font>
+											<font id="current_taluk"  	name="current_taluk"    placeholder="USER ID" /></font>
+										</div>
+										<div class="row-div">
+											<label>	Village / Town	</label><font class="font_colon">:</font>
+											<font	id="fk_curr_village_or_town_id"   name="fk_current_village_or_town_id" 	placeholder="Village" /></font> 
+										</div>
+							  		</div>
+						 	 	</div> 	
+						   	 	<div class="residence-details" >
+							  		<div class="tab-content span5" style="margin-left: 15px;"><!-- for tab -->
+										<div class="sub-header"  data-toggle="collapse" data-target="#contacted-person-info" class="accordion-toggle">CONTACTED PERSON DETAILS	</div>
+									   	    <div class="row-div">
+											 	<div class="colomn-div"><label id="name_of_the_person_spoken_to_label">	Name of the Person Contacted	</label></br> <input type="text" 	id="name_of_the_person_spoken_to"  	name="name_of_the_person_spoken_to" 	  placeholder="CONTACTED PERSON NAME"/>		<font class="mandatory">*</font> </div>
+											 	<div class="colomn-div"><label id="relationship_to_the_owner_label">	Relationship with Applicant	</label></br> <input type="text" 	id="relationship_to_the_owner"    	name="relationship_to_the_owner" 	  placeholder="RELATIONSHIP WITH APPLICANT"/>	<font class="mandatory">*</font> </div>
+											 	
+									  	 	</div><br>
+							   			<div class="sub-header"  data-toggle="collapse" data-target="#verification-info" class="accordion-toggle">VERIFICATION INFO</div>
+								   	   		<div class='row-div' style="padding-left: 12px;"> <label id="address_label" >  Resident Address			</label></br> <input type="text"	id="address" 				name="address" 				placeholder="RESIDENT ADDRESS" 	style="height:40px;width:40%"/>	 <font class="mandatory">*</font> </div> </br>
+											<div class="row-div">
+												<div class="colomn-div" style="width:45%;"><label id="addres_conformation_label">  Confirmation from the Contacted Person that the Applicant stays in the above address   </label>	</br>
+													<input 	type="radio"	 style="width:10%;" 	id="addres_conformation" 	name="addres_conformation"  value="addres_conformation_yes" checked>	Yes	</input>
+				                                    <input 	type="radio" 	 style="width:10%;" 	id="addres_conformation" 	name="addres_conformation"  value="addres_conformation_no">		No	</input>	<font class="mandatory">*</font>
+												</div>
+										 		<div class="colomn-div" style="width:45%;"><label id="addres_proof_shown_label">  Address Proof Verified								    </label>	</br>
+													<input 	type="radio" 	style="width:10%;"	  id="addres_proof_shown" name="addres_proof_shown" 	value="addres_proof_shown_yes"  checked>	Yes	</input>	
+													<input	type="radio" 	style="width:10%;"  	  id="addres_proof_shown" name="addres_proof_shown" 	value="addres_proof_shown_no">			No	</input>	<font class="mandatory">*</font>	<br>
+												</div>
+										    </div><br>
+										<div class="sub-header"  data-toggle="collapse" data-target="#residential-info" class="accordion-toggle">RESIDENTIAL INFORMATION</div>
+										    <div class="row-div">
+											 	<div class="colomn-div"> <label id="residence_ownership_label">  Residence Ownership				</label></br>  <input 	type="text" 	id="residence_ownership" 	name="residence_ownership"	 placeholder="RESIDENCE OWNER NAME"/>		<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="years_in_the_address_label">  Years Stayed in the Address			</label></br>  <input 	type="text" 	id="years_in_the_address" 	name="years_in_the_address"  	onkeypress='validate(event);' placeholder="YEARS STAYED IN THE ADDRESS"/>	<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="living_with_family_label">  Living with Family				</label></br>  
+													<input 	type="radio" 	style="width:10%;" 	 id="living_with_family" 	name="living_with_family" value="living_with_family_yes"  checked>  Yes	</input>
+													<input 	type="radio" 	style="width:10%;"	 id="living_with_family"	name="living_with_family" value="living_with_family_no">   	    No	</input>	<font class="mandatory">*</font>
+												</div>
+											</div>
+										    <div class="row-div">
+												<div class="colomn-div"> <label id="number_of_people_living_label">  No. of People Living				</label></br>  <input 	type="text" 	id="number_of_people_living" 	onkeypress='validate(event);' name="number_of_people_living"  	placeholder="NO. OF PEOPLE LIVING"/>	<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="approachability_label">  Approachability				</label></br>  <input 	type="text" 	id="approachability" 		name="approachability"  		placeholder="APPROACHABILITY"/>		<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="type_of_house_label">  Type of House					</label></br>  <input 	type="text" 	id="type_of_house"		name="type_of_house" 			placeholder="TYPE OF HOUSE"/>		<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="number_of_rooms_label">  No. of Rooms					</label></br>  <input	type="text" 	id="number_of_rooms" 		name="number_of_rooms" 	 onkeypress='validate(event);' 		placeholder="NO. OF ROOMS"/>		<font class="mandatory">*</font>  </div>
+										  	</div>
+			   	                         	<div class="row-div">	
+												<div class="colomn-div"> <label id="roofing_label">  Roofing					</label></br>  <input 	type="text"	id="roofing"	 		name="roofing"	 			placeholder="ROOFING"/>			<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="interior_wall_label">  Interior Wall					</label></br>  <input 	type="text" 	id="interior_wall" 		name="interior_wall"	 		placeholder="INTERIOR WALL"/>		<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="furnishing_label">  Furnishing					</label></br>  <input 	type="text" 	id="furnishing" 		name="furnishing" 			placeholder="FURNISHING"/>		<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="type_of_flooring_label">  Type of Flooring				</label></br>  <input 	type="text" 	id="type_of_flooring" 		name="type_of_flooring" 		placeholder="TYPE OF FLOORING"/>	<font class="mandatory">*</font>  </div>
+									   	    </div>
+										    <div class="row-div">			
+												<div class="colomn-div"> <label id="vehicles_owned_label">  Vehicles Owned				</label></br>
+													<input 	type="radio" 	style="width:10%;" 	id="vehicles_owned" 	name="vehicles_owned" 	value="vehicles_owned_yes"  checked>	Yes	</input>
+													<input 	type="radio"  	style="width:10%;" 	id="vehicles_owned" 	name="vehicles_owned" 	value="vehicles_owned_no">		No	</input>
+													<input 	type="radio"  	style="width:10%;" 	id="vehicles_owned"	name="vehicles_owned" 	value="others">				Others	</input>	<font class="mandatory">*</font>
+												</div>
+												<div class="colomn-div"> <label id="household_items_visible_label">  Household Items Visible			</label></br>  <input	type="text" 	id="household_items_visible" 	 name="household_items_visible" 	placeholder="HOUSEHOLD ITEMS VISIBLE"/>	<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="residence_in_negative_area_label">  Residence in Negative Area			</label></br>  <input 	type="text" 	id="residence_in_negative_area"	 name="residence_in_negative_area" 	placeholder="RESIDENCE IN NEG AREA"/>	<font class="mandatory">*</font>  </div>
+										   	</div>
+										    <div class="row-div">
+												<div class="colomn-div"> <label id="area_label">  Area						</label></br>  <input 	type="text" 	id="area" 			 name="area" 				placeholder="AREA"/>			<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="locality_label">  Locality					</label></br>  <input 	type="text"	id="locality"	 		 name="locality"			placeholder="LOCALITY"/>		<font class="mandatory">*</font>  </div>
+												<div class="colomn-div"> <label id="landmark_label">  Landmark					</label></br>  <input 	type="text" 	id="landmark"			 name="landmark" 			placeholder="LANDMARK"/>		<font class="mandatory">*</font>  </div>
+											</div></br>
+										<div class="sub-header"  data-toggle="collapse" data-target="#neighbour-verification" class="accordion-toggle"> NEIGHBOUR VERIFICATION </div>
+								   		<div class="sub-sub-header"  data-toggle="collapse" data-target="#neighbour-verification" class="accordion-toggle" align="center"  style="font-weight:bold;"> CHECK 1</div>
+										<div class="row-div">
+									  	    <div class="colomn-div">  <label id="name_1_label">  Name						</label></br>  <input 	type="text" 	id="name_1" 			 name="name_1" 				placeholder="NAME"/>			<font class="mandatory">*</font>  </div>
+											<div class="colomn-div">  <label id="address_1_label">  Address					</label></br>  <input 	type="text"	id="address_1" 			 name="address_1" 			placeholder="ADDRESS"/>			<font class="mandatory">*</font>  </div>
+										  	<div class="colomn-div">  <label id="phone_number_1_label">  Phone Number 				</label></br>  <input 	type="text"	id="phone_number_1" 		 name="phone_number_1"  onkeypress='validate(event);'			placeholder="PHONE NO"/>		<font class="mandatory">*</font>  </div>
+								  	    </div>
+										<div class="row-div">
+											<div class="colomn-div">  <label id="known_each_other_1_label">  Known Each Other				</label></br>  <input 	type="text" 	id="known_each_other_1"		 	name="known_each_other_1" 			placeholder="KNOWN EACH OTHER"/>		<font class="mandatory">*</font>  </div>
+											<div class="colomn-div">  <label id="behaviour_of_the_customer_1_label">  Behaviour of the Customer			</label></br>  <input   type="text" 	id="behaviour_of_the_customer_1" 	name="behaviour_of_the_customer_1" 		placeholder="BEHAVIOUR OF CUSTOMER"/>		<font class="mandatory">*</font>  </div>
+											<div class="colomn-div">  <label id="financial_status_of_the_customer_1_label">  Financial Status of the Customer		</label></br>  <input   type="text" 	id="financial_status_of_the_customer_1" name="financial_status_of_the_customer_1" 	placeholder="FINANCIAL STATUS OF CUSTOMER"/>	<font class="mandatory">*</font>  </div>
+											<div class="colomn-div">  <label id="any_other_information_1_label">  Any Other Information			</label></br>  <input 	type="text"     id="any_other_information_1" 		name="any_other_information_1" 			placeholder="ANY OTHER INFORMATION"/>		<font class="mandatory">*</font>  </div>
+										</div><br>
+					   			    	<div class="sub-sub-header"  data-toggle="collapse" data-target="#neighbour-verification" class="accordion-toggle" align="center" style="font-weight:bold;"> CHECK 2</div>
+										<div class="row-div">
+									  	  	<div class="colomn-div">  <label id="name_2_label">  Name						</label></br>  <input 	type="text" 	id="name_2" 			name="name_2" 				placeholder="NAME"/>		 </div>						  	
+											<div class="colomn-div">  <label id="address_2_label">  Address					</label></br>  <input   type="text" 	id="address_2" 			name="address_2" 			placeholder="ADDRESS"/>			</div>
+										   	<div class="colomn-div">  <label id="phone_number_2_label">  Phone Number					</label></br>  <input  	type="text" 	id="phone_number_2" 		name="phone_number_2" 	onkeypress='validate(event);'		placeholder="PHONE NO"/>  </div>
+								  	    </div>
+										<div class="row-div">
+											<div class="colomn-div">  <label id="known_each_other_2_label">  Known Each Other				</label></br>  <input 	type="text" 	id="known_each_other_2" 		name="known_each_other_2"	 		placeholder="KNOWN EACH OTHER"/>		</div>
+											<div class="colomn-div">  <label id="behaviour_of_the_customer_2_label">  Behaviour of the Customer			</label></br>  <input 	type="text" 	id="behaviour_of_the_customer_2" 	name="behaviour_of_the_customer_2" 		placeholder="BEHAVIOUR OF CUSTOMER"/>		  </div>
+											<div class="colomn-div">  <label id="financial_status_of_the_customer_2_label">  Financial Status of the Customer		</label></br>  <input 	type="text" 	id="financial_status_of_the_customer_2" name="financial_status_of_the_customer_2" 	placeholder="FINANCIAL STATUS OF CUSTOMER"/>	  </div>
+											<div class="colomn-div">  <label id="any_other_information_2_label">  Any Other Information			</label></br>  <input 	type="text" 	id="any_other_information_2" 		name="any_other_information_2" 			placeholder="ANY OTHER INFORMATION"/>		  </div>
+										</div></br>
+					   					<div class="sub-header"  data-toggle="collapse" data-target="#neighbour-verification" class="accordion-toggle"> STATUS AND REMARKS</div>
+						   	   			<div class="row-div">	
+										   	<div class="colomn-div">  <label id="status_of_residence_check_label" >  Status of Residence Check				</label></br>  <input 	type="text" 	id="status_of_residence_check" 		name="status_of_residence_check" 		placeholder="STATUS OF RESIDENCE CHECK"/>		<font class="mandatory">*</font>  </div>	 
+										   	<div class="colomn-div">  <label id="status_of_neighbor_check_label">  Status of Neighbour Check				</label></br>  <input 	type="text" 	id="status_of_neighbor_check" 		name="status_of_neighbor_check"  		placeholder="STATUS OF NEIGHBOUR CHECK"/>		<font class="mandatory">*</font>  </div>
+				  				        	   	<div class="colomn-div">  <label id="overall_status_label">  OverAll Status 					</label></br>
+												<input style="width:10%;" type="radio" value="overall_status_positive" id="overall_status" name="overall_status"  checked >	Positive	</input>
+												<input style="width:10%;" type="radio" value="overall_status_negative" id="overall_status" name="overall_status">		Negative	</input>	<font class="mandatory">*</font>
+											</div>
+										  	<div class="colomn-div">  <label id="remarks_if_any_label">  Remarks if any					</label></br>  <input 	type="text"	id="remarks_if_any" 			name="remarks_if_any"  				placeholder="REMARKS IF ANY"/>			<font class="mandatory">*</font>  </div>
+										</div>
+										<div class="row-div">
+										   <div class="colomn-div">  <label id="fi_executive_details_label">  Finance Executive Details				</label></br>  <input 	type="text" 	id="fi_executive_details" 		name="fi_executive_details" 			placeholder="FINANCE EXECUTIVE DETAILS"/>	<font class="mandatory">*</font>  </div>
+										   <div class="colomn-div">  <label id="name_label">  Finance Executive Name				</label></br>  <input 	type="text" 	id="name" 				name="name" 					placeholder="FINANCE EXECUTIVE NAME"/>		<font class="mandatory">*</font>  </div>
+										   <div class="colomn-div">  <label id="time_of_visit_label">  Time of Visit					</label></br>  <input	type="time" 	id="time_of_visit" 			name="time_of_visit"/>										<font class="mandatory">*</font>  </div>
+									   </div></br>
+									   <div  class="colomn-div" style="width:40%;">
+									   	   <label id="residence_photo_with_atleast_one_family_member_label">		Residence Photo with atleast one Family member		</label> </br>
+										   <input  type="file"   id="residence_photo"   name="res-photo"   class="alf_node_ref_img"	placeholder="RESIDENCE IMAGE"	style="width:70%;display:inline-block;"/>
+									   		<div class="img-input">
+												<img    id="residence_photo_img" class="file_img"  src="" />	
+												<input  type="text" id="residence_photo_with_atleast_one_family_member"   	name="residence_photo_with_atleast_one_family_member"	 placeholder="RESIDENCE IMAGE " style="width:70%;"/><font class="mandatory">*</font>
+									   		</div>
+									   </div>
+									   
+									</div>
+								</div>
+							</div>
+							
+							<div class="right-pane-task-document-list comment-min" id="right-pane-task-document-list" style="width:21%;border: 1px solid #981b1b;overflow-Y:scroll;background-color: #f4f4f4;">	
+								<div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;" data-toggle="collapse" data-target="#comment-list-pane">
+									<div class="sub-header" >
+									  	<div colspan="4"><font style="font-size:15px;"> Documents Attached <i class="entypo-attach"></i></font></div>
+									</div>
+								</div>
+								<div  class="document-list-pane" id="document-list-pane" style="background-color:#f4f4f4;"></div>
+							</div>
+							<div class="right-pane-task-comment-list comment-min" id="right-pane-task-comment-list" style="width:21%;overflow-Y:scroll;">	
+								<div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom:1px solid whitesmoke;"  data-target="#comment-list-pane">
+									<div class="sub-header" >
+										<div colspan="4"><font style="font-size:15px;"> Comments <i class="entypo-chat"></i></font></div>
+									</div>
+								</div>
+								<div id="comment-list-pane" class="comment-list-pane" ></div>
+							</div>
+							<div class="form-group text-center">
+						   		<div class="form-button"><br><br>
+									<a href="javascript:void(0)"	 onclick='' 	 class="btn btn-red btn-icon icon-left" 	style="height:30px;padding-left:40px;">
+									<i class="entypo-cancel"  style="width:30px;height:28px;color:white;padding:5px;"> </i>
+									Cancel
+									</a>
+									<a href="javascript:void(0)"	 onclick="submitResidentForm();" 	 class="btn btn-red btn-icon icon-left" 	style="height:30px;padding-left:40px;">
+									<i class="entypo-check"  style="width:30px;height:28px;color:white;padding:5px;"> </i>
+									Submit
+									</a>
+						   	    </div>
+			   			   </div><br><br>
+						</div>
+					</div>
+			 </div>
+			 <div class="popup">	</div>
+		 </form>
+	</div>
+	<div class="container">
+			<div class="modal fade" id="residenceModal" role="dialog">
+				<div class="modal-dialog" style="height:100%;">
+					<div class="modal-content">
+				  		<div class="modal-header">
+							<h4 class="modal-title">Please Input the below Mandatory Fields</h4>
+				  		</div>
+				  		<div class="modal-body">
+							<p id="alertContentId" ></p>
+				  		</div>
+				  		<div class="modal-footer">
+							<button type="button" class="btn btn-default"  style="margin-right: 5%;font-weight:bold;" data-dismiss="modal">Close</button>
+				  		</div>
+					</div>
+			  	</div>
+			</div>
+		</div>
+	{% include "footer.html" %} 
+</body>
+<script type="text/javascript" src="/static/form/resident_verification_form.js"></script> 
+<script type="text/javascript">
+	var memberDetails = "{{ memberDetails | escapejs }}";
+	json_data	= JSON.parse(memberDetails);
+	data 		= json_data;
+
+	var d 		= new Date(); // for now
+	var timeIn 	= (d.getHours()+":"+d.getMinutes()).toString();
+
+	var member_id	= "{{ memberId | escapejs }}";
+	var loan_id		= "{{ loanId | escapejs }}";	
+	var user_id		= "{{ user | escapejs }}";
+	var task_id		= "{{ taskId | escapejs }}";
+	var alf_token	= "{{ alf_token		| escapejs }}";
+
+	$(function() {
+		$("#tabs").tabs();
+	});
+	
+				
+	var residentData = {
+		'residentVerificationArray': [{
+			'loan_id': 9999,
+			'interior_wall': 'YES',
+			'furnishing': 'YES',
+			'vehicles_owned': 'YES',
+			'time_in': '6: 45: 00',
+			'resi_verification_id': '',
+			'number_of_rooms': 3,
+			'number_of_people_living': 6,
+			'status_of_neighbor_check': 'good',
+			'living_with_family': 'YES',
+			'roofing': 'ARUMBAKAM',
+			'relationship_to_the_owner': 'NEIGHBOR',
+			'user_id': '1669',
+			'addres_proof_shown': 'RATIONCARD',
+			'locality': 'YYYY',
+			'remarks_if_any': 'no',
+			'years_in_the_address': 5,
+			'addres_conformation': 'YES',
+			'residence_photo_with_atleast_one_family_member': 'XXX.JPG',
+			'name_of_the_person_spoken_to': 'XXXX',
+			'type_of_flooring': 'MARBALS',
+			'approachability': 'VISITEDINHOME',
+			'status_of_residence_check': 'good',
+			'residence_ownership': 'OWNER',
+			'residence_in_negative_area': 'VADAPALANI',
+			'address': 'address',
+			'date': '2016-00-20',
+			'residence_verification_details_json': '',
+			'time_out': '7: 15: 00',
+			'fi_executive_details': 'ZZZZZZZZZ',
+			'neighborVerificationArray': [{
+				'phone_number': 9042769809,
+				'behaviour_of_the_customer': 'GOOD',
+				'name': 'Raj',
+				'any_other_information': 'NO',
+				'financial_status_of_the_customer': 'NOTBAD',
+				'address': 'ADAYAR',
+				'known_each_other': 'YES'
+			},
+			{
+				'phone_number': 9700669809,
+				'behaviour_of_the_customer': 'BAD',
+				'name': 'Kumaran',
+				'any_other_information': 'XXXXXXX',
+				'financial_status_of_the_customer': 'BAD',
+				'address': 'NEHURUNAGAR',
+				'known_each_other': 'YES'
+			}],
+			'name': 'VEN',
+			'branch_name': 'ADAYAR',
+			'area': 'MMDA',
+			'overall_status': 'GOOD',
+			'time_of_visit': '2: 55',
+			'type_of_house': 'OWN',
+			'member_id': 383,
+			'landmark': 'MMDA',
+			'household_items_visible': 'YES'
+		}]
+	}
+
+	$(document).ready(function() {
+		$(".tabs-menu a").click(function(event) {
+		    event.preventDefault();
+		    $(this).parent().addClass("current");
+		    $(this).parent().siblings().removeClass("current");
+		    var tab = $(this).attr("href");
+		    $(".tab-content").not(tab).css("display", "none");
+		    $(tab).fadeIn();
+		});
+		var screenHeight  = $(window).height();
+		var screenwidth   = $(window).width();
+		if(screenHeight){
+			var height       =  screenHeight*(0.9);
+			var slipHeight   =  height/3;
+			$('body').height((height*(0.80)));
+			$('.task-div').height((height*(0.80)));
+			$('.main-task').height((height*(0.80)));
+			$('#right-pane-task').height((height));
+			$('#right-pane-task-detail').height((height*(0.85)));
+			$('#right-pane-task-comment-list').height((height*(0.895)));
+			$('#right-pane-task-document-list').height((height*(0.895)));
+			document.getElementById('right-pane-task-detail').style.overflowY  =  'auto';
+		}
+		
+		if($(window).width() >= 601){
+			$('.comment-toggle').on('click', function () {
+		
+				var tastDetails = document.getElementById("right-pane-task-detail").className;
+				var docDetails = document.getElementById("right-pane-task-document-list").className;
+				var commDetails = document.getElementById("right-pane-task-comment-list").className;
+
+				if(tastDetails == "right-pane-task-detail detail-max" 
+					&& docDetails == "right-pane-task-document-list comment-min" 
+					&& commDetails == "right-pane-task-comment-list comment-min"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-max";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";
+				}else if(tastDetails == "right-pane-task-detail detail-min" 
+					&& docDetails == "right-pane-task-document-list comment-min" 
+					&& commDetails == "right-pane-task-comment-list comment-max"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-max";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";			
+				}else{
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-max";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";			
+				}
+			});
+			$('.document-toggle').on('click', function () {
+
+				 var tastDetails = document.getElementById("right-pane-task-detail").className;
+				 var docDetails = document.getElementById("right-pane-task-document-list").className;
+	 			 var commDetails = document.getElementById("right-pane-task-comment-list").className;
+				 if(tastDetails == "right-pane-task-detail detail-max"
+					&& docDetails == "right-pane-task-document-list comment-min"
+					&& commDetails == "right-pane-task-comment-list comment-min"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-max";				
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+			
+				 }else if(tastDetails == "right-pane-task-detail detail-min"
+					&& docDetails == "right-pane-task-document-list comment-max"
+					&& commDetails == "right-pane-task-comment-list comment-min"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-max";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";			
+				}else{
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-max";
+				}
+			});
+		}
+		if($(window).width() <= 600){
+			$('.comment-toggle').on('click', function () {
+				$('#commentsModal').css('display','block');
+			});
+			$('.close').on('click', function (){
+				  $('#commentsModal').css('display','none');
+			});
+			
+			commentsPopUp(json_data);
+			
+			$('.document-toggle').on('click', function () {
+				$('#documentsModal').css('display','block');
+			});
+			$('.close').on('click', function (){
+				  $('#documentsModal').css('display','none');
+			});
+			window.onclick = function(event) {
+				if (event.target == document.getElementById('documentsModal' )) {
+					$('#documentsModal').css('display','none');
+				}
+				if (event.target == document.getElementById('commentsModal')) {
+					$('#commentsModal').css('display','none');
+				}
+			}	 
+			documentsPopUp(json_data);   	
+			
+		}
+	});
+	
+	
+	window.onload  =  function(){
+		var doc_array	= {};
+		var imgFiles = {
+			'member_bank_fk_alf_node_ref':"Bank Pass Book Image 1",
+			'member_bank_fk_alf_node_ref1': "Bank Pass Book Image 2",
+			'biz_address_fk_alf_node_ref': "Shop Image 1",
+			'biz_address_fk_alf_node_ref1': "Shop Image 2",
+			'biz_id_alf_node_ref':"Business Identity Doc 1", 
+			'biz_id_alf_node_ref1': "Business Identity Doc 2", 
+			'current_address_fk_alf_node_ref':"Address Proof 2",
+			'current_document_url':"Address Proof 1"
+		};
+		var idProofArray = [];
+		
+		// document html content
+		var html='<label class=doc-user" >No documents</label>';
+		if(json_data.documentsArray || json_data.mlcompositeArray){
+			html='';  
+				if(json_data.documentsArray){
+					if(json_data.documentsArray[0]){
+						for(var i=0 ; i<json_data.documentsArray.length; i++){	
+							var document_Name = json_data.documentsArray[i].doc_status;
+							var document_url = json_data.documentsArray[i].doc_url;
+							html +='<div id="document-pane" class="document-pane">'
+								+'<div class="document-list-pane">'
+								+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+document_Name+'</label>'
+								+'<a href="'+document_url+'?alf_ticket='+alf_token+'" style="border:1px solid #ffffff;display: inline-block;" target="_blank" class="file_img"> <i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;margin-left:50px;"></i></a>'
+								+'</div><br>'
+								+'</div>';
+						}
+					}
+				}
+	
+		if(json_data.mlcompositeArray){
+			if(json_data.mlcompositeArray[0]){
+				var objData = json_data.mlcompositeArray[0];
+				var keys = Object.keys(json_data.mlcompositeArray[0]);
+				var imgFiles_keys = Object.keys(imgFiles);
+				for(var i=0;i<keys.length;i++){
+					for(var j=0;j<imgFiles_keys.length;j++){
+						if(keys[i]==imgFiles_keys[j])
+							doc_array[imgFiles[imgFiles_keys[j]]]= json_data.mlcompositeArray[0][keys[i]];
+					}
+					if(keys[i]=="idProofArray")
+						for(var k=0;k<json_data.mlcompositeArray[0]["idProofArray"].length;k++){
+							if(json_data.mlcompositeArray[0]["idProofArray"][k]){
+								var id_obj = {};
+								id_obj[masterIdProofArrayDic[json_data.mlcompositeArray[0]["idProofArray"][k]['fk_id_proof_type_id']]+' ( I ) '+""] = json_data.mlcompositeArray[0]["idProofArray"][k]['alf_node_ref']; ;
+								id_obj[masterIdProofArrayDic[json_data.mlcompositeArray[0]["idProofArray"][k]['fk_id_proof_type_id']]+' ( II ) '+""] = json_data.mlcompositeArray[0]["idProofArray"][k]['alf_node_ref1']; ;
+								idProofArray.push(id_obj);
+								doc_array["idProofArray"] = idProofArray;
+							}
+						}
+					}
+			}
+			for(var key in doc_array){
+				if(key != 'idProofArray')
+					html +='<div id="document-pane" class="document-pane">'
+						+'<div class="document-list-pane">'
+						+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+key+'</label>'
+						+'<a href="'+doc_array[key]+'?alf_ticket='+alf_token+'" class="file_img" target="_blank" style="border:none;display:inline-block;"><i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;float:right;"></i></a>'
+						+'</div>'
+						+'</div>';	
+			}
+			if(doc_array['idProofArray']){
+				for(var i=0;i<doc_array['idProofArray'].length;i++){
+					var id_Arr = doc_array['idProofArray'][i];
+					for(var key in id_Arr)
+						html +='<div id="document-pane" class="document-pane">'
+						+'<div class="document-list-pane">'
+						+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+capitalise(key)+'</label>'
+						+'<a href="'+id_Arr[key]+'?alf_ticket='+alf_token+'" class="file_img" target="_blank" style="border:none;display:inline-block;"><i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;float:right;"></i></a>'
+						+'</div>'
+						+'</div>';	
+				}
+			}
+		}
+	}
+		document.getElementById('document-list-pane').innerHTML = html;
+		
+		
+		function capitalise(string) {
+  	 	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+	}
+	
+		//For Comments
+		var html='<label class="comment-user" >No Comments</label>'; 
+		if(json_data.mlcompositeArray){
+			var objData = json_data.mlcompositeArray[0];
+			if(objData['mlValidationArray'].length>0){
+				html=''; 		
+				for(var i=0;i<objData['mlValidationArray'].length; i++){
+					var usernme = objData['mlValidationArray'][i]['validation_fk_last_modified_by'];
+					var remarks = objData['mlValidationArray'][i]['remarks'];	
+					var validation_last_modified_date = objData['mlValidationArray'][i]['validation_last_modified_date'];	
+
+					html +='<div id="comment-pane" class="comment-pane">'
+							+'<div class="comments-list-pane">'
+							+'<label class="comment-user" ><i class="entypo-user"></i>'+usernme+'</label> <font class="comment-date"> '+validation_last_modified_date+' </font>'
+							+'<div class="comment-comment">'+remarks+'</div>'
+							+'</div>'
+							+'</div>';	    
+				}	
+			}
+		}
+		document.getElementById('comment-list-pane').innerHTML = html;
+		
+		var arr	= {};
+		if(json_data.mlcompositeArray){
+			if(json_data.mlcompositeArray[0]){
+				var obj = json_data.mlcompositeArray[0];
+			}	
+		}
+		for(var key in obj){	
+			if(key == "firstname"){
+				document.getElementById('applicant_name').innerHTML=obj['firstname']+" "+obj['lastname'];
+			}
+		
+			if(key == "current_door_no"){
+				document.getElementById('current_address').innerHTML=obj['current_door_no']+' , '+obj['current_street_name']+' , '+obj['current_location_name'];
+				//document.getElementById('address').value=obj['current_door_no']+' , '+obj['current_street_name']+' , '+obj['current_location_name'];
+			}
+			if(key == "no_of_child_below17"){
+				 var no_of_children = parseInt(obj['no_of_child_below17'])+parseInt(obj['no_of_child_above17']);
+				 document.getElementById('no_of_children').innerHTML=no_of_children;
+			}
+		 	if(document.getElementById(key)){
+				document.getElementById(key).innerHTML=obj[key];
+			}
+		}
+		
+	
+	    /*For  Loading Master State, District, Taluk and Village*/
+		var keyFields = Object.keys(data.mlcompositeArray[0]);
+				  
+		var current_state_id, 
+			current_district_id, 
+			current_taluk_id, 
+			current_village_id, 
+			current_pincode_id ;
+			
+		var biz_state_id, 
+			biz_district_id, 
+			biz_taluk_id, 
+			biz_village_id, 
+			biz_pincode_id;
+
+		if(keyFields.length > 0){
+			current_state_id    = data.mlcompositeArray[0]['current_state'];
+			current_district_id = data.mlcompositeArray[0]['current_district'];		
+			current_taluk_id    = data.mlcompositeArray[0]['current_taluk'];				
+			current_village_id  = data.mlcompositeArray[0]['fk_curr_village_or_town_id'];
+			current_pincode_id  = data.mlcompositeArray[0]['current_pincode'];								
+		
+			biz_state_id        = data.mlcompositeArray[0]['biz_state'];
+			biz_district_id     = data.mlcompositeArray[0]['biz_district'];		
+			biz_taluk_id        = data.mlcompositeArray[0]['biz_taluk'];				
+			biz_village_id      = data.mlcompositeArray[0]['fk_biz_village_or_town'];								
+			biz_pincode_id      = data.mlcompositeArray[0]['biz_pincode'];										
+		}
+
+		/*Getting State Name from id Which is already in the master Data*/
+		var AddressArray = ['current'];
+		for(var i=0; i<AddressArray.length; i++ ){
+			document.getElementById(''+AddressArray[i]+'_state').innerHTML = state[eval(''+AddressArray[i]+'_state_id')];
+		}    	
+		/*Ajax Call to for District, Taluk and Village of Current and Business Address */
+		if(current_state_id){
+			/*District and Taluk Of Current Address */
+			var url = "/masterLocation/";
+			$.ajax({
+				url		:  url	,
+				type	: 'post',
+				dataType	: 'json',
+				success	: function (masterLocationData) {
+				    /* Load Taluk Data  Current Address*/
+					if( masterLocationData ){
+						data 		= masterLocationData;	
+						talukndx  		= crossfilter(data);		//--> set Taluk Values into cross filter
+						all 		= talukndx.groupAll();
+						talukDim  = talukndx.dimension(function (d) {		//--> Create Dimension for a taluk
+							return  d.taluk_code;
+					});		
+					filteredTalukData = talukDim.filter(current_taluk_id).top(Infinity);    	    	
+					if(document.getElementById('current_district')){ 
+					    document.getElementById('current_district').innerHTML 	= filteredTalukData[0].district_name;
+					}
+					if(document.getElementById('current_taluk')){ 
+					    document.getElementById('current_taluk').innerHTML 		= filteredTalukData[0].taluk_name;
+					}
+					/*Load Village Data of Current Address*/
+					var url = "/villageDetails/";
+					$.ajax({
+						url	:  url	,
+						type	: 'post',
+						dataType: 'json',
+						success	: function (villageData) {
+							if( villageData ){
+						
+								data 	= villageData;	
+								villageNDX 	= crossfilter(villageData);	
+								villageDim 	= villageNDX.dimension(function (d) {		//--> Create Dimension for a taluk
+									return  d.village_code;
+							});
+							filteredVillageData = villageDim.filter(current_village_id).top(Infinity);
+							if(filteredVillageData){
+								if(filteredVillageData[0]){
+							    	if(document.getElementById('fk_curr_village_or_town_id')){ 
+								   		document.getElementById('fk_curr_village_or_town_id').innerHTML = filteredVillageData[0].village_name;
+									}
+								}	
+							}
+						}		
+					},
+					data: "madura-coreservice/rest/api/readmasterloc/mlocdetail/"+filteredTalukData[0].taluk_code+"/t"
+					});
+				}		
+				},
+				data: "madura-coreservice/rest/api/readmasterloc/mlocdetail/"+current_state_id+"/s"
+			});
+		}
+		var obj = residentData.residentVerificationArray[0];
+		for(var key in obj){         								// Looping through the Json object        
+			arr[key]=obj[key];
+			if(document.getElementById(key)){						// Checking whether the element exists in DOM 
+				document.getElementById(key).value=obj[key];  			// Assigning the value to the element	
+			}
+			if(arr[key] != null && typeof(arr[key])==='object'){				// Checking whether the value of key is object  
+				var obj1=arr[key];
+				var keys=Object.keys(obj1);
+				for(var i=0;i<keys.length;i++){					//Looping till the length of inner array of objects in JSON   
+					var obj2=obj1[i];
+					for(var key1 in obj2){						// Looping through each and every array of object  
+						if(document.getElementById(key1+"_"+(i+1)+"")){		// Checking whether the element exists in DOM 
+							document.getElementById(key1+"_"+(i+1)+"").value  =  obj2[key1];	// Assigning the value to the element	
+						}
+						
+					}
+				}
+
+			}
+		}
+	}
+</script>
+</html>

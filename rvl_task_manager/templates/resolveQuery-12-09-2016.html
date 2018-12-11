@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/form.css">
+<link rel="stylesheet" href="/static/css/BVR_form.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/bootstrap.js"></script>		<!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>	<!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+
+<!-- Data - ->
+<script type="text/javascript" src="/static/form/data.js"></script> 
+
+<!-- master Data -->
+<script type="text/javascript" src="/static/form/masterData.js"></script> 
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script> 
+<script type="text/javascript" src="/static/form/readForm.js"></script>
+</head>
+<body>
+	<!-- Top Bar -->
+	<div class="navbar navbar-fixed-top">
+	    {% include "header.html" %} 
+	</div>
+	<!-- Main Content -->
+	<div class="main">	
+	    <form name="memberInformation" id="form" action="." >	<!-- Forms -->
+			<div class="task-div">	
+		    	<div class="main-task">
+					<div  class="right-pane-task" id="right-pane-task" >
+						<div id="tabs">
+						<ul id="form-tab">
+							<li><a href="#pane1">Basic Details</a></li>
+							<li><a href="#pane2">Business Details</a></li>
+							<li><a href="#pane3">Research Details</a></li>
+							<li><a href="#pane4">Loan Details</a></li>
+							<!--li style="float:right;">
+								<span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;"><i class="entypo-chat"></i> Comments</span>
+							</li-->
+							<li style="float:right;list-style-type:none;">
+								<span class="document-toggle" style="float:right;display:inline-block;padding-bottom:10px;cursor:pointer;"><i class="entypo-attach"></i>Documents</span>
+							</li>
+							<li style="float:right;">
+								<span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;cursor:pointer;"><i class="entypo-chat"></i> Comments</span>
+							</li>
+
+						</ul>
+						<div id="commentsModal" class="modal">
+							<div class="modal-content">
+							  	<span class="close">x</span>
+								<p>	<strong><i class="entypo-chat">COMMENTS	</i></strong></p>
+								<div class="modal-body" id="commentsTab">
+								</div>
+							</div>
+						</div>
+						<div id="documentsModal" class="modal">
+							<div class="modal-content">
+							  	<span class="close">x</span>
+								<p>	<strong><i class="entypo-attach">DOCUMENTS ATTACHED</i></strong></p>
+								<div class="modal-body" id="documentsTab" >
+								</div>
+							</div>
+						</div>
+		    			{% csrf_token %}
+						<div class="right-pane-task-detail detail-max" id="right-pane-task-detail" style="border:1px solid sienna;margin-top: 4px;" >
+				    		<div class="loan-application-basic-details" >
+								<div class="tab-content span5"><!-- for tab -->
+					    		<!--First Pane-->
+								<div id="pane1" class="tab-pane active" ><!-- for tab -->
+								<h4>	Basic Details	</h4>
+								<table width="100%">
+									<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+									<div class="sub-header"  data-toggle="collapse" data-target="#basic_information" class="accordion-toggle">
+										<div colspan="4" > BASIC INFORMATION </div>
+									</div>
+									</thead>
+									<tbody id="basic_information">
+									<div  class="row-div">
+										<div class="colomn-div">	
+											<label>First Name 	</label>
+											<font>:  </font>
+											<font id="firstname"     name="firstname"	placeholder="FIRST NAME"  /></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Middle Name	</label>
+											<font>:  </font>
+											<font id="middlename"    name="middlename"   	placeholder="MIDDLE NAME" /></font> 
+										</div>
+										<div class="colomn-div">
+											<label>Last Name	</label>
+											<font>:  </font>
+											<font id="lastname"   	  name="lastname"	placeholder="LAST NAME"	  /></font> 
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div" >
+											<label>Gender</label>	
+											<font>:  </font>
+											<font id="gender"></font>
+										</div>
+										<div class="colomn-div">
+											<label>Care of Relation</label>
+											<font>:  </font>
+											<font id="care_of_relation"></font>
+										</div>
+										<div class="colomn-div">
+											<label>Father Name</label>
+											<font>:  </font>
+											<font id="father_name" name="father_name"  placeholder="FATHER NAME" /></font>
+										   <font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Spouse Name</label>
+											<font>:  </font>
+											<font type="text" id="spouse_name" name="spouse_name" placeholder="SPOUSE NAME"  /></font>
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div">
+											<label>Date Of Birth </br>( YYYY-MM-DD )</label>
+											<font>:  </font>
+											<font id="dob" name="dob"   placeholder="DDMMYYYY"			/></font>
+											<font class="mandatory">*</font> 
+										</div>
+										<div class="colomn-div">
+											<label>Age</label>
+												<font>:  </font>
+												<font id="age" name="age"   placeholder="AGE"	/></font>
+												<font class="mandatory">*</font> 
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div">
+											<label>Door No</label>
+											<font>:  </font>
+											<font id="current_door_no"  	   name="current_door_no"		placeholder="HOUSE NO"	/></font>
+											<font class="mandatory">*</font> 
+										</div>
+										<div class="colomn-div">
+											<label>Street No</label>
+											<font>:  </font>
+											<font id="current_street_name"  	   name="current_street_name" 		placeholder="STREET NO"	/></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Location</label>
+											<font>:  </font>
+											<font id="current_location_name"  	   name="current_location_name"		placeholder="AREA"	/></font>
+											<font class="mandatory">*</font> 
+										</div>
+										<div class="colomn-div">
+											<label>Pincode</label>
+											<font>:  </font>
+											<font id="current_pincode" name="current_pincode"  placeholder="PINCODE"	value="600041"/></font>
+											<font class="mandatory">*</font>
+											</div>
+									</div>
+									<div class="row-div">
+										<!-- State -->	
+										<div class="colomn-div"><label>State</label>
+											<font>:  </font>							    
+											<font id="current_state" name="current_state"  	placeholder="current_state"	></font> 
+											<font class="mandatory">*</font>
+										</div>
+										<!-- District -->						    
+										<div class="colomn-div"><label>District</label>
+											<font>:  </font>							    
+											<font id="current_district" name="current_district"  placeholder="current_district" ></font>
+											<font class="mandatory">*</font>
+										</div>
+										<!-- Taluk -->						    
+										<div class="colomn-div"><label>Taluk</label>
+											<font>:  </font>
+											<font id="current_taluk" name="current_taluk"  	placeholder="current_taluk"	></font> 
+											<font class="mandatory">*</font>
+										</div>
+										<!-- City / Village -->						    
+										<div class="colomn-div"><label>City / Village</label>
+											<font>:  </font>
+											<font id="fk_curr_village_or_town_id"  name="fk_curr_village_or_town_id"  	placeholder="fk_curr_village_or_town_id"	></font>
+											<font class="mandatory">*</font>
+										</div>							    
+									</div>
+									</div class="row-div">
+                                        <div class="colomn-div">
+                                            <label>Mobile Number</label>
+                                            <font>:  </font>
+                                            <font id="mobile_number_1" name="mobile_number_1" placeholder="MOBILE" /></font>
+                                            <font class="mandatory">*</font>
+                                        </div>
+										<div class="colomn-div">
+                                            <label>Alternate Mobile Number</label>
+                                            <font>:  </font>
+                                            <font id="mobile_number_2" name="mobile_number_2" placeholder="MOBILE" /></font>
+                                            </font>
+                                            <font id="mob_div_3" style="display:none;">
+														<label> Alternate Mobile Number 2 </label><font> : </font>
+                                            <font id="mobile_number_3" name="mobile_number_3" placeholder="MOBILE" /></font>
+                                            </font>
+                                        </div>
+										<div class="colomn-div">
+											<label>Email-ID</label>
+											<font>:  </font>
+											<font id="email_1" name="email_1"  	  /></font>
+											<font id="email_div_2" style="display:none;">
+												<label> Alternate EmailID 1</label><font> : </font>
+												<font id="email_2" name="email_2"  	  /></font>
+											</font>
+											<font id="email_div_3" style="display:none;">
+												<label> Alternate EmailID 2 </label><font> : </font>
+												<font id="email_3" name="email_3"   /></font>
+											</font>
+										</div>
+									</div>
+						    		</tbody>
+									<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#proof_information" class="accordion-toggle">
+											<div colspan="4"> PROOF INFORMATION</div>
+										</div>
+									</thead>
+									<tbody id="proof_information">
+									<div class="row-div">
+										<div  class="colomn-div">
+											<label>ID Proof Type 1 </label>
+											<font>:  </font>
+											<font id="fk_id_proof_type_id_1" 	name="accountType"  	placeholder="ID PROOF TYPE"	></font> 
+											<font class="mandatory">*</font>
+										</div>
+										<div  class="colomn-div">
+											<label>ID Proof No 1</label>
+											<font>:  </font>
+											<font id="id_proof_type_1"    name="id_proof_type_1"  placeholder="ID PROOF NO"	></font>
+											<font class="mandatory">*</font>
+								   	    </div>
+										<div  class="colomn-div">
+											<label>ID Proof 1-I</label>
+											<font>:  </font>
+											<img    id="alf_node_ref_img_pop_1" class="file_img" src="" />	<font class="mandatory">*</font>
+										</div>
+										<div  class="colomn-div">
+											<label>ID Proof 1-II</label>
+											<font>:  </font>
+											<img    id="alf_node_ref1_img_pop_1" class="file_img" src="" />	<font class="mandatory">*</font>	
+										</div>
+									</div>
+									<div class="row-div" id="id_proof_2" style="display:none;">
+										<div  class="colomn-div">
+											<label>ID Proof Type 2</label><font> : </font>
+											<font id="fk_id_proof_type_id_2"    	name="accountType_2"  	placeholder="ID PROOF TYPE"	></font><br>
+										</div>
+										<div  class="colomn-div">
+											<label>ID Proof No 2</label><font> : </font>
+											<font id="id_proof_type_2"    name="id_proof_type_2"  placeholder="ID PROOF NO"	></font></div>
+										<div  class="colomn-div">
+												<label>ID Proof 2-I</label><font> : </font>
+												<img    id="alf_node_ref_img_pop_2" class="file_img" src="" />	
+										</div>
+										<div  class="colomn-div">
+												<label>ID Proof 2-II</label><font> : </font>
+												<img    id="alf_node_ref1_img_pop_2" class="file_img" src="" />		
+										</div>
+									</div>
+									<div class="row-div"  id="id_proof_3" style="display:none;">
+										<div  class="colomn-div">
+											<label>ID Proof Type 3</label><font> : </font>
+												<font id="fk_id_proof_type_id_3"    	name="accountType_3"  	placeholder="ID PROOF TYPE"	></font><br>
+										</div>
+										<div  class="colomn-div">
+											<label>ID Proof No 3</label><font> : </font>
+											<font id="id_proof_type_3"    name="id_proof_type_3"  placeholder="ID PROOF NO"	></font></div>
+										<div  class="colomn-div">
+												<label>ID Proof 3-I</label><font> : </font>
+												<img    id="alf_node_ref_img_pop_3" class="file_img" src="" />	
+										</div>
+										<div  class="colomn-div">
+												<label>ID Proof 3-II</label><font> : </font>
+												<img    id="alf_node_ref1_img_pop_3" class="file_img" src="" />		
+										</div>
+									</div>
+									<div class="row-div" id="id_proof_4" style="display:none;">
+                                            <div class="colomn-div">
+                                                <label>ID Proof Type 4</label><font> : </font>
+                                                <font id="fk_id_proof_type_id_4"  placeholder="ID PROOF TYPE"></font>
+                                                <br>
+                                            </div>
+                                            <div class="colomn-div">
+                                                <label>ID Proof No 4</label><font> : </font>
+                                                <font id="id_proof_type_4" name="id_proof_type_4" placeholder="ID PROOF NO"></font>
+                                            </div>
+                                            <div class="colomn-div">
+                                                <label>ID Proof 4-I</label><font> : </font>
+                                                <img id="alf_node_ref_img_pop_4" class="file_img" src="" />
+                                            </div>
+                                            <div class="colomn-div">
+                                                <label>ID Proof 4-II</label><font> : </font>
+                                                <img id="alf_node_ref1_img_pop_4" class="file_img" src="" />
+                                            </div>
+                                        </div>
+                                        <div class="row-div" id="id_proof_5" style="display:none;">
+                                            <div class="colomn-div">
+                                                <label>ID Proof Type 5</label><font> : </font>
+                                                <font id="fk_id_proof_type_id_5"  placeholder="ID PROOF TYPE"></font>
+                                                <br>
+                                            </div>
+                                            <div class="colomn-div">
+                                                <label>ID Proof No 5</label><font> : </font>
+                                                <font id="id_proof_type_5" name="id_proof_type_5" placeholder="ID PROOF NO"></font>
+                                            </div>
+                                            <div class="colomn-div">
+                                                <label>ID Proof 5-I</label><font> : </font>
+                                                <img id="alf_node_ref_img_pop_5" class="file_img" src="" />
+                                            </div>
+                                            <div class="colomn-div">
+                                                <label>ID Proof 5-II</label><font> : </font>
+                                                <img id="alf_node_ref1_img_pop_5" class="file_img" src="" />
+                                            </div>
+                                        </div>
+                                        <div class="row-div" id="id_proof_6" style="display:none;">
+                                            <div class="colomn-div">
+                                                <label>ID Proof Type 6</label><font> : </font>
+                                                <font id="fk_id_proof_type_id_6"  placeholder="ID PROOF TYPE"></font>
+                                                <br>
+                                            </div>
+                                            <div class="colomn-div">
+                                                <label>ID Proof No 6</label><font> : </font>
+                                                <font id="id_proof_type_6" name="id_proof_type_6" placeholder="ID PROOF NO"></font>
+                                            </div>
+                                            <div class="colomn-div">
+                                                <label>ID Proof 6-I</label><font> : </font>
+                                                <img id="alf_node_ref_img_pop_6" class="file_img" src="" />
+                                            </div>
+                                            <div class="colomn-div">
+                                                <label>ID Proof 6-II</label><font> : </font>
+                                                <img id="alf_node_ref1_img_pop_6" class="file_img" src="" />
+                                            </div>
+                                        </div>
+						    		</tbody>
+									<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+										<div class="sub-header"  data-toggle="collapse" data-target="#bank_information" class="accordion-toggle">
+											<div colspan="4">BANK INFORMATION</div>
+										</div>
+									</thead>
+									<tbody id="bank_information">
+									<div class="row-div">
+										<div class="colomn-div">
+											<label>Name as per Bank Record</label>
+											<font>:  </font>
+											<font id="id1_name_as_per_bank_records"  name="id1_name_as_per_bank_records"  placeholder="NAME AS IN PASSBOOK" /></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Bank Name	 </label>
+											<font>:  </font>
+											<font id="id1_bank_name"      name="id1_bank_name"      placeholder="BANK NAME"	     /></font>
+									   		<font class="mandatory">*</font>
+										</div>
+							    		<div class="colomn-div">
+											<label>Account Number</label>
+											<font>:  </font>
+											<font id="id1_bank_account_number"       name="id1_bank_account_number"       placeholder="BANK ACCOUNT NO"     /></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Bank IFSC code</label>
+											<font>:  </font>
+											<font id="id1_bank_ifsc_code"  	  name="id1_bank_ifsc_code"            placeholder="IFSC CODE"	     /></font><font class="mandatory">*</font>
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div">
+											<label>Bank Pass Book Image 1</label>
+											<font>:  </font>
+											<img   id="member_bank_fk_alf_node_ref_img_pop" class="file_img" src="" />
+										</div>
+										<div class="colomn-div">
+											<label>Bank Pass Book Image 2</label>
+											<font>:  </font>
+											<img   id="member_bank_fk_alf_node_ref1_img_pop" class="file_img" src="" />
+										</div>						
+									</div>
+									</tbody>
+								</table>
+			 			        <div class="form-group text-center">
+									<div class="form-button">
+										<a href="javascript:void(0)" onclick='$("#tabs").tabs("option","active",1)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+										<i class="icon-entypo-forward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+										Next
+										</a>
+									</div>
+			 			        </div>
+					    	</div><!-- First Pane Ends Here -->
+					    	<!--Second Pane-->
+						    <div id="pane2" class="tab-pane"><!-- Tab Business rigth pane-->
+								<h4>Business Details</h4>
+								<table width="100%">
+									<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+									<div class="sub-header" data-toggle="collapse" data-target="#BUSINESS_information" class="accordion-toggle">
+										<div colspan="4" > BUSINESS INFORMATION </div>
+									</div>
+									</thead>
+								<tbody id="BUSINESS_information">
+									<div class="row-div">
+										<div class="colomn-div">
+											<label>Nature Of Business</label>
+											<font>:  </font>	
+											<font id="biz_nature"  	name="biz_nature"  	placeholder="NATURE OF BUSINESS"	value=""/></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>No of Years in Business</label>
+											<font>:  </font>
+											<font id="biz_no_of_yrs"  	name="biz_no_of_yrs"  	placeholder="NO OF YEAR IN BUSINESS"	value=""/></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Location of Business</label>
+											<font>:  </font>	
+											<font id="biz_location"  	name="biz_location"  	placeholder="LOCATION OF BUSINESS"	value=""/></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Rent Paid Per Month</label>
+											<font>:  </font>	
+											<font id="rent_pay_month"  	name="rent_pay_month"  	placeholder="RENT PAID PER MONTH"	value=""/></font>
+											<font class="mandatory">*</font>
+										</div>
+									</div>
+									<div class="row-div" >
+										<div class="colomn-div">
+											<label>Door No </label>
+											<font>:  </font>		
+											<font id="biz_door_no"             name="biz_door_no"  	   placeholder="NO"		/></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+										 	<label>Street Name</label>
+											<font>:  </font>		
+											<font id="biz_street_name"  	    name="biz_street_name"  	   placeholder="STREET/COLONY"	/></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Location Name</label>
+											<font>:  </font>		
+											<font id="biz_location_name"  	    name="biz_location_name"  	   placeholder="AREA"		/></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Pincode	</label>
+											<font>:  </font>		
+											<font id="biz_pincode"  			name="biz_pincode"    			   placeholder="PINCODE"	value=""/></font>
+											<font class="mandatory">*</font>
+										</div>
+									</div>
+									<div class="row-div">
+										<!-- State -->	
+										<div class="colomn-div"><label>State</label>
+											<font>:  </font>							    
+											<font id="biz_state" 		name="biz_state"  		placeholder="biz_state"	></font> 
+											<font class="mandatory"	>*</font>
+										</div>
+										<!-- District -->						    
+										<div class="colomn-div"><label>District</label>
+											<font>:  </font>							    
+											<font id="biz_district" 	 name="biz_district"  	placeholder="biz_district" ></font>
+											<font class="mandatory"	>*</font>
+										</div>
+										<!-- Taluk -->						    
+										<div class="colomn-div"><label>Taluk</label>
+											<font>:  </font>
+											<font id="biz_taluk" 	 name="biz_taluk"  		placeholder="biz_taluk"></font> 
+											<font class="mandatory"	>*</font>
+										</div>
+										<!-- City / Village -->						    
+										<div class="colomn-div"><label>City / Village</label>
+											<font>:  </font>
+											<font id="fk_biz_village_or_town" name="fk_biz_village_or_town" placeholder="fk_biz_village_or_town"></font>
+											<font class="mandatory">*</font>
+										</div>							    
+									</div>
+									<div class="row-div">
+										<div class="colomn-div">
+											<label>Landline No</label>
+											<font>:  </font>		
+											<font id="biz_office_address_landline_number" 	name="biz_office_address_landline_number"  placeholder="PHONE NO"	value=""/></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Office No</label>
+											<font>:  </font>		
+											<font id="biz_office_address_mobile_number"   	name="biz_office_address_mobile_number"    placeholder="MOBILE NO"	value=""/></font> 
+										</div>
+									</div>
+									<div class="row-div">
+                                        <div class="colomn-div" style="padding-bottom: 10px;">
+                                            <label>Shop Image 1</label>
+                                            <font>:  </font>
+                                            <img id="alf_node_ref_1_img_pop" class="file_img" src="" />
+                                        </div>
+                                        <div class="colomn-div" style="padding-bottom: 10px;">
+                                            <label>Shop Image 2</label>
+                                            <font>:  </font>
+                                            <img id="alf_node_ref_2_img_pop" class="file_img" src="" />
+                                        </div>
+                                        <div class="colomn-div" id="shopImgDiv_3" style="padding-bottom: 10px;display:none;">
+                                            <label>Shop Image 3</label>
+                                            <font>:  </font>
+                                            <img id="alf_node_ref_3_img_pop" class="file_img" src="" />
+                                        </div>
+                                        <div class="colomn-div" id="shopImgDiv_4" style="padding-bottom: 10px;display:none;">
+                                            <label>Shop Image 4</label>
+                                            <font>:  </font>
+                                            <img id="alf_node_ref_4_img_pop" class="file_img" src="" />
+                                        </div>
+                                    </div>
+									</tbody>
+								<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+								<div class="sub-header"  data-toggle="collapse" data-target="#REGULATORY_information" class="accordion-toggle">
+									<div colspan="4" > REGULATORY INFORMATION </div>
+								</div>
+								</thead>
+								<tbody id="REGULATORY_information">
+								<div class="row-div">
+									<div class="colomn-div" >
+										<label> License / Local Body Approval </label>
+										<font>:  </font>
+										<font style="width:10%;" id="biz_localbody_app"  name="biz_localbody_app" value="1"   checked>		</font>
+									</div>	
+									<div class="colomn-div">
+									    <label>Issued By</label>
+										<font>:  </font>
+										<font id="biz_issued_by"  	name="biz_issued_by"  	placeholder="ISSUED BY"		value=""/></font>
+							    	</div>
+									<div class="colomn-div">
+										<label>Document No</label>
+										<font>:  </font>
+								   		<font id="biz_no"  		name="biz_no"  		placeholder="DOCUMENT NO"	value=""/></font>
+									</div>
+									<div class="colomn-div">
+										<label>Validity Date</label>
+							   			<font>:  </font>
+										<font id="biz_valid_upto"  	name="biz_valid_upto"  	placeholder=" DDMMYYY"		value=""/></font>
+					    		    </div>
+								</div>
+								<div class="row-div">
+									<div class="colomn-div" style="padding-bottom: 10px;">
+										<label> Business Document 1 </label>
+										<font>:  </font>
+										<img id="biz_id_alf_node_ref_img_pop" class="file_img" src="" /> 
+									</div>
+									<div class="colomn-div" style="padding-bottom: 10px;">
+										<label> Business Document 2 </label>
+										<font>:  </font>
+										<img  id="biz_id_alf_node_ref1_img_pop" class="file_img" src="" /> 
+								   </div>
+								</div>
+						    	</tbody>
+					    	    <thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+									<div class="sub-header"  data-toggle="collapse" data-target="#SALES_information" class="accordion-toggle">
+										<div colspan="4" > SALES & EXPENSE INFORMATION </div>
+									</div>
+								</thead>
+								<tbody id="SALES_information">
+								<div class="row-div">
+									<div class="colomn-div">
+									 	<label>Brand Sales</label>
+										<font>:  </font>
+										<font id="brand_sale"  	name="brand_sale"  	placeholder="BRANDED SALES"		value=""/></font>
+									</div>
+									<div class="colomn-div">
+										<label>Non Brand Sales</label>
+										<font>:  </font>
+										<font id="nonbrand_sale"  	name="nonbrand_sale"  	placeholder="NON BRANDED SALES"		value=""/></font> 
+									</div>
+									<div class="colomn-div">
+										<label>Total Sales</label>
+										<font>:  </font>
+										<font id="total_sale"  	name="total_sale"  	placeholder="TOTAL SALES"		value=""/></font> 
+									</div>
+									<div class="colomn-div">
+										<label>Minimum Sales</label>
+										<font>:  </font>
+										<font id="min_sale_day"  	name="min_sale_day"  	placeholder="MINIMUM SALES PER DAY"	value=""/></font> 
+									</div>
+								</div>
+								<div class="row-div">
+									<div class="colomn-div">
+										<label>Annual House Hold Income</label>
+										<font>:  </font>
+										<font id="annual_household_income"  	name="annual_household_income"  placeholder="ANNUAL HOUSEHOLD INCOME"	/></font> 
+									</div>
+									<div class="colomn-div">
+								  		<label>Annual Expenses</label>
+										<font>:  </font>
+										<font id="annual_expenses"  		name="annual_expenses"  	placeholder="ANNUAL EXPENSES"		/></font> 
+							    	</div>
+							    	<div class="colomn-div">
+										<label>Surplus Available</label>
+										<font>:  </font>
+										<font id="surplus_available"  		name="surplus_available"  	placeholder="SURPLUS AVAILABLE"		/></font> 
+					    		    </div>
+								</div>
+						    	</tbody>
+								<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+									<div class="sub-header"  data-toggle="collapse" data-target="#STAFF_information" class="accordion-toggle">
+										<div colspan="4" > STAFF INFORMATION </div>
+									</div>
+								</thead>
+								<tbody id="STAFF_information">
+								<div class="row-div">
+									<div class="colomn-div"> 
+										<label> STAFF SELECTION     </label>
+										<font>:  </font>
+								    </div>
+									<div class="colomn-div"> 
+										<label> FULLTIME / PARTTIME </label>
+										<font>:  </font> 
+									    </div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div"> 
+											<font  id="fk_biz_staff_rel_type_id_1" name="fk_biz_staff_rel_type_id_1"  	placeholder="SELF"	></font> 
+										</div>
+										<div class="colomn-div"> 
+											<font  id="biz_staff_work_hour_1"      name="biz_staff_work_hour_1"  		placeholder="SELF"	></font> 
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div"> 
+											<font  id="fk_biz_staff_rel_type_id_2" name="fk_biz_staff_rel_type_id_2"  	placeholder="SPOUSE"	></font> 
+											</div>
+										<div class="colomn-div"> 
+											<font  id="biz_staff_work_hour_2"      name="biz_staff_work_hour_2"  		placeholder="(DROPDOWN)"></font> 
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div"> 
+											<font  id="fk_biz_staff_rel_type_id_3" name="fk_biz_staff_rel_type_id_3"  	placeholder="FATHER"	></font> 
+										</div>
+										<div class="colomn-div"> 
+											<font  id="biz_staff_work_hour_3"      name="biz_staff_work_hour_3"  		placeholder="(DROPDOWN)"></font> 	
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div"> 
+											<font id="fk_biz_staff_rel_type_id_4"  name="fk_biz_staff_rel_type_id_4"  	placeholder="MOTHER"	></font> 
+										</div>
+										<div class="colomn-div"> 
+											<font  id="biz_staff_work_hour_4"      name="biz_staff_work_hour_4"  		placeholder="(DROPDOWN)"></font> 
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div"> 
+											<font  id="fk_biz_staff_rel_type_id_5" name="fk_biz_staff_rel_type_id_5"  	placeholder="SONS"	></font> 
+										</div>
+										<div class="colomn-div"> 
+											<font  id="biz_staff_work_hour_5"      name="biz_staff_work_hour_5"  		placeholder="(DROPDOWN)"></font> 
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div"> 
+											<font  id="fk_biz_staff_rel_type_id_6" name="fk_biz_staff_rel_type_id_6" 	placeholder="DAUGHTER"	></font> 
+										</div>
+										<div class="colomn-div"> 
+											<font  id="biz_staff_work_hour_6"      name="biz_staff_work_hour_6"  		placeholder="(DROPDOWN)"></font> 
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div"> 
+											<font  id="fk_biz_staff_rel_type_id_7" name="fk_biz_staff_rel_type_id_7"  	placeholder="OTHER RELATIVES"	></font> 
+										</div>
+										<div class="colomn-div"> 
+											<font  id="biz_staff_work_hour_7"     	name="biz_staff_work_hour_7"  		placeholder="(DROPDOWN)"	></font>
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div"> 
+											<font  id="fk_biz_staff_rel_type_id_8" name="fk_biz_staff_rel_type_id_8"  	placeholder="NON RELATIVES"	></font> 
+										</div>
+										<div class="colomn-div"> 
+											<font  id="biz_staff_work_hour_8"      name="biz_staff_work_hour_8"  		placeholder="(DROPDOWN)"	></font> 
+										</div>
+									</div>
+									</tbody>
+								</table>
+								<div class="form-group text-center">
+									<div class="form-button">
+										<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 0)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+										   <i class="icon-entypo-backward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+											Previous
+										</a>
+										<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 2)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+										   <i class="icon-entypo-forward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+											Next
+										</a>
+									</div>
+								</div>
+	    				    </div><!-- for tab -->
+	    				   	<!--Pane 3-->		
+					   		<div id="pane3" class="tab-pane"><!-- Tab Research rigth pane-->
+							<h4>Research Details</h4>
+							<table width="100%">
+								<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+									<div class="sub-header"  data-toggle="collapse" data-target="#FAMILY_information" class="accordion-toggle">
+										<div colspan="4" > FAMILY DETAILS </div>
+									</div>
+								</thead>
+								<tbody id="FAMILY_information">
+								<div class="row-div">
+									<div class="colomn-div">
+										<label>Marital Status</label>
+										<font>:  </font>
+										<font id="marital_status"  name=""  placeholder="MARITAL STATUS (DROPDOWN)"></font>
+										<font class="mandatory">*</font>
+									</div>
+									<div class="colomn-div"> 
+										<label>No of Child Below 17</label>
+										<font>:  </font>
+										<font id="no_of_child_below17"  name="no_of_child_below17"  placeholder="NO OF CHILDREN BELOW 17 YEARS"	/></font>
+							    		<font class="mandatory">*</font>
+						    	    </div>
+							    	<div class="colomn-div"> 
+										<label>No of Child Above 17</label>
+										<font>:  </font>
+										<font id="no_of_child_above17"  name="no_of_child_above17"  placeholder="NO OF CHILDREN ABOVE 17 YEARS"	/></font>
+										<font class="mandatory">*</font>
+						    	    </div>
+									<div class="colomn-div"> 
+										<label>Live With		</label>
+										<font>:  </font>
+										<font id="live_with"  	      name="live_with"  	  placeholder="LIVING WITH"			/></font>
+										<font class="mandatory">*</font>
+						    	    </div>
+								</div>
+								</tbody>
+								<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+									<div class="sub-header"  data-toggle="collapse" data-target="#EDUCATION_information" class="accordion-toggle">
+									     <div colspan="4" > EDUCATION & OCCUPATION </div>
+									</div>
+								</thead>
+								<tbody id="EDUCATION_information">
+									<div class="row-div">
+										<div class="colomn-div"><label>SELF</label></div>
+										<div class="colomn-div"><label>FATHER</label></div>
+										<div class="colomn-div"><label>MOTHER</label></div>
+										<div class="colomn-div"><label>FOR CHILD > 17 YEARS  </label></div>
+									</div>
+							   		<div class="row-div">
+										<div class="colomn-div"> 
+											<label>Education</label>
+											<font>:  </font>
+											<font  id="fk_family_member_education_type_id_1" name=""  placeholder="MARITAL STATUS (DROPDOWN)"></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div"> 
+											 <label>Education</label>
+											 <font>:  </font>
+											 <font id="fk_family_member_education_type_id_2" name=""  placeholder="MARITAL STATUS (DROPDOWN)"></font>
+										</div>
+										<div class="colomn-div"> 
+											 <label>Education</label>
+											 <font>:  </font>
+											 <font id="fk_family_member_education_type_id_3" name=""  placeholder="MARITAL STATUS (DROPDOWN)"></font>
+										</div>
+										<div class="colomn-div"> 
+											 <label>Education</label>
+											 <font>:  </font>
+											 <font  id="fk_family_member_education_type_id_4" name=""  placeholder="MARITAL STATUS (DROPDOWN)"></font>
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div"> 
+											 <label>Employment</label>
+											 <font>:  </font>
+											 <font id="family_member_employment_type_1" name=""  placeholder="SELF (DROPDOWN)"></font>
+											 <font class="mandatory">*</font>
+										</div>
+									     <div class="colomn-div"> 
+											 <label>Employment</label>
+											 <font>:  </font>
+											 <font id="family_member_employment_type_2" name=""  placeholder="Father (DROPDOWN)"></font>
+									     </div>
+									     <div class="colomn-div"> 
+											 <label>Employment</label>
+											 <font>:  </font>
+											 <font id="family_member_employment_type_3" name=""  placeholder="mother(DROPDOWN)"></font>
+									     </div>
+									     <div class="colomn-div"> 
+											 <label>Employment</label>
+											 <font>:  </font>
+											 <font id="family_member_employment_type_4" name=""  placeholder="Child STATUS (DROPDOWN)"></font>
+									     </div>
+									</div>
+								</tbody>
+								<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+									 <div class="sub-header"  data-toggle="collapse" data-target="#TRANSPORTATION_information" class="accordion-toggle">
+										  <div colspan="4" > TRANSPORTATION , COMMUNICATION & OTHER ASSETS </div>
+									 </div>
+								</thead>
+								<tbody id="TRANSPORTATION_information">
+									 <div class="row-div">
+									     <div class="colomn-div">
+										     <font  id="fk_member_asset_type_id_1"  name="fk_member_asset_type_id_1"  placeholder="CYCLE (DROPDOWN)"></font> 
+									     </div>
+									     <div class="colomn-div">
+										     <font  id="fk_member_asset_type_id_2"  name="fk_member_asset_type_id_2"  placeholder="MOPED/MOTORIZED CYCLE (DROPDOWN)"	></font>
+									     </div>
+									     <div class="colomn-div">
+										     <font  id="fk_member_asset_type_id_3"  name="fk_member_asset_type_id_3"  placeholder="BIKE/SCOOTER (DROPDOWN)"		></font>
+									     </div>
+									     <div class="colomn-div">
+										     <font  id="fk_member_asset_type_id_4"  name="fk_member_asset_type_id_4"  placeholder="AUTO/SHARE AUTO (DROPDOWN)"		></font>
+									     </div>
+									 </div>
+									 <div class="row-div">
+							             <div class="colomn-div">
+											<font  id="fk_member_asset_type_id_5"  name="fk_member_asset_type_id_5"  placeholder="TEMPO (DROPDOWN)"			></font> 
+									     </div>
+										 <div class="colomn-div">
+											<font  id="fk_member_asset_type_id_6"  name="fk_member_asset_type_id_6"  placeholder="CAR (DROPDOWN)"			></font> 
+										 </div>
+										 <div class="colomn-div">
+											<font  id="fk_member_asset_type_id_7"  name="fk_member_asset_type_id_7"  placeholder="VAN (DROPDOWN)"			></font> 
+										 </div>
+									   	 <div class="colomn-div">
+											<font  id="fk_member_asset_type_id_8"  name="fk_member_asset_type_id_8"  placeholder="OTHER TRANSPORT VEHICLE (DROPDOWN)"	></font>
+									     </div>		
+							    	 </div>
+									 <div class="row-div">
+									     <div class="colomn-div">
+										 	 <font  id="fk_member_asset_type_id_9"  name="fk_member_asset_type_id_9"  placeholder="BASIC MOBILE PHONE (DROPDOWN)"	></font> 
+										 </div>
+									     <div class="colomn-div">
+											 <font  id="fk_member_asset_type_id_10"  name="fk_member_asset_type_id_10"  placeholder="SMART PHONE (DROPDOWN)"		></font> 
+										  </div>
+										 <div class="colomn-div">
+										    <font  id="fk_member_asset_type_id_11"  name="fk_member_asset_type_id_11"  placeholder="LAPTOP/COMPUTER (DROPDOWN)"		></font> 
+										 </div>
+										 <div class="colomn-div">
+										    <font  id="fk_member_asset_type_id_12"  name="fk_member_asset_type_id_12"  placeholder="NETCONNECTION (DROPDOWN)"		></font> 
+										 </div>
+							     	 </div>
+									 <div class="row-div">
+									      <div class="colomn-div">
+										  	  <font  id="fk_member_asset_type_id_13"  name="fk_member_asset_type_id_13"  placeholder="EMAIL ID (DROPDOWN)"		></font> 
+									      </div>
+									      <div class="colomn-div">
+											  <font  id="fk_member_asset_type_id_14"  name="fk_member_asset_type_id_14"  placeholder="FACEBOOK ACCOUNT (DROPDOWN)"	></font> 
+									      </div>
+									      <div class="colomn-div">
+											  <font  id="fk_member_asset_type_id_15"  name="fk_member_asset_type_id_15"  placeholder="DRVING LICENSE (DROPDOWN)"	></font> 
+									      </div>
+										  <div class="colomn-div">
+												<font  id="fk_member_asset_type_id_16"  name="fk_member_asset_type_id_16"  placeholder=""				></font> 
+										  </div>
+									  </div>
+									  <div class="row-div">
+									      <div class="colomn-div">
+											  <font  id="fk_member_asset_type_id_17"  name="fk_member_asset_type_id_17"  placeholder="LAND"	></font> 
+									      </div>
+										  <div class="colomn-div">
+											  <font  id="fk_member_asset_type_id_18"  name="fk_member_asset_type_id_18"  placeholder="PAKKA HOUSE"></font>
+										  </div>
+										  <div class="colomn-div">
+											  <font  id="fk_member_asset_type_id_19"  name="fk_member_asset_type_id_19"  placeholder="WATER PUMP"	></font>
+										  </div>
+										 <div class="colomn-div">
+											 <font  id="fk_member_asset_type_id_20"  name="fk_member_asset_type_id_20"  placeholder="TV"		></font> 
+										 </div>
+							   		 </div>
+									<div class="row-div">
+										<div class="colomn-div">
+									  	 	<font  id="fk_member_asset_type_id_21"  name="fk_member_asset_type_id_21"  placeholder="DVD PLAYER"	></font>
+									    </div>
+									    <div class="colomn-div">
+										   	<font  id="fk_member_asset_type_id_22"  name="fk_member_asset_type_id_22"  placeholder="FRIDGE"	></font> 
+									    </div>
+									    <div class="colomn-div">
+										   	<font  id="fk_member_asset_type_id_23"  name="fk_member_asset_type_id_23"  placeholder="GAS STOVE"	></font> 
+									    </div>
+										<div class="colomn-div">
+									 	  	<font  id="fk_member_asset_type_id_24"  name="fk_member_asset_type_id_24"  placeholder="MIXIE"	></font> 
+									    </div>
+									</div>
+									<div class="row-div">
+									    <div class="colomn-div">
+									        <font  id="fk_member_asset_type_id_25"  name="fk_member_asset_type_id_25"  placeholder="ELECTRIC GRINDER"	></font> 
+										</div>
+										<div class="colomn-div">
+											<font  id="fk_member_asset_type_id_26"  name="fk_member_asset_type_id_26"  placeholder="MICROWAVE OVEN"	></font> 
+										</div>
+										<div class="colomn-div">
+											 <font  id="fk_member_asset_type_id_27"  name="fk_member_asset_type_id_27"  placeholder="FAN"		></font> 
+										</div>
+										<div class="colomn-div">
+											  <font  id="fk_member_asset_type_id_28"  name="fk_member_asset_type_id_28"  placeholder="AIRCONDITIONER"	></font> 
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div">
+										  	<font  id="fk_member_asset_type_id_29"  name="fk_member_asset_type_id_29"  placeholder="WATER HEATER"	></font> 
+										</div>
+										<div class="colomn-div">
+											<font  id="fk_member_asset_type_id_30"  name="fk_member_asset_type_id_30"  placeholder="ANIMALS COW/GOAT ETC"></font> 
+										</div>
+										<div class="colomn-div">
+											<font  id="fk_member_asset_type_id_31"  name="fk_member_asset_type_id_31"  placeholder=""			></font> 
+										</div>
+										<div class="colomn-div">
+											<font  id="fk_member_asset_type_id_32"  name="fk_member_asset_type_id_32"  placeholder=""			></font> 
+										</div>
+									</div>
+								</tbody>
+								<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+									<div class="sub-header"  data-toggle="collapse" data-target="#NETWORK_information" class="accordion-toggle">
+										<div colspan="4" > NETWORK DETAILS </div>
+									</div>
+								</thead>
+								<tbody id="NETWORK_information">
+									<div class="row-div">
+									    <div class="colomn-div">
+										    <label  type="text" id=""  name=""  value=""	/> Questions 
+										</div>
+										<div class="colomn-div">
+											<label  type="text" id=""  name=""  value=""	/> Answers 
+										</div>
+									</div>
+						            <div class="row-div">
+										<div class="colomn-div">
+											<font id="network_details_question_1" 	name="network_details_question_1"></font> 
+										</div>
+										<div class="colomn-div">
+											 <font id="network_details_answer_1" 	name="network_details_answer_1"  ></font> 
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div">
+											<font id="network_details_question_2" 	name="network_details_question_2"></font> 
+										</div>
+										<div class="colomn-div">
+											<font id="network_details_answer_2"  	name="network_details_answer_2"  ></font> 
+										</div>
+									</div>
+									<div class="row-div">
+									    <div class="colomn-div">
+										    <font id="network_details_question_3" 	name="network_details_question_3"></font> 
+									    </div>
+									    <div class="colomn-div">
+										    <font id="network_details_answer_3"  	name="network_details_answer_3"  ></font> 
+									    </div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div">
+											<font id="network_details_question_4" 	name="network_details_question_4"></font> 
+										</div>
+										<div class="colomn-div">
+											<font id="network_details_answer_4"  	name="network_details_answer_4"  ></font> 
+										</div>
+									</div>
+									<div class="row-div">
+										<div class="colomn-div">
+											<font id="network_details_question_5" 	name="network_details_question_5"></font> 
+										</div>
+										<div class="colomn-div">
+											<font id="network_details_answer_5"  	name="network_details_answer_5"  ></font> 
+										</div>
+									</div>
+								</tbody>
+					        </table>
+						    <div class="form-group text-center">
+								<div class="form-button">
+									<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 1)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+									<i class="icon-entypo-backward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+									Previous
+								    </a>
+									<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 3)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+									<i class="icon-entypo-forward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+									Next
+									</a>
+								</div>
+						    </div>
+					     </div><!-- for tab -->
+					    <!--Pane 4-->
+					    <div id="pane4" class="tab-pane" ><!-- for tab -->
+							<h4>Loan Details</h4>
+							<table width="100%">
+								<thead style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;">
+								<div class="sub-header"  data-toggle="collapse" data-target="#loan_information" class="accordion-toggle">
+									<div colspan="4">LOAN DETAILS</div>
+								</div>
+								</thead>
+								<tbody id="loan_information">
+									<div class="accordion"   class="row-div">
+										<div class="colomn-div">
+											<label>Purpose of Loan</label>
+											<font>:  </font>
+											<font type="text" id="fk_purpose_id"      	   name="fk_purpose_id"  	      placeholder="PURPOSE OF LOAN (DROPDOWN)"   ></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Product	  </label>
+											<font>:  </font>
+											<font type="text" id="fk_product_id_loan"  	   name="fk_product_id_loan"  	      placeholder="PRODUCT ( VVL1, VVL2 ETC)"	 ></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div class="colomn-div">
+											<label>Amount	  </label>
+											<font>:  </font>
+											<font type="text" id="application_loan_amount"   name="application_loan_amount"     placeholder="AMOUNT"			 ></font>
+											<font class="mandatory">*</font>
+										</div>
+										<div  class="colomn-div">
+											<label>Loan Proof Image </label>
+											<font>:  </font>
+											<img    id="ml_fk_alf_node_ref_img_pop" class="file_img" src="" />	
+										</div>	
+									</div>
+						   		 </tbody>
+							</table>
+								<div class="form-group text-center">
+									<div class="form-button">
+										<a href="javascript:void(0)" onclick='$("#tabs").tabs("option", "active", 2)' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+										   <i class="icon-entypo-backward" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+											Previous
+										</a>
+									</div>
+								</div>
+							</div><!-- for tab -->
+							</div><!-- for tab -->
+	   			    	</div>
+					</div>
+				</div><!--Details end here-->
+				<div class="right-pane-task-document-list comment-min" id="right-pane-task-document-list" style="width: initial;border: 1px solid #981b1b;overflow-Y:scroll;background-color: #f4f4f4;">	
+					<div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;" data-toggle="collapse" data-target="#comment-list-pane">
+						<div class="sub-header" >
+						  	<div colspan="4"><font style="font-size:15px;"> Documents Attached <i class="entypo-attach"></i></font></div>
+						</div>
+					</div>
+					<div  class="document-list-pane" id="document-list-pane" style="background-color:#f4f4f4;"></div>
+				</div>
+				<div class="right-pane-task-comment-list comment-min" id="right-pane-task-comment-list" style="width:initial;overflow-y:scroll;/*margin-top: -37%;width:initial;overflow-Y:scroll;*/">	
+					<div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom:1px solid whitesmoke;"  data-target="#comment-list-pane">
+						<div class="sub-header" >
+						    <div colspan="4"><font style="font-size:15px;"> Comments <i class="entypo-chat"></i></font></div>
+						</div>
+					</div>
+					<div id="comment-list-pane" class="comment-list-pane" ></div>
+				</div>
+				
+				<!--</div>-->
+					
+				<div class="form-group text-center">
+					<textarea style="width:45%;height:20%;background-color:white;font-size: 11px;" id="comments"    placeholder="Comments"></textarea><font class="mandatory">*</font>
+					<div id="upload_doc_tag">Click to Upload Documents</div>
+					<div id="upload_doc_content">
+					<div id="extra_doc_upload">
+						<!--label>Resolve Query </label-->
+						<input  type="file" id="upload_doc_1" onclick="setURL(this.id);"	class="alf_node_ref_img" 	style="width:37%;display:inline-block;"/>
+						<input  type="text" id="upload_doc_url_1"	style="width:45%;margin-right:5%;"/>
+						<img  class="file_img" id="upload_doc_img_1" src="" />	
+					</div><br>
+					<div id="extra_doc_upload">
+						<!--label>Resolve Query Doc 2</label-->
+						<input  type="file" id="upload_doc_2"	onclick="setURL(this.id);" class="alf_node_ref_img" 	style="width:37%;display:inline-block;"/>
+						<input  type="text" id="upload_doc_url_2"		style="width:45%;margin-right:5%;"/>
+						<img  class="file_img" id="upload_doc_img_2" src="" />	
+					</div><br>
+					<div id="extra_doc_upload">
+						<!--label>Resolve Query Doc 3</label-->
+						<input  type="file" id="upload_doc_3"	onclick="setURL(this.id);" class="alf_node_ref_img" 	style="width:37%;display:inline-block;"/>
+						<input  type="text" id="upload_doc_url_3"	style="width:45%;margin-right:5%;"/>
+						<img  class="file_img" id="upload_doc_img_3" src="" />	
+					</div>
+					</div><br>
+					<div style="padding-top:1%;">
+						<a href="javascript:void(0)" onclick='window.location="/tasks/"' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+						   <i class="icon-entypo-cancel" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+							Cancel
+						</a>
+						<a href="javascript:void(0)" onclick="submitProcessFormVerify('ReworkCompleted','3');"  class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+						   <i class="icon-entypo-check" style="width:30px;height: 28px;color: white;padding:6px;"></i>
+							Resolve Query
+						</a>
+					</div>
+					<div class="colomn-div-footer" id="colomn-div-footer"></div>
+				</div>	
+		 		</div>	
+			</div>
+		</form>
+	</div>
+<div class="popup"></div>
+	{% include "footer.html" %} 
+</body>
+<script type="text/javascript">  
+	var screenHeight = $(window).height();
+	var memberdetails = '{{memberDetails|safe}}';
+	if(memberdetails){
+		data = JSON.parse(memberdetails);
+	}
+
+	var taskName 	= '{{taskName		| safe	   }}';
+	var processid 	= '{{processId		| safe	   }}';
+	var process 	= '{{process		| safe	   }}';
+	var data 		= '{{memberDetails	| safe	   }}';
+	var member_id	= "{{ memberId 		| escapejs }}";
+	var loan_id		= "{{ loanId 		| escapejs }}";	
+	var user_id		= "{{ user 		| escapejs }}";
+	var task_id		= "{{ taskId 		| escapejs }}";
+	var processid 	= "{{processId		| safe	   }}";
+	var alf_token	= "{{ alf_token		| escapejs }}";
+	var processObj 	=  JSON.parse(process);
+	$(document).ready(function() {
+	   $("#upload_doc_tag").click(function(){
+     	   $("#upload_doc_content").slideToggle("slow");
+    	 });
+		if($(window).width() >= 601){
+			$('.comment-toggle').on('click', function () {
+				var tastDetails = document.getElementById("right-pane-task-detail").className;
+				var docDetails = document.getElementById("right-pane-task-document-list").className;
+				var commDetails = document.getElementById("right-pane-task-comment-list").className;
+	
+				if(tastDetails == "right-pane-task-detail detail-max" 
+					&& docDetails == "right-pane-task-document-list comment-min" 
+					&& commDetails == "right-pane-task-comment-list comment-min"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-max";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";
+				}else if(tastDetails == "right-pane-task-detail detail-min" 
+					&& docDetails == "right-pane-task-document-list comment-min" 
+					&& commDetails == "right-pane-task-comment-list comment-max"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-max";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";			
+				}else{
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-max";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";			
+				}
+			});
+			$('.document-toggle').on('click', function () {
+				 var tastDetails = document.getElementById("right-pane-task-detail").className;
+				 var docDetails = document.getElementById("right-pane-task-document-list").className;
+	 			 var commDetails = document.getElementById("right-pane-task-comment-list").className;
+				 if(tastDetails == "right-pane-task-detail detail-max"
+					&& docDetails == "right-pane-task-document-list comment-min"
+					&& commDetails == "right-pane-task-comment-list comment-min"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-max";				
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+				
+				 }else if(tastDetails == "right-pane-task-detail detail-min"
+					&& docDetails == "right-pane-task-document-list comment-max"
+					&& commDetails == "right-pane-task-comment-list comment-min"){
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-max";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-min";			
+				}else{
+					document.getElementById("right-pane-task-detail").className = "right-pane-task-detail detail-min";
+					document.getElementById("right-pane-task-comment-list").className = "right-pane-task-comment-list comment-min";
+					document.getElementById("right-pane-task-document-list").className = "right-pane-task-document-list comment-max";
+				}
+			});
+		}
+		if($(window).width() <= 600){
+			$('.comment-toggle').on('click', function () {
+				$('#commentsModal').css('display','block');
+			});
+			$('.close').on('click', function (){
+				  $('#commentsModal').css('display','none');
+			});
+			
+			commentsPopUp(json_data);
+			
+			$('.document-toggle').on('click', function () {
+				$('#documentsModal').css('display','block');
+			});
+			$('.close').on('click', function (){
+				  $('#documentsModal').css('display','none');
+			});
+			window.onclick = function(event) {
+				if (event.target == document.getElementById('documentsModal' )) {
+					$('#documentsModal').css('display','none');
+				}
+				if (event.target == document.getElementById('commentsModal')) {
+					$('#commentsModal').css('display','none');
+				}
+			}	 
+			documentsPopUp(json_data);   	
+			
+		}
+		$(".tabs-menu a").click(function(event) {
+		    event.preventDefault();
+		    $(this).parent().addClass("current");
+		    $(this).parent().siblings().removeClass("current");
+		    var tab = $(this).attr("href");
+		    $(".tab-content").not(tab).css("display", "none");
+		    $(tab).fadeIn();
+		});
+		
+		var screenHeight  = $(window).height();
+		var screenwidth   = $(window).width();
+		if(screenHeight){
+			var height       =  screenHeight*(0.9);
+			var slipHeight   =  height/3;
+			$('body').height((height*(0.80)));
+			$('.task-div').height((height*(0.80)));
+			$('.main-task').height((height*(0.80)));
+			$('#right-pane-task').height((height));
+			$('#right-pane-task-detail').height((height*(0.85)));
+			$('#right-pane-task-comment-list').height((height*(0.85))-40);
+			$('#right-pane-task-document-list').height((height*(0.85))-40);			
+			document.getElementById('right-pane-task-detail').style.overflowY  =  'auto';
+		}
+		
+		
+	});
+	
+	$(function() {
+		$("#tabs").tabs();
+	});
+	
+	var json_data   =  JSON.parse(data);
+
+	var doc_array	= {};
+	var imgFiles = {
+					'member_bank_fk_alf_node_ref':"Bank Pass Book Image 1",
+					'member_bank_fk_alf_node_ref1': "Bank Pass Book Image 2",
+					//'biz_address_fk_alf_node_ref': "Shop Image 1",
+					//'biz_address_fk_alf_node_ref1': "Shop Image 2",
+					'biz_id_alf_node_ref':"Business Identity Doc 1", 
+					'biz_id_alf_node_ref1': "Business Identity Doc 2"
+					
+					};
+	var idProofArray = [];
+	var alfNodeArray=[];
+	
+	
+	var html='<label class=doc-user" >No documents</label>';
+
+  	if(json_data.updocArray || json_data.mlcompositeArray){
+  	
+  	html='';  
+		if(json_data.updocArray){
+			if(json_data.updocArray[0]){
+				for(var i=0 ; i<json_data.updocArray.length; i++){	
+						var document_Name = json_data.updocArray[i].doc_status;
+						var document_url = json_data.updocArray[i].doc_url;
+						html +='<div id="document-pane" class="document-pane">'
+										+'<div class="document-list-pane">'
+										+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+document_Name+'</label>'
+										+'<a href="'+document_url+'?alf_ticket='+alf_token+'" class="file_img"> <i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;"></i></a>'
+										+'</div><br>'
+										+'</div>';
+				}
+			}
+		}
+	
+		if(json_data.mlcompositeArray){
+			if(json_data.mlcompositeArray[0]){
+				var objData = json_data.mlcompositeArray[0];
+				var keys = Object.keys(json_data.mlcompositeArray[0]);
+				var imgFiles_keys = Object.keys(imgFiles);
+				for(var i=0;i<keys.length;i++){
+					for(var j=0;j<imgFiles_keys.length;j++){
+						if(keys[i]==imgFiles_keys[j])
+							if(json_data.mlcompositeArray[0][keys[i]] != "")
+							doc_array[imgFiles[imgFiles_keys[j]]]= json_data.mlcompositeArray[0][keys[i]];
+					}
+					if(keys[i]=="alfNodeArray"){
+						for(var k=0;k<json_data.mlcompositeArray[0]["alfNodeArray"].length;k++){
+							if(json_data.mlcompositeArray[0]["alfNodeArray"][k]){
+								var id_obj = {};
+								id_obj["Shop Image "+(k+1)] =json_data.mlcompositeArray[0]["alfNodeArray"][k]['alf_node_ref'];
+								alfNodeArray.push(id_obj);
+								doc_array["alfNodeArray"] = alfNodeArray;
+							}
+						}
+					}					
+					if(keys[i]=="idProofArray")
+						for(var k=0;k<json_data.mlcompositeArray[0]["idProofArray"].length;k++){
+							if(json_data.mlcompositeArray[0]["idProofArray"][k]){
+								var id_obj = {};
+								id_obj[masterIdProofArrayDic[json_data.mlcompositeArray[0]["idProofArray"][k]['fk_id_proof_type_id']]+' ( I ) '+""] = json_data.mlcompositeArray[0]["idProofArray"][k]['alf_node_ref']; ;
+								id_obj[masterIdProofArrayDic[json_data.mlcompositeArray[0]["idProofArray"][k]['fk_id_proof_type_id']]+' ( II ) '+""] = json_data.mlcompositeArray[0]["idProofArray"][k]['alf_node_ref1']; ;
+								idProofArray.push(id_obj);
+								doc_array["idProofArray"] = idProofArray;
+							}
+						}
+					}
+			}
+			for(var key in doc_array){
+				if(key != 'idProofArray' && key != 'alfNodeArray')
+					html +='<div id="document-pane" class="document-pane">'
+						+'<div class="document_list_pane">'
+						+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+key+'</label>'
+						+'<a href="'+doc_array[key]+'?alf_ticket='+alf_token+'" class="file_img" target="_blank"><i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;"></i></a>'
+						+'</div>'
+						+'</div>';	
+			}
+			if(doc_array['idProofArray']){
+				for(var i=0;i<doc_array['idProofArray'].length;i++){
+					var id_Arr = doc_array['idProofArray'][i];
+					for(var key in id_Arr)
+						html +='<div id="document-pane" class="document-pane">'
+						+'<div class="document-list-pane">'
+						+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+capitalise(key)+'</label>'
+						+'<a href="'+id_Arr[key]+'?alf_ticket='+alf_token+'" class="file_img" target="_blank"><i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;"></i></a>'
+						+'</div>'
+						+'</div>';	
+				}
+			}
+			if(doc_array['alfNodeArray']){
+				for(var i=0;i<doc_array['alfNodeArray'].length;i++){
+					var id_Arr = doc_array['alfNodeArray'][i];
+					for(var key in id_Arr)
+						html +='<div id="document-pane" class="document-pane">'
+						+'<div class="document-list-pane">'
+						+'<label class="entypo-check" style="color:black;width:60%;padding-left:10%;font-weight:normal;">'+" "+key+'</label>'
+						+'<a href="'+id_Arr[key]+'?alf_ticket='+alf_token+'" class="file_img" target="_blank"><i class="fa fa-file" aria-hidden="true" style="color:#981b1b;font-size:20px;"></i></a>'
+						+'</div>'
+						+'</div>';	
+				}
+			}
+		}
+	}
+	document.getElementById('document-list-pane').innerHTML = html;
+	
+	function capitalise(string) {
+		var str = string.split(" ");
+  	 	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+	}
+
+	function submitProcessFormVerify(status, val){
+	var dataObj = new FormData();
+	//var dataObj = {};
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {  dd  =  '0'+dd;   } 
+		if(mm<10) {  mm  =  '0'+mm;    } 
+		today   =   yyyy + '-' + dd + '-' + mm;
+		 var updocArray=[];
+			var doc_url_count = $(':input[type=file]').length;
+		
+			for( var i = 1; i <= doc_url_count; i++ ){
+				var doc_details = {};
+				//var doc_name = 'RQ Doc '+i+" {{user}}";
+				if(!document.getElementById("upload_doc_url_"+i).value){
+					doc_name = "Document Not Attached"; 
+					doc_details["doc_type"]	  =  "Document not attached";
+				}else{
+					var doc_name = 'RQ Doc '+i+" {{user}}";
+					var doc_url = document.getElementById("upload_doc_url_"+i).value;
+				}
+			
+				doc_details["doc_member_id"]		=	parseInt(member_id);
+				doc_details["doc_loan_id"]		=	parseInt(loan_id);
+				doc_details["doc_fk_last_modified_by"]	=  	"{{user}}";
+				doc_details["doc_last_modified_date"]	= 	today;
+				doc_details["doc_fk_sci_client_id"]	= 	 1;
+				
+			
+				if(jQuery('#upload_doc_'+i+"")){
+					if(jQuery('#upload_doc_'+i+"")[0]){			
+						jQuery.each(jQuery('#upload_doc_'+i+"")[0].files, function(j, file) {
+							dataObj.append('file-'+(i+12), file);
+							console.log(dataObj);
+							doc_details["doc_url"]	=doc_url;
+							var fileNameSplit 	  =  doc_details["doc_url"].split('.');
+							var lengthOfNameArr 	  = (fileNameSplit.length-1);
+							doc_details["doc_status"]= doc_name;
+							doc_details["doc_type"]	  =  fileNameSplit[lengthOfNameArr];
+							doc_details["doc_name"]   =  doc_name;
+							doc_details["doc_remarks"] = "Document Attached";
+							doc_details["doc_loan_doc_type"] = "RQ:Document";
+							
+						});
+					}}
+					if(!document.getElementById("upload_doc_"+i).value){
+						doc_details["doc_status"]= " Document not Attached";
+						doc_details["doc_type"]	  =  "No doc";
+						doc_details["doc_name"]   =  "Document not Attached";
+						doc_details["doc_remarks"] = "Document not Attached";
+						doc_details["doc_loan_doc_type"] = "RQ:Document";
+						doc_details["doc_url"]	= " Document not Attached";
+					
+					}
+				
+				console.log(doc_details);
+				
+				updocArray.push(doc_details);
+			var arr  =  {  "updocArray"	: updocArray  };
+		}
+	
+
+		console.log(updocArray);
+		var processupdate = {'variables': { 
+										'Cibil_Verification_Status' : { 'value' : status	},
+			    						}  
+			    			};
+		
+		var remarks = '';
+		if(document.getElementById('comments')){
+			 remarks = document.getElementById('comments').value;
+		}
+		if(remarks.length == 0){
+		  	alert("Please input comments to proceed further...");				
+			return false;
+		}
+		var currentDateValue  = (new Date());
+		currentDateValue = JSON.stringify(currentDateValue);
+		currentDateValue = currentDateValue.replace(/"/g,'');	
+	
+		var remarksData =    { 
+					"validation_member_id"  : parseInt(member_id),
+					"validation_loan_id"    : parseInt(loan_id),
+					"validation_type"       : parseInt(1),
+					"validation_level"	: parseInt(1),
+					"validation_status" 	: parseInt(val),
+					"remarks" 		: remarks, 
+					"process_id" 		: processid,
+					"task_id" 		: task_id,
+					"validation_fk_last_modified_by": user_id,
+					"validation_last_modified_date"	: currentDateValue,
+					"validation_fk_sci_client_id"	: parseInt(1)
+					};	
+	
+		dataObj.append('taskremarks',JSON.stringify(processupdate));
+		dataObj.append('loanid',loan_id);
+		dataObj.append('taskid',task_id);
+		dataObj.append('userid',user_id);
+		dataObj.append('process',JSON.stringify(processupdate));
+		dataObj.append('remarksData',JSON.stringify(remarksData));
+		dataObj.append('updocArray',JSON.stringify(updocArray));
+		dataObj.append('form_data',JSON.stringify(arr));
+
+
+
+		/*dataObj['taskremarks'] =processupdate;
+		dataObj['loanid'] =loan_id;
+		dataObj['taskid']=task_id;
+		dataObj['userid']=user_id;
+		dataObj['process'] =processupdate;
+		dataObj['remarksData']=remarksData;
+		dataObj['updocArray']=updocArray;
+		dataObj['form_data']=updocArray;
+	*/
+	
+		urls = '/updateTask';
+		console.log(dataObj);
+		
+		//return false;
+		var theImg = '<div class="loading"><img style="width:350px;height:250px;" src="/static/images/buffer-loading.gif">'
+		+'<div style="padding-top:1%;" ><label style="padding-top:1%;">LOADING ...</label>'
+		+'</div>'
+		+'</div>';
+		$(".popup").empty().append(theImg).fadeIn();	
+	
+			/*$.ajax({
+				url: '/uploadDocument',
+				type	: 'post',
+				dataType: 'json',
+				success: function(data){
+					if(data.message == "Successful"){
+						window.location='/tasks/';
+					}else{
+						alert("Failed due to some Issue . Please try after sometime or contact your Administrator");
+					}
+				},
+				data: JSON.stringify(dataObj)
+			});
+		*/
+		var opts = {
+			url: '/uploadDocument',
+			data: dataObj,
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			type: 'POST',
+			success: function (data){	
+				$(".popup").fadeOut();
+				window.location='/tasks/';
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		};
+        if(dataObj.fake) {
+	       // Make sure no text encoding stuff is done by xhr
+			opts.xhr = function() { var xhr = jQuery.ajaxSettings.xhr(); xhr.send = xhr.sendAsBinary; return xhr; }
+			opts.contentType = "multipart/form-data; boundary="+dataObj.boundary;
+			opts.data = dataObj;
+		}
+		jQuery.ajax(opts);
+	}	
+	
+
+
+	
+	
+</script> 
+
+</html>

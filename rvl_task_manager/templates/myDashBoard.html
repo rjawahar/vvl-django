@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/component.css" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery-confirm.css" rel="stylesheet"  />
+<link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/css/task.css" rel="stylesheet" />
+<!--link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet"-->
+<link type="text/css" href="/static/css/datepicker3.css" rel="stylesheet">
+<link type="text/css" href="/static/css/styles.css" rel="stylesheet">
+
+<!-- Madura css -->
+<link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css"  id="style-resource-2">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+<link rel="stylesheet" href="/static/css/neon-core-min.css"  id="style-resource-5">
+<link rel="stylesheet" href="/static/css/neon-theme-min.css"  id="style-resource-6">
+<link rel="stylesheet" href="/static/css/neon-form-min.css"  id="style-resource-7">
+<link rel="stylesheet" href="/static/css/jalert.css">
+<link rel="stylesheet" href="/static/css/dashBoard.css">
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/lumino.glyphs.js"></script>
+<script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>	<!-- Main Library js-->
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>	<!-- Main Library js-->
+
+<script type="text/javascript" src="/static/js/bootstrap.js"></script>		<!-- Bootstrap js-->
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>	<!-- Bootstrap min js-->
+<script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+
+<script type="text/javascript" src="/static/js/crossfilter.js"></script> 
+<script type="text/javascript" src="/static/js/modernizr.custom.js"></script>
+<script type="text/javascript" src="/static/js/jquery-confirm.js"></script>
+<style>
+body{
+  background:#F5F3EE;
+}
+.search{
+  width: 30rem;
+  margin: 10rem auto;
+  text-align: right;
+  position: relative;
+}
+.search-box{
+  border: 4px solid #ECECEA;
+  border-radius: 2px;
+  font-size: 2rem;
+  width: 8rem;
+  padding: 1rem;
+  transition: width 0.3s;
+  -webkit-transition: width 0.3s;
+  }
+.search-box:focus{
+  width: 100%;
+  outline: none;
+  border: 4px solid #4A96AD;
+}
+.search-btn{
+  width: 10%;
+  height:54px;
+  color:#4A96AD;
+  background-color: #F5F3EE;
+  font-size: x-large;
+  padding: inherit;
+  border: 4px solid #ECECEA;
+  border-radius: 2px;
+}
+.search-btn:hover{
+    background-color: #4A96AD;
+    color: white;
+    font-size: x-large;
+}
+</style>
+
+</head>
+<body>
+	<div class="page-container horizontal-menu sidebar-collapsed">
+	<header class="navbar navbar-fixed-top" style="background-color:#7D1935;">
+		<!-- set fixed position by adding class "navbar-fixed-top" -->
+		<div class="navbar-inner">
+			<!-- logo -->
+			<div class="navbar-brand">
+				<a href="/"> <img src="/static/images/mbe_logo.png" alt="" style="width:88px;height:20px;"> </a>
+			</div>
+			<!-- main menu -->
+			<ul class="navbar-nav">
+				<li class="dashboard root-level">
+					<a href="/tasks/"><img src="/static/images/Task-White.png" alt="" style="max-width:18px;max-height:18px;">&nbsp;<span>Tasks</span></a>
+				</li>
+				<!--li class="pg root-level ">
+					<a href="/vvlForms/"><i class="entypo-users"></i><span>VVL Form</span></a>
+				</li-->
+				{% if "Sales" in role %}
+				  <li class="pg root-level">
+					<a href="/vvlForms/"><i class="entypo-users"></i><span>VVL Form</span></a>
+				  </li>
+				{% endif %}
+				{% if "CrMgr" in role or "CrOfficer" in role %}
+				   <li class="dashboard root-level  active">
+				        <a href="/myDashBoard/"><i class="entypo-users"></i><span>myDashBoard</span></a>
+				   </li>
+			        {% endif %}
+				<!-- Search Bar -->
+			</ul>
+
+			<!-- notifications and other links -->
+			<ul class="nav navbar-right pull-right">
+				<!-- dropdowns -->
+				<li class="dropdown globe">
+					<a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> <i class="entypo-globe"></i>  </a>
+					<!-- dropdown menu (messages) -->
+					<ul class="dropdown-menu">
+						<li class="top">
+							<p class="small">
+								You have <strong>0</strong> new notifications.
+							</p>
+						</li>
+						<li>
+							<ul class="dropdown-menu-list scroller" tabindex="5003" style="overflow: hidden; outline: none;">
+							</ul>
+						</li>
+						<li class="external">
+							<a href="/notifications/">View all notifications</a>
+						</li>
+						<div id="ascrail2003" class="nicescroll-rails" style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;">
+							<div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+						</div>
+						<div id="ascrail2003-hr" class="nicescroll-rails" style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+							<div style="position: relative; top: 0px; height: 5px; width: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+						</div>
+						<div id="ascrail2000" class="nicescroll-rails" style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;"><div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; border: 1px solid rgb(204, 204, 204); border-radius: 1px; background-color: rgb(212, 212, 212); background-clip: padding-box;"></div></div><div id="ascrail2000-hr" class="nicescroll-rails" style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+							<div style="position: relative; top: 0px; height: 5px; width: 0px; border: 1px solid rgb(204, 204, 204); border-radius: 1px; background-color: rgb(212, 212, 212); background-clip: padding-box;"></div>
+						</div>
+					</ul>
+				</li>
+
+				<!-- raw links -->
+				<li class="dropdown">
+					<a href="#"> <i class="entypo-user"></i>  {{user}}  </a>
+				</li>
+				<li class="dropdown">
+					<!-- add class "pull-right" if you want to place this from right -->
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="entypo-cog"></i> </a>
+					<ul class="dropdown-menu">
+						<li>
+							<p>
+								<span class="line"> <strong> {{user}} </strong> </span><br>
+								<span class="line desc small"> None </span>
+							</p>
+						</li>
+						<li>
+							<a href="/settings/"> Settings </a>
+						</li>
+						<li>
+							<a href="/logout/"> Log Out </a>
+						</li>
+					</ul>
+				</li>
+
+				<!-- mobile only -->
+				<li class="visible-xs">
+
+					<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+					<div class="horizontal-mobile-menu visible-xs">
+						<a href="#" class="with-animation"><!-- add class "with-animation" to support animation --> <i class="entypo-menu"></i> </a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</header>
+	</div>
+	<!-- Main Content -->
+    	<div class="main">	
+	    <div class="task-div" style="width:90%;overflowY:auto;">	
+		<div class="main-task">
+			<!-- Main Content -->
+			    <h3>Task Tracker</h3><input id="taskFinderInput" style="width:40%;" type="search" class="search-box" placeholder="Member ID"></input>
+			    
+			    <button id="taskFinderBtn" value="Track" style="width:10%;height:54px;font-size:xx-large;" class="search-btn"  onclick="taskTracker();"><i class="fa fa-search" ></i></button>
+			    <div id="taskInfoDiv" style="visibility:hidden;margin-top:10px;"><h3 id="taskInfo" style="color:#7D1935;"></h3> </div>
+		     <div class="row-dashboard" style="margin-top:8%;">
+			<!--div class="col-lg-12">
+				<h1 class="page-header">Dashboard</h1>
+			</div-->
+		</div><!--/.row-->
+		
+		<div class="row">
+			<a href="/FilterLoansByDate/"><div class="col-xs-12 col-md-6 col-lg-3" >
+				<div class="panel panel-orange panel-widget">
+					<div class="row-dashboard no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"/></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right" style="background-color:#ffb53e;">
+							<div class="text-muted">Overall Loans</div>
+						</div>
+					</div>
+				</div>
+			</div></a>
+			<a href="/getApprovedList/"><div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-teal panel-widget">
+					<div class="row-dashboard no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked checkmark"><use xlink:href="#stroked-checkmark"/></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right" style="background-color:#1ebfae;">
+							<div class="text-muted">Approved</div>
+						</div>
+					</div>
+				</div>
+			</div></a>
+			<a href="/getRejectedList/"><div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-red panel-widget">
+					<div class="row-dashboard no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"/></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right" style="background-color:#f9243f;">
+							<div class="text-muted">Rejected</div>
+						</div>
+					</div>
+				</div>
+			</div></a>
+			<a href="/tatReport/"><div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-blue panel-widget ">
+					<div class="row-dashboard no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked hourglass" ><use xlink:href="#stroked-hourglass"/></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right" style="background-color:#30a5ff;">
+							<div class="text-muted">In Progress</div>
+						</div>
+					</div>
+				</div>
+			</div></a>
+		</div>
+		<!--div class="row" style="margin-top:2%;">
+			<a href="/getCompletedList/"><div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-blue panel-widget ">
+					<div class="row-dashboard no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked trash" ><use xlink:href="#stroked-trash"/></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right" style="background-color:#30a5ff;">
+							<div class="text-muted">Completed</div>
+						</div>
+					</div>
+				</div>
+			</div></a>
+			
+		</div--><!--/.row-->
+		
+		
+		
+		
+		     <!--h1>
+		    	<i class="fa fa-dashboard"></i>
+		    	My Dashboard
+		    </h1>
+		    <div>
+				<a href="#" class="dashboardAnchorTag">
+					<i class="fa fa-edit"></i>
+					&nbsp&nbspNEW LOAN
+				</a>
+				<a href="#" class="dashboardAnchorTag"><i class="fa fa-user-plus"></i>&nbsp&nbspAPPROVED</a>
+				<a href="#" class="dashboardAnchorTag"><i class="fa fa-user-times"></i>&nbsp&nbspREJECTED</a>
+				<a href="#" class="dashboardAnchorTag"><i class="fa fa-spinner"></i>&nbsp&nbspIN PROGRESS</a-->
+			</div>
+			
+			</div>
+	
+	
+</body>
+<script type="text/javascript" src="/static/form/commonFunctions.js"></script> 
+</html>

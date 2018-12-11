@@ -1,0 +1,17 @@
+{
+ "type": "record",
+ "name": "BeatDetail",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+     {"name": "beat_id", "type": ["long","null"]},
+     {"name": "beat_member_id", "type": "long"},
+     {"name": "beat_loan_id", "type": "long"},
+     {"name": "fk_loan_account_number", "type": "string"},
+     {"name": "beat_start_date", "type": "string"},
+     {"name": "beat_start_day_in_week", "type": "long"},
+     {"name": "beat_last_modified_date", "type": "string"},
+     {"name": "beat_fk_last_modified_by", "type": "long"},
+     {"name": "beat_fk_sci_client_id", "type": "long"},
+     {"name": "member_beat_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+           ]
+}

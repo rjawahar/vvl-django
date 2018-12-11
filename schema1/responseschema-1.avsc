@@ -1,0 +1,16 @@
+{
+ "type": "record",
+ "name": "Response",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+         {"name": "res_code", "type": ["string","null"]},
+	 {"name": "res_msg", "type": ["string","null"]},                 
+	 {"name": "status", "type": ["string","null"]}, 
+	 {"name": "member_id", "type": ["long","null"]},
+	 {"name": "loan_id", "type": ["long","null"]},
+	 {"name": "channel_id", "type": ["long","null"]},
+	 {"name": "partner_id", "type": ["long","null"]},
+	 {"name": "cplocation_id", "type": ["long","null"]},
+	 {"name": "cheque_id", "type": ["long","null"]}
+           ]
+}

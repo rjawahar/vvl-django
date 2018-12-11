@@ -1,0 +1,34 @@
+{
+ "type": "record",
+ "name": "SearchDetails",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+    {
+     "name": "detailsArray",
+	  "type": [{
+	    "type": "array",
+	    "items": {
+	      "name": "SearchDetail",
+	      "type": "record",
+     	      "namespace": "com.mf.loan.process.model",
+	 "fields": [
+	     {"name": "process_id", "type": ["string","null"]},
+		 {"name": "first_name", "type": ["string", "null"]},
+		 {"name": "last_name", "type": ["string", "null"]},
+		 {"name": "father_name", "type": ["string", "null"]},
+	     {"name": "member_id", "type": ["long", "null"]},
+	     {"name": "loan_id", "type": ["long", "null"]},
+		 {"name": "mem_phno", "type": ["long", "null"]},
+		 {"name": "door_no", "type": ["string", "null"]},
+		 {"name": "street", "type": ["string", "null"]},
+		 {"name": "location", "type": ["string", "null"]},
+	     {"name": "date_of_birth", "type": ["string", "null"]},
+		 {"name": "last_modified_by", "type": ["string", "null"]},
+		 {"name": "last_modified_date", "type": ["string", "null"]},
+		 {"name": "status", "type": ["string", "null"]}
+	 	    ]
+	       }
+           }, "null"]
+       }
+   ]
+}

@@ -1,0 +1,33 @@
+{
+ "type": "record",
+ "name": "MemberCheques",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+    {
+     "name": "memberChequeArray",
+	  "type": {
+	    "type": "array",
+	    "items": {
+	      "name": "MemberCheque",
+	      "type": "record",
+     	      "namespace": "com.mf.loan.process.model",
+	 "fields": [
+	     {"name": "che_id", "type": ["long","null"]},
+		{"name": "che_member_id", "type": "long"},
+		{"name": "che_loan_id", "type": "long"},
+		{"name": "loan_account_number", "type": "string"},
+		{"name": "cheque_number", "type": "string"},
+		{"name": "che_courier_name", "type": "string"},
+		{"name": "che_courier_tracking_id", "type": "string"},
+		{"name": "che_courier_receipt_number", "type": "string"},
+		{"name": "che_courier_handover_date", "type": "string"},
+		{"name": "place", "type": ["string", "null"], "defalut": "null"},
+		{"name": "last_modified_by", "type": "string"},
+		{"name": "last_modified_date", "type": ["string", "null"]},
+		{"name": "member_cheque_dispatch_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+	 	    ]
+	       }
+           }
+       }
+   ]
+}

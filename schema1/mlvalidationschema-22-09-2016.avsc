@@ -1,0 +1,20 @@
+{
+ "type": "record",
+ "name": "MLValidation",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+     {"name": "validation_id", "type": ["long","null"]},
+     {"name": "validation_member_id", "type": "long"},
+     {"name": "validation_loan_id", "type": "long"},
+     {"name": "validation_type", "type": "long"},
+     {"name": "validation_level", "type": "long"},
+     {"name": "validation_status", "type": "long"},
+     {"name": "remarks", "type": "string"},
+     {"name": "process_id", "type": "string"},
+     {"name": "task_id", "type": "string"},
+     {"name": "validation_fk_last_modified_by", "type": "string"},
+     {"name": "validation_last_modified_date", "type": "string"},
+     {"name": "validation_fk_sci_client_id", "type": "long"},
+     {"name": "member_loan_validation_json", "type": [{"type": "map", "values": "string"},"null"]}
+           ]
+}

@@ -1,0 +1,96 @@
+<div class="page-container horizontal-menu sidebar-collapsed">
+<header class="navbar navbar-fixed-top">
+	<!-- set fixed position by adding class "navbar-fixed-top" -->
+	<div class="navbar-inner">
+		<!-- logo -->
+		<div class="navbar-brand">
+			<a href="/"> <img src="/static/images/mbe_logo.png" alt="" style="width:88px;height:20px;"> </a>
+		</div>
+		<!-- main menu -->
+		<ul class="navbar-nav">
+			<li class="dashboard root-level">
+				<!--<a href="/tasks/"><img src="/static/images/Task.png" alt="" style="width:88px;height:20px;"><i class="entypo-chart-pie"></i><span>Tasks</span></a>-->
+				<a href="/tasks/"><img src="/static/images/Task-White.png" alt="" style="max-width:18px;max-height:18px;">&nbsp;<span>Tasks</span></a>
+			</li>
+			<!--li class="pg root-level active">
+				<a href="/vvlForms/"><i class="entypo-users"></i><span>VVL Form</span></a>
+			</li-->
+		     {% if "Sales" in role %}
+			<li class="pg root-level">
+				<a href="/vvlForms/"><i class="entypo-users"></i><span>VVL Form</span></a>
+			</li>
+		     {% endif %}
+		     {% if "CrMgr" in role or "CrOfficer" in role %}
+			<li class="pg root-level">
+			    <a href="/myDashBoard/"><i class="entypo-users"></i><span>myDashBoard</span></a>
+			</li>
+		     {% endif %}
+			<!-- Search Bar -->
+		</ul>
+
+		<!-- notifications and other links -->
+		<ul class="nav navbar-right pull-right">
+			<!-- dropdowns -->
+			<li class="dropdown globe">
+				<a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> <i class="entypo-globe"></i>  </a>
+				<!-- dropdown menu (messages) -->
+				<ul class="dropdown-menu">
+					<li class="top">
+						<p class="small">
+							You have <strong>0</strong> new notifications.
+						</p>
+					</li>
+					<li>
+						<ul class="dropdown-menu-list scroller" tabindex="5003" style="overflow: hidden; outline: none;">
+						</ul>
+					</li>
+					<li class="external">
+						<a href="/notifications/">View all notifications</a>
+					</li>
+					<div id="ascrail2003" class="nicescroll-rails" style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;">
+						<div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+					</div>
+					<div id="ascrail2003-hr" class="nicescroll-rails" style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+						<div style="position: relative; top: 0px; height: 5px; width: 0px; background-color: rgb(212, 212, 212); border: 1px solid rgb(204, 204, 204); background-clip: padding-box; border-top-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-bottom-left-radius: 1px;"></div>
+					</div>
+					<div id="ascrail2000" class="nicescroll-rails" style="padding-right: 3px; width: 10px; z-index: 1000; position: absolute; top: 0px; left: -10px; height: 0px; cursor: default; display: none;"><div style="position: relative; top: 0px; float: right; width: 5px; height: 0px; border: 1px solid rgb(204, 204, 204); border-radius: 1px; background-color: rgb(212, 212, 212); background-clip: padding-box;"></div></div><div id="ascrail2000-hr" class="nicescroll-rails" style="height: 7px; z-index: 1000; top: -7px; left: 0px; position: absolute; cursor: default; display: none;">
+						<div style="position: relative; top: 0px; height: 5px; width: 0px; border: 1px solid rgb(204, 204, 204); border-radius: 1px; background-color: rgb(212, 212, 212); background-clip: padding-box;"></div>
+					</div>
+				</ul>
+			</li>
+
+			<!-- raw links -->
+			<li class="dropdown">
+				<a href="#"> <i class="entypo-user"></i> {{user}} </a>
+			</li>
+			<li class="dropdown">
+				<!-- add class "pull-right" if you want to place this from right -->
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="entypo-cog"></i> </a>
+				<ul class="dropdown-menu">
+					<li>
+						<p>
+							<span class="line"> <strong>{{user}}</strong> </span><br>
+							<span class="line desc small"> Madura User </span>
+						</p>
+					</li>
+					<!--li>
+						<a href="/settings/"> Settings </a>
+					</li-->
+					<li>
+						<a href="/logout/"> Log Out </a>
+					</li>
+				</ul>
+			</li>
+
+			<!-- mobile only -->
+			<li class="visible-xs">
+
+				<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+				<div class="horizontal-mobile-menu visible-xs">
+					<a href="#" class="with-animation" style="color:#aaabae;"><!-- add class "with-animation" to support animation --> <i class="entypo-menu"></i> </a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</header>
+</div>

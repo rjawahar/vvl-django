@@ -1,0 +1,49 @@
+<html>
+
+<head>
+<script type="text/javascript" src="https://raw.github.com/bestiejs/lodash/v1.1.1/dist/lodash.min.js"></script>
+<script type="text/javascript" src="https://raw.github.com/tadruj/s3upload-coffee-javascript/master/s3upload.js<script type="text/javascript" "></script>
+    <meta charset="utf-8">
+    <title>s3direct</title>
+    {{ form.media }}
+</head>
+<body>
+    <!--form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+    </form-->
+    <input type="file" id="file" onchange="s3_upload();"/>
+	<p id="status">Please select a file</p>
+	<div id="preview"><img src="/static/default.png"  /></div>
+
+	<form method="POST" action="/submit_form/">
+	    <input type="hidden" id="" name="" value="/static/default.png" />
+	    <input type="text" name="example" placeholder="" /><br />
+	    <input type="text" name="example2" placeholder="" /><br /><br />
+	    <input type="submit" value="" />
+	</form>
+    
+    
+</body>
+<script>
+function s3_upload(){
+    var s3upload = new S3Upload({
+        file_dom_selector: 'file',
+        s3_sign_put_url: '/sign_s3_upload/',
+
+        onProgress: function(percent, message) {
+            $('#status').html('Upload progress: ' + percent + '%' + message);
+        },
+        onFinishS3Put: function(url) {
+            $('#status').html('Upload completed. Uploaded to: '+ url);
+            $("#image_url").val(url);
+            $("#preview").html('<img src="'+url+'" style="width:300px;" />');
+        },
+        onError: function(status) {
+            $('#status').html('Upload error: ' + status);
+        }
+    });
+}
+
+
+</script>
+</html>

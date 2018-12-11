@@ -1,0 +1,205 @@
+	body{
+		height: 609.93px;
+	}
+	.colomn-div-inline-row{		
+		display:inline-block;		
+	}		
+		
+	.clear-fix{
+		margin-top:0.5%;
+	}		
+	.form-button {		
+		width: 24%;		
+		margin: auto;		
+		display:inline;		
+	}		
+	.main-pane-info-outer{	
+		width:100%;		
+		padding:2%;		
+		margin-bottom:1%;		
+		background-color: white;		
+	}		
+	.main-pane-info{		
+		border: 3px solid #AB5E5E;		
+		border-radius: 10px;		
+		margin: auto;		
+		width:70%;		
+		padding:2%;		
+	}		
+	.head-main-pane{		
+		height:5%;		
+		text-align:center;		
+		font-size:16px;									
+	}		
+	.colomn-div-main-pane{		
+		width: 100%;				
+		display:inline-block;		
+	}		
+	.colomn-div-main-pane label{		
+		padding-left:17%;		
+	}		
+	label {		
+    		font-size: 12px;		
+    		color: #AB5E5E;		
+    		width: 40%;		
+	}		
+		
+	#member_bank_fk_alf_node_ref_img{
+		width:77%;
+		font-size:10px;
+	}
+	.navbar {			
+		height:	63px;		
+		margin-bottom: 5px; 
+	}
+	 
+	@media only screen and (max-width: 960px){			
+		.loan-application-basic-details input		
+		{				
+			width:100px;
+		}
+		.row-div{			
+			display:block;	
+			margin-top:1px;	
+			margin-bottom:3px;		
+		}
+		
+		.colomn-div-main-pane label {
+		    padding: 0px !important;
+		}
+	}
+	.business-info-outer{		
+		width:100%;
+		padding:2%;
+		margin-bottom:1%;
+	}
+	.business-info-outer label{
+		padding-left:10%;
+	}
+	.main-pane-info-outer label{
+		padding-left:15%;	
+	}
+	.business-info{
+		border: 3px solid #AB5E5E;
+		border-radius: 10px;
+		margin: auto;
+		width:70%;
+		padding:2%;
+	}
+	.head-bussiness{
+		height:5%;
+		text-align:center;
+		font-size:16px;		
+	}
+	
+	.sub-header{		
+		width:100%;		
+		background-color:#981b1b;		
+		color:white;		
+		padding-left:10px;		
+		padding-top:5px;		
+		padding-bottom:5px;		
+		margin-top:1px;		
+		margin-bottom:0px;		
+	}
+	
+	.colomn-div{			
+		display:inline-block;				
+		width: 23%;				
+		padding-left:1%;		
+		padding-right:1%;		
+		margin-top:2px;			
+		margin-bottom:2px;		
+	}
+	
+	.colomn-div-footer{		
+		display:inline-block;	
+		width: 46%;/*35%;*/		
+		padding-left:1%;		
+		padding-right:1%;		
+		margin-top:2px;			
+		margin-bottom:20px;
+	}
+	
+	.row-div{		
+		display:block;		
+	}
+	
+	
+	
+	@media only screen and (min-width: 500px) and (max-width: 680px) {
+		.main-pane-info-outer{		
+			width:100%;		
+			padding:0%;		
+			margin-bottom:0%;		
+		}
+		.main-pane-info{		
+			border: 2px solid #AB5E5E;		
+			border-radius: 5px;		
+			margin: auto;		
+			width:100%;		
+			padding:1%;		
+		}
+		.colomn-div-footer {
+		    display: inline-block;
+		    width: 70%;
+		    padding-left: 1%;
+		    padding-right: 1%;
+		    margin-top: 2px;
+		    margin-bottom: 20px;
+		}
+		.row-div {		
+		 	/*display: inline-block;		22-08-2016*/
+			margin-top:1px;		
+			margin-bottom:3px;		
+		}
+		.head-main-pane{		
+			font-size:14px !important;	
+			   width: 100%;
+    			margin-left: 0px;			
+		}
+		.colomn-div-main-pane{		
+			margin-left:1%;		
+		}
+		
+		.colomn-div-main-pane label {
+		    padding: 0px !important;
+		}
+		
+		.font_colon{		
+			margin-right:15%;		
+		}
+		.business-info-outer label {
+    			padding-left: 0px; 
+    		}
+    		.ui-tabs span.i{
+    		font-size:11px;
+    		
+    		}
+	
+}	
+		.form-control{
+			width:90%;
+		}
+		.img-input{			
+			width:100%;
+		}
+		.h3-heading h3{
+			padding-top:20px;
+			color:white;
+			font-weight:bolder;
+			margin-top:initial;
+		}
+		.center-pane{
+			width:80%;
+			margin: 3% auto;
+			display:block;
+			border:2px solid sienna;
+			border-radius:10px;
+		}
+		
+		
+		
+		
+	
+	

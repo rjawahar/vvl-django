@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="/static/css/jquery.selectBoxIt.css" rel="stylesheet" />
+    <link type="text/css" href="/static/css/task.css" rel="stylesheet" />
+    <!-- Madura css -->
+    <link rel="stylesheet" href="/static/css/font-icons/entypo/css/entypo.css" id="style-resource-2">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic" id="style-resource-3">
+    <link rel="stylesheet" href="/static/css/neon-core-min.css" id="style-resource-5">
+    <link rel="stylesheet" href="/static/css/neon-theme-min.css" id="style-resource-6">
+    <link rel="stylesheet" href="/static/css/neon-form-min.css" id="style-resource-7">
+    <link rel="stylesheet" href="/static/css/jalert.css">
+    <link rel="stylesheet" href="/static/css/form.css">
+    <link rel="stylesheet" href="/static/css/custom2.css">
+    <!-- custom css for loan officer process -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link type="text/css" href="/static/css/jquery-confirm.css" rel="stylesheet"  />
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="/static/js/1.9.1-jquery.min.js"></script>
+    <!-- Main Library js-->
+    <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+    <!-- Main Library js-->
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+    <!-- Bootstrap js-->
+    <script type="text/javascript" src="/static/js/jquery.selectBoxIt.js"></script>
+    <script type="text/javascript" src="/static/js/crossfilter.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-confirm.js"></script>
+
+    <!--MASTER DATA -->
+    <script type="text/javascript" src="/static/form/masterData.js"></script>
+    <script type="text/javascript" src="/static/form/masterDataLoad.js"></script>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="navbar navbar-fixed-top">
+        {% include "header1.html" %}
+    </div>
+    {% csrf_token %}
+    <!-- Main Content -->
+    <div class="main">
+        <div class="task-div">
+            <div class="main-task">
+                <div class="right-pane-task" id="right-pane-task">
+                    <div id="tabs">
+                        <ul id="form-tab">
+                            <!--li style="float:right;list-style-type:none;">
+							    	<span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:10px;s"><i class="entypo-chat"></i> Comments</span>
+								</li-->
+                            <li style="float:right;list-style-type:none;">
+                                <span class="document-toggle" style="float:right;display:inline-block;padding-bottom:10px;cursor:pointer;"><i class="entypo-attach"></i>Documents</span>
+                            </li>
+                            <li style="float:right;">
+                                <span class="comment-toggle" style="float:right;display:inline-block;padding-bottom:0px;cursor:pointer;"><i class="entypo-chat"></i> Comments</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="commentsModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">x</span>
+                            <p> <strong><i class="entypo-chat">COMMENTS	</i></strong></p>
+                            <div class="modal-body" id="commentsTab">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="documentsModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">x</span>
+                            <p> <strong><i class="entypo-attach">DOCUMENTS ATTACHED</i></strong></p>
+                            <div class="modal-body" id="documentsTab">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-pane-task-detail detail-max" id="right-pane-task-detail" style="background-color: rgba(218, 216, 216, 0.2);">
+                        <div class="center-pane" id="center-pane">
+                            <!--Div HEader-->
+                            <div class="h3-heading">
+                                <h3>Upload Documents</h3>
+                                <h4 id="loan_id">	Loan ID : <span id="doc_loan_id">	198	</span>  &    Member Id : <span id="doc_member_id">	421	</span>	 </h4>
+                            </div>
+                            <div>
+                                <!--INput Values-->
+                                <div class="member_class">
+                                    <div class="colomn-div">
+                                        <input type="text" readonly="true" id="doc_status_1" name="doc_status_1" value="LOA" class="title-text"></input>
+                                        <font>:</font>
+                                        <input type="text" readonly="" id="doc_name_1" name="doc_name_1"></input>
+                                        <input type="file" style="width: 15%;" id="doc_1" name="doc_1" onclick="setURLUploadDoc(this.id);"></input>
+                                        <img id="doc_url_1_img_pop" class="file_img" src="" style="display: none; " />
+                                        <a id="doc_url_1_anchor" class="file_img" href="htpp://aaaaaa">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="member_class">
+                                    <div class="colomn-div">
+                                        <input type="text" readonly="true" id="doc_status_2" name="doc_status_2" value="PROMISSORY NOTE" class="title-text"></input>
+                                        <font>:</font>
+                                        <input type="text" readonly="" id="doc_name_2" name="doc_name_2"></input>
+                                        <input type="file" style="width: 15%;" id="doc_2" name="doc_2" onclick="setURLUploadDoc(this.id);"></input>
+                                        <img id="doc_url_2_img_pop" class="file_img" src="" style="display: none; " />
+                                        <a id="doc_url_2_anchor" class="file_img" href="htpp://aaaaaa">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="member_class">
+                                    <div class="colomn-div">
+                                        <input type="text" readonly="true" id="doc_status_3" name="doc_status_3" value="NACH FORM" class="title-text"></input>
+                                        <font>:</font>
+                                        <input type="text" readonly="" id="doc_name_3" name="doc_name_3"></input>
+                                        <input type="file" style="width: 15%;" id="doc_3" name="doc_3" onclick="setURLUploadDoc(this.id);"></input>
+                                        <img id="doc_url_3_img_pop" class="file_img" src="" style="display: none; ">
+                                        <a id="doc_url_3_anchor" class="file_img" href="htpp://aaaaaa">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="member_class">
+                                    <div class="colomn-div">
+                                        <input type="text" readonly="true" id="doc_status_4" name="doc_status_4" value="PDC" class="title-text"></input>
+                                        <font>:</font>
+                                        <input type="text" readonly="" id="doc_name_4" name="doc_name_4"></input>
+                                        <input type="file" style="width: 15%;" id="doc_4" name="doc_4" onclick="setURLUploadDoc(this.id);"></input>
+                                        <img id="doc_url_4_img_pop" class="file_img" src="" style="display: none; " />
+                                        <a id="doc_url_4_anchor" class="file_img" href="htpp://aaaaaa">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="member_class">
+                                    <div class="colomn-div">
+                                        <input type="text" readonly="true" id="doc_status_5" name="doc_status_5" value="LOAN APPLICATION" class="title-text"></input>
+                                        <font>:</font>
+                                        <input type="text" readonly="" id="doc_name_5" name="doc_name_5"></input>
+                                        <input type="file" style="width: 15%;" id="doc_5" name="doc_5" onclick="setURLUploadDoc(this.id);"></input>
+                                        <img id="doc_url_5_img_pop" class="file_img" src="" style="display: none; " />
+                                        <a id="doc_url_5_anchor" class="file_img" href="htpp://aaaaaa">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="member_class">
+                                    <div class="colomn-div">
+                                        <input type="text" readonly="true" id="doc_status_6" name="doc_status_6" value="DEED OF HYPOTHECATION" class="title-text"></input>
+                                        <font>:</font>
+                                        <input type="text" readonly="" id="doc_name_6" name="doc_name_6"></input>
+                                        <input type="file" style="width: 15%;" id="doc_6" name="doc_6" onclick="setURLUploadDoc(this.id);"></input>
+                                        <img id="doc_url_6_img_pop" class="file_img" src="" style="display: none; " />
+                                        <a id="doc_url_6_anchor" class="file_img" href="htpp://aaaaaa">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="member_class">
+                                    <div class="colomn-div">
+                                        <input type="text" readonly="true" id="doc_status_7" name="doc_status_7" value="TAKE DELIVERY LETTER" class="title-text"></input>
+                                        <font>:</font>
+                                        <input type="text" readonly="" id="doc_name_7" name="doc_name_7"></input>
+                                        <input type="file" style="width: 15%;" id="doc_7" name="doc_7" onclick="setURLUploadDoc(this.id);"></input>
+                                        <img id="doc_url_7_img_pop" class="file_img" src="" style="display: none; " />
+                                        <a id="doc_url_7_anchor" class="file_img" href="htpp://aaaaaa">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="member_class" id="add-more-btn">
+                                <div class="form-button text-right" style="margin-right:5%;"><a href="javascript:void(0)" id="add-btn-id" class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;"><i class="entypo-plus" style="width:30px;height: 28px;color: white;padding:6px;">	</i>Add more</a></div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <div class="form-button" id="upload_button">
+                                <a href="javascript:void(0)" onclick='window.location="/tasks/"' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+                                    <i class="icon-entypo-cancel" style="width:30px;height: 28px;color: white;padding:6px;">	</i> Cancel
+                                </a>
+                                <a href="javascript:void(0)" onclick="onUpload();" class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+                                    <i class="entypo-upload" style="width:30px;height: 28px;color: white;padding:6px;">	</i> Upload
+                                </a>
+                            </div>
+                            <div class="form-button" id="reupload_button" style="display:none;">
+                                <textarea style="width:45%;height:20%;background-color:white;font-size: 11px;" id="comments" placeholder="Comments"></textarea><font class="mandatory">*</font>
+                                <div style="padding-top:1%;">
+                                    <a href="javascript:void(0)" onclick='window.location="/tasks/"' class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+                                        <i class="icon-entypo-cancel" style="width:30px;height: 28px;color: white;padding:6px;">	</i> Cancel
+                                    </a>
+                                    <a href="javascript:void(0)" onclick="onUpload('Rework Completed');" class="btn btn-red btn-icon icon-left" style="height:30px;padding-left:40px;">
+                                        <i class="entypo-check" style="width:30px;height: 28px;color: white;padding:6px;">	</i> Rework Completed
+                                    </a>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="right-pane-task-document-list comment-min" id="right-pane-task-document-list" style="width:initial;border: 1px solid #981b1b;overflow-Y:scroll;background-color: #f4f4f4;">
+                        <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom: 1px solid whitesmoke;" data-toggle="collapse" data-target="#comment-list-pane">
+                            <div class="sub-header">
+                                <div colspan="4"><font style="font-size:15px;"> Documents Attached <i class="entypo-attach"></i></font></div>
+                            </div>
+                        </div>
+                        <div class="document-list-pane" id="document-list-pane" style="background-color:#f4f4f4;"></div>
+                    </div>
+                    <div class="right-pane-task-comment-list comment-min" id="right-pane-task-comment-list" style="width:initial;overflow-Y:scroll;">
+                        <div class="head" style="background-color: #981B1B;color: whitesmoke;border-bottom:1px solid whitesmoke;" data-target="#comment-list-pane">
+                            <div class="sub-header">
+                                <div colspan="4"><font style="font-size:15px;"> Comments <i class="entypo-chat"></i></font></div>
+                            </div>
+                        </div>
+                        <div id="comment-list-pane" class="comment-list-pane"></div>
+                    </div>
+                    <!--Submit Button DIv-->
+                    <div class="popup"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "footer.html" %}
+</body>
+<script type="text/javascript" src="/static/form/masterDataLoad.js"></script>
+<script type="text/javascript" src="/static/form/commonFunctions.js"></script>
+<script type="text/javascript">
+	
+    var data = '{{ memberDetails	| safe	   }}';
+    var member_id = "{{ memberId	| escapejs }}";
+    var loan_id = "{{ loanId 	| escapejs }}";
+    var user_id = "{{ user 		| escapejs }}";
+    var task_id = "{{ taskId 	| escapejs }}";
+    var processid = "{{processId	| safe	   }}";
+    var alf_token = "{{ alf_token	| escapejs }}";
+ 	var imageArr = ["jpeg", "jpg", "exif", "tiff", "gif", "bmp", "png", "image/jpeg"];
+    data = data.replace(/\\/g, "");
+    data = data.replace(/\r?\n|\r/g, "");
+	
+    var json_data = JSON.parse(data);
+    setScreenHeightWithComments();
+    commentsPopUp(json_data);  
+    documentsPopUp(json_data);
+	
+    var uploadDocumentsArrayDummy = [];
+    var uploadDocumentsArray = [];
+
+    for (var data in json_data.updocArray) {
+       var dataVal = json_data.updocArray[data]["doc_loan_doc_type"];
+       if ( dataVal != "RQ:Document" && dataVal !=  "RV:Document" && dataVal != "BV:Document" )
+            uploadDocumentsArrayDummy.push(json_data.updocArray[data]);
+    }
+
+    uploadDocumentsArray[0] = uploadDocumentsArrayDummy[0];
+    loadingUploadDocumentsData(json_data);
+
+    
+</script>
+
+</html>

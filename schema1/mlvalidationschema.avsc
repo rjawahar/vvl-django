@@ -1,0 +1,36 @@
+{
+ "type": "record",
+ "name": "MLValidations",
+ "namespace": "com.mmfl.vvl.core.model",
+ "fields": [
+    {
+     "name": "mlValidationArray",
+	  "type": {
+	    "type": "array",
+	    "items": {
+	      "name": "MLValidation",
+	      "type": "record",
+     	      "namespace": "com.mmfl.vvl.core.model",
+	 "fields": [
+	 {"name": "validation_id", "type": ["long","null"]},
+     {"name": "validation_member_id", "type": ["long","null"]},
+     {"name": "validation_loan_id", "type": ["long","null"]},
+     {"name": "validation_type", "type": ["long","null"]},
+     {"name": "validation_level", "type": ["long","null"]},
+     {"name": "validation_status", "type": ["long","null"]},
+     {"name": "remarks", "type": ["string", "null"]},
+     {"name": "process_id", "type": ["string", "null"]},
+     {"name": "task_id", "type": ["string", "null"]},
+     {"name": "validation_fk_last_modified_by", "type": ["string", "null"]},
+     {"name": "validation_last_modified_date", "type": ["string", "null"]},
+     {"name": "validation_fk_sci_client_id", "type": ["long","null"]},
+	 {"name": "task_name", "type": ["string", "null"]},
+	 {"name": "process_status", "type": ["string", "null"]},
+	 {"name": "reason", "type": ["string", "null"]},
+     {"name": "member_loan_validation_json", "type": [{"type": "map", "values": "string"},"null"]}
+	 	    ]
+	       }
+           }
+       }
+   ]
+}

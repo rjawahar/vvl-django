@@ -1,0 +1,315 @@
+{
+ "type": "record",
+ "name": "MasterDetail",
+ "namespace": "com.mf.loan.process.model",
+ "fields": [
+	     {
+	     "name": "masterStateArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterState",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "state_id", "type": ["long","null"]},
+			     {"name": "state_code", "type":["string","null"], "default": "null"},
+			     {"name": "state_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterDistrictArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterDistrict",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "district_id"  , "type": ["long","null"] },
+			     {"name": "district_code", "type": ["string","null"], "default": "null"},
+			     {"name": "district_name", "type": ["string","null"], "default": "null"},
+			     {"name": "state_id"     , "type": ["long","null"] }
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterTalukArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterTaluk",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "taluk_id"   , "type": ["long","null"]} ,
+			     {"name": "taluk_code" , "type": ["string","null"], "default": "null"},
+			     {"name": "taluk_name" , "type": ["string","null"], "default": "null"},
+			     {"name": "state_id"   , "type": ["long","null"]} ,
+			     {"name": "district_id", "type": ["long","null"]}			     
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterVillageArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterVillage",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "village_id", "type": ["long","null"]},
+			     {"name": "village_name", "type":["string","null"], "default": "null"},
+			     {"name": "district_id", "type": ["long","null"]},
+			     {"name": "pincode", "type": ["int","null"]}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterAssetArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterAsset",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "asset_id", "type": ["long","null"]},
+			     {"name": "asset_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterDistanceArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterDistance",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "distance_id", "type": ["long","null"]},
+			     {"name": "distance_in_km", "type": ["long","null"]}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterRelationArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterRelation",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "relation_id", "type": ["long","null"]},
+			     {"name": "relation_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterEducationArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterEducation",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "education_id", "type": ["long","null"]},
+			     {"name": "education_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterOccupationArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterOccupation",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "occupation_id", "type": ["long","null"]},
+			     {"name": "occupation_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterNetQuestionArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterNetQuestion",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "netquestion_id", "type": ["long","null"]},
+			     {"name": "netquestion_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterProcessRemarkArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterProcessRemark",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "process_remark_id", "type": ["long","null"]},
+			     {"name": "process_remark_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterAddressProofArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterAddressProof",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "address_proof_id", "type": ["long","null"]},
+			     {"name": "address_proof_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterIdProofArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterIdProof",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "id_proof_id", "type": ["long","null"]},
+			     {"name": "id_proof_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterValidationTypeArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterValidationType",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "validation_type_id", "type": ["long","null"]},
+			     {"name": "validation_type_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterValidationLevelArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterValidationLevel",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "validation_level_id", "type": ["long","null"]},
+			     {"name": "validation_level_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterValidationStatusArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterValidationStatus",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "validation_status_id", "type": ["long","null"]},
+			     {"name": "validation_status_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterPurposeArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterPurpose",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "purpose_id", "type": ["long","null"]},
+			     {"name": "purpose_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterProductArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterProduct",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "product_id", "type": ["long","null"]},
+			     {"name": "product_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterCourierArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterCourier",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "courier_id", "type": ["long","null"]},
+			     {"name": "courier_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     },
+	     {
+	     "name": "masterBankArray",
+	           "type": {
+	              "type": "array",
+	              "items": {
+	                 "name": "MAsterBank",
+	                 "type": "record",
+     	                 "namespace": "com.mf.loan.process.model",	
+	           "fields" : [
+			     {"name": "bank_id", "type": ["long","null"]},
+			     {"name": "bank_name", "type":["string","null"], "default": "null"}
+			      ]
+		               }
+		           }
+	     }
+           ]
+}

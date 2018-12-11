@@ -1,0 +1,27 @@
+{
+ "type": "record",
+ "name": "LegalOfficer",
+ "namespace": "com.mmfl.vvl.core.model",
+ "fields": [
+     {"name": "legal_off_id", "type": ["long","null"]},
+     {"name": "legal_off_member_id", "type": ["long","null"]},
+     {"name": "legal_off_loan_id", "type": ["long","null"]},
+	 {"name": "title_documents", "type": ["string", "null"]},
+	 {"name": "patta_of_the_property", "type": ["string", "null"]},
+	 {"name": "building_approval_plan", "type": ["string", "null"]},
+	 {"name": "ec", "type": ["string", "null"]},
+	 {"name": "holder_details", "type": ["string", "null"]},
+	 {"name": "sub_registrar_office_details", "type": ["string", "null"]},
+	 {"name": "survey_number_details", "type": ["string", "null"]},
+	 {"name": "boundaries", "type": ["string", "null"]},
+	 {"name": "measurement", "type": ["string", "null"]},
+	 {"name": "extent_of_land_and_building", "type": ["string", "null"]},
+	 {"name": "list_of_document_scrutinized", "type": ["long", "null"]},
+	 {"name": "description_on_flow_of_title", "type": ["string", "null"]},
+	 {"name": "list_of_documents_for_creation_of_modtd", "type": ["long", "null"]},
+	 {"name": "certification_by_the_lawyer", "type": ["string", "null"]},
+	 {"name": "last_modified_by", "type": ["string", "null"]},
+	 {"name": "last_modified_date", "type": ["string", "null"]},
+     {"name": "technical_officer_details_json", "type": [{"type": "map", "values": "string"},"null"]}
+           ]
+}
